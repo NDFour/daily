@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{{ book_name }}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://weawe-10021894.cossh.myqcloud.com/style.css">
+</head>
+<body>
+    <div class="container text-center">
+            <div class="book-info2"><h2>{{ book_name }}<span class="lead novelist">{{ author }}</span></h2>
+            <p class="text-left info-intro">
+            {{ intro | safe |linebreaksbr }}
+            </p></div>
+        <ol class="breadcrumb text-left">
+            <li>
+                <a href="{% url 'index' %}">首页</a></li>
+            <li class="active">{{ book_name }}</li>
+        </ol>
+        <div class="">
+        <p class="title-name">源列表：</p>
+            {% for i,j,k,l in book_info %}
+            <div class="list text-left"><a class="catalog" href="{% url 'catalog' bookID j %}?name={{ book_name }}">{{ i }}：</a><p class="new-title">最新：{{ l }}</p></div><br/>
+            {% endfor %}
+    </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="text-center ">本站所收录作品均来自互联网
+         <br />
+        蜀ICP备17035299号
+    </p>
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1267837116'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1267837116%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</footer>
+</body>
+</html>

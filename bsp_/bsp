@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+# Author: EDB
+# Created On: 11st August 2017
+# E-mail: edb@paituo.me
+import byte_lib
+import os,sys,getopt
+opts, args = getopt.getopt(sys.argv[1:], "aAcdCjDORrp:s:P:", ["stop", "start","version"])
+ss_port = ""
+ss_size = ""
+ss_pwd = ""
+for op, value in opts:
+    if op=="-p":
+        ss_port = value
+    elif op=="-s":
+        ss_size = value
+    elif op=="-P":
+        ss_pwd = value
+    elif op=="-a":
+        byte_lib.add_rules(ss_port)
+    elif op=="-c":
+        if byte_lib.get_traffic(ss_port)=="" or ss_port not in list(byte_lib.r_config()['port_limit']):
+         print "no limit info or beyond the limited."
+        else:
+         print str(byte_lib.get_traffic(ss_port)) + "M/" + str(byte_lib.c_limit(ss_port)) + "M"
+    elif op=="-d":
+        byte_lib.del_rules(ss_port)
+    elif op=="-A":
+        byte_lib.a_limit(ss_port,ss_size)
+    elif op=="-C":
+        print byte_lib.c_limit(ss_port)
+    elif op=="-j":
+        byte_lib.a_json(ss_port,ss_pwd)
+    elif op=="-D":
+        byte_lib.d_json(ss_port)
+    elif op=="-O":
+        data = byte_lib.c_json(ss_port)
+        print data
+    elif op=="-R":
+        byte_lib.d_limit(ss_port)
+    elif op=="-r":
+        byte_lib.add_rules_from_limit()
+    elif op=="--start":
+        with open('bsp_pid','a+') as f:
+         pid=f.readline()
+        f.close()
+        res = os.popen("ps -aux | grep 'bsp'|awk '{print $12}'")
+        res = res.read()
+        if pid!="" and res.count('/usr/bin/bsp')>1:
+         sys.exit('bsp already start on pid ' + str(pid) + ' [\033[1;32msuccess\033[0m]')
+        else:
+         pid=os.fork()
+         if pid > 0:
+          with open('bsp_pid','w+') as f:
+           f.write(str(pid))
+          f.close()
+          sys.exit('bsp already start on pid ' + str(pid) + ' [\033[1;32msuccess\033[0m]')
+         byte_lib.start()
+    elif op=="--stop":
+        with open('bsp_pid','a+') as f:
+          pid=f.readline()
+        f.close()
+        if pid!="":
+         os.kill(int(pid),9)
+         with open('bsp_pid','w+') as f:
+          f.write("")
+         f.close()
+         sys.exit('bsp already stop ' + '[\033[1;31mstop\033[0m]')
+        else:
+         sys.exit('no bsp process')
+    elif op=="--version":
+        print "v1.0.1"

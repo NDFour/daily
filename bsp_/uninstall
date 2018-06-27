@@ -1,0 +1,11 @@
+#!/usr/bin/env python
+import os
+
+def uninstall():
+    os.system("rm /usr/bin/bsp");
+    os.system("rm /usr/bin/bsp_pid");
+    os.system("rm /usr/bin/byte_lib.py");
+    os.system("rm -rf /etc/byte/");
+
+uninstall()
+print("bsp already removed.")

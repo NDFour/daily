@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+import os
+
+def install():
+    os.system("cp bsp /usr/bin/");
+    os.system("chmod 755 /usr/bin/bsp");
+    os.system("cp bsp_pid /usr/bin/");
+    os.system("cp byte_lib.py /usr/bin/");
+    os.system("mkdir /etc/byte/");
+    os.system("cp byte_ss.json /etc/byte/");
+
+install()
+print("install bsp success,enjoy it!")
