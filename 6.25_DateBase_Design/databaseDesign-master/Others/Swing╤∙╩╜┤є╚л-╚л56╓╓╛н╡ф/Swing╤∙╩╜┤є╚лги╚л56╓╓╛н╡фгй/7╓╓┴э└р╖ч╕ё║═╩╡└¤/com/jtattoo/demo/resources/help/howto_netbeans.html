@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+<TITLE>Changing NetBeans look</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" background="img/bg.jpg">
+
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+    <TR>
+        <TD VALIGN="TOP" ALIGN="left">
+        <IMG SRC="img/ecke.jpg" WIDTH="38" HEIGHT="66" BORDER="0" ALT="">
+        </TD>
+
+        <TD>
+        <FONT SIZE="+1" COLOR=#404080>
+        <B>Changing NetBeans look</B>
+        </FONT>
+        </TD>
+    </TR>
+</TABLE>
+<BR>
+    <font size="+1" color="#0000A0">NetBeans 4.0 or higher</font>
+    <br><br>
+    To change the look of NetBeans you have to edit the netbeans.conf file. You can find this file in
+    the XXX/netbeans/etc folder where XXX stands for the relative path of your NetBeans installation.
+    Open this file in a text editor and change the following line
+    <br>
+    <pre><code><b>netbeans_default_options="-J-Xms32m -J-Xmx128m -J-XX:PermSize=32m -J-XX:MaxPermSize=96m -J-Xverify:none"</b></code></pre>
+    <br>
+    to
+    <br>
+    <pre><code><b>netbeans_default_options="-J-Xms32m -J-Xmx128m -J-XX:PermSize=32m -J-XX:MaxPermSize=96m -J-Xverify:none -laf com.jtattoo.plaf.smart.SmartLookAndFeel"</b></code></pre>
+    <br>
+    Copy the JTattoo.jar file into the XXX/netbeans/platform5/lib folder.
+    <br><br><br>
+    <font size="+1" color="#0000A0">NetBeans before 4.0</font>
+    <br><br>
+    To change the look of NetBeans you have to edit the ide.cfg file. You can find this file in
+    the XXX/netbeans/bin folder where XXX stands for the relative path of your NetBeans installation.
+    Open this file in a text editor and change respectively insert the following line
+    <br>
+    <pre><code><b>-ui com.jtattoo.plaf.aluminium.AluminiumLookAndFeel</b></code></pre>
+    <br>
+    Copy the JTattoo.jar file into the XXX/netbeans/lib folder.
+    <br><br>
+    <b>Next time you start NetBeans you will be suprised.</b>
+</BODY>
+</HTML>
+

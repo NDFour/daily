@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+<TITLE>Limitations</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" background="img/bg.jpg">
+
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+    <TR>
+        <TD VALIGN="TOP" ALIGN="left">
+        <IMG SRC="img/ecke.jpg" WIDTH="38" HEIGHT="66" BORDER="0" ALT="">
+        </TD>
+
+        <TD>
+        <FONT SIZE="+1" COLOR="#404080">
+        <B>Limitations</B>
+        </FONT>
+        </TD>
+    </TR>
+</TABLE>
+<BR>
+<B>Color depth</B>
+<BR>
+<BR>
+JTattoo is build for screens with millions of colors. So it looks ugly if you
+use a color depth less than 16-bit. 
+<BR>
+<BR>
+<B>The window decoration style (new in Java 1.4)</B>
+<BR>
+<BR>
+Due to a restriction in the swing implemantion of the window decoration style, it
+is not possible to switch "on the fly" between Look and Feels which supports decoration 
+style, and such wich does not support decoration style. So what you have to do is to
+recreate your frame, otherwise you lose title and borders.
+
+</BODY>
+</HTML>
+

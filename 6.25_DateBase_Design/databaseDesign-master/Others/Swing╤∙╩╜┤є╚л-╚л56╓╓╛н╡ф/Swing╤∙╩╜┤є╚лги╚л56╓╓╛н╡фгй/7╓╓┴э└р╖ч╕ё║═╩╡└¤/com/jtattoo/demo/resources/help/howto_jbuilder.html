@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+<TITLE>Changing JBuilders look</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" background="img/bg.jpg">
+
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+    <TR>
+        <TD VALIGN="TOP" ALIGN="left">
+        <IMG SRC="img/ecke.jpg" WIDTH="38" HEIGHT="66" BORDER="0" ALT="">
+        </TD>
+
+        <TD>
+        <FONT SIZE="+1" COLOR=#404080>
+        <B>Changing JBuilders look</B>
+        </FONT>
+        </TD>
+    </TR>
+</TABLE>
+<BR>
+    To change the look of JBuilder you have to edit the user_xx.properties (where xx stands for the country you live 
+    e.g. you live in Germany the correct filename is user_de.properties). You can find this file in your user home
+    directory in the .jbuilder folder (in JBuilder 2005 the name of the folder is .primetime2005).
+    Open this file in a text editor and change respectively insert the following line
+    <pre><codeE><b>browser;look_and_feel=com.jtattoo.plaf.smart.SmartLookAndFeel</b></code></pre>
+    Copy the JTattoo.jar file into the XXX/jbuilder/lib folder. You can find this
+    folder in the relative path of your JBuilder installation.
+    <br><br>
+    <b>Next time you start JBuilder you will be suprised.</b>
+</BODY>
+</HTML>

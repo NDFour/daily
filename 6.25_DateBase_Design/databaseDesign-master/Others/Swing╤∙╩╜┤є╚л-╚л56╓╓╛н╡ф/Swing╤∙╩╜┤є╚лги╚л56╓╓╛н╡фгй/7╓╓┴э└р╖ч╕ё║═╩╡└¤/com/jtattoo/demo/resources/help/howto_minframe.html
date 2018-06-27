@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+<TITLE>A minimalistic frame</TITLE>
+<STYLE TYPE="text/css">
+<!--
+BODY {color: #000000; background-color: #ffffff; font-family: Courier New}
+TABLE {color: #000000; background-color: #f4f4f4; font-family: Courier New}
+.ST2 {color: #99006b}
+.ST5 {color: #780000}
+.ST4 {color: #006f00}
+.ST3 {color: #737373; font-family: Monospaced; font-style: italic}
+.ST1 {color: #000099; font-family: Monospaced; font-weight: bold}
+.ST0 {background-color: #f4f4f4}
+-->
+</STYLE>
+</HEAD>
+
+<BODY>
+<BR>
+The following short code fragment shows you the way how to switch the Look and
+Feel in your application. Be sure that the JTattooDemo.jar is in the java classpath 
+if you want to run this demo. The easiest way is to copy the JTattooDemo.jar into
+the (java_home)/jre/lib/ext folder.
+<BR><BR>
+<PRE>
+<FONT CLASS="ST0">/*</FONT>
+<FONT CLASS="ST0"> * Copyright 2005 MH-Software-Entwicklung. All rights reserved.</FONT>
+<FONT CLASS="ST0"> * Use is subject to license terms.</FONT>
+<FONT CLASS="ST0"> */</FONT>
+
+<FONT CLASS="ST1">package</FONT> com.jtattoo.demo.app;
+
+<FONT CLASS="ST1">import</FONT> java.awt.*;
+<FONT CLASS="ST1">import</FONT> java.awt.event.*;
+<FONT CLASS="ST1">import</FONT> javax.swing.*;
+
+<FONT CLASS="ST1">public</FONT> <FONT CLASS="ST1">class</FONT> MinFrame <FONT CLASS="ST1">extends</FONT> JFrame {
+
+    <FONT CLASS="ST1">public</FONT> MinFrame() {
+        <FONT CLASS="ST1">super</FONT>(<FONT CLASS="ST2">"Minimal-Frame-Application"</FONT>);
+        
+        <FONT CLASS="ST0">// setup menu</FONT>
+        JMenuBar menuBar = <FONT CLASS="ST1">new</FONT> JMenuBar();
+        JMenu menu = <FONT CLASS="ST1">new</FONT> JMenu(<FONT CLASS="ST2">"File"</FONT>);
+        menu.setMnemonic(<FONT CLASS="ST3">&quot;F&quot;</FONT>);
+        JMenuItem menuItem = <FONT CLASS="ST1">new</FONT> JMenuItem(<FONT CLASS="ST2">"Exit"</FONT>);
+        menuItem.setMnemonic(<FONT CLASS="ST3">&quot;x&quot;</FONT>);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
+        menuItem.addActionListener(<FONT CLASS="ST1">new</FONT> ActionListener() {
+            <FONT CLASS="ST1">public</FONT> <FONT CLASS="ST1">void</FONT> actionPerformed(ActionEvent event) {
+                System.exit(<FONT CLASS="ST4">0</FONT>);
+            }
+        });
+        menu.add(menuItem);
+        menuBar.add(menu);
+        setJMenuBar(menuBar);
+        
+        <FONT CLASS="ST0">// setup widgets</FONT>
+        JPanel contentPanel = <FONT CLASS="ST1">new</FONT> JPanel(<FONT CLASS="ST1">new</FONT> BorderLayout());
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(<FONT CLASS="ST4">0</FONT>, <FONT CLASS="ST4">4</FONT>, <FONT CLASS="ST4">4</FONT>, <FONT CLASS="ST4">4</FONT>));
+        JScrollPane westPanel = <FONT CLASS="ST1">new</FONT> JScrollPane(<FONT CLASS="ST1">new</FONT> JTree());
+        JEditorPane editor = <FONT CLASS="ST1">new</FONT> JEditorPane(<FONT CLASS="ST2">"text/plain"</FONT>, <FONT CLASS="ST2">"Hello World"</FONT>);
+        JScrollPane eastPanel = <FONT CLASS="ST1">new</FONT> JScrollPane(editor);
+        JSplitPane splitPane = <FONT CLASS="ST1">new</FONT> JSplitPane(JSplitPane.HORIZONTAL_SPLIT, <FONT CLASS="ST1">true</FONT>, westPanel,eastPanel);
+        splitPane.setDividerLocation(<FONT CLASS="ST4">148</FONT>);
+        contentPanel.add(splitPane, BorderLayout.CENTER);
+        setContentPane(contentPanel);
+        
+        <FONT CLASS="ST0">// add listeners</FONT>
+        addWindowListener(<FONT CLASS="ST1">new</FONT> WindowAdapter() {
+            <FONT CLASS="ST1">public</FONT> <FONT CLASS="ST1">void</FONT> windowClosing(WindowEvent e) {
+                System.exit(<FONT CLASS="ST4">0</FONT>);
+            }
+        });
+        
+        <FONT CLASS="ST0">// show application</FONT>
+        setLocation(<FONT CLASS="ST4">32</FONT>, <FONT CLASS="ST4">32</FONT>);
+        setSize(<FONT CLASS="ST4">400</FONT>, <FONT CLASS="ST4">300</FONT>);
+        show();
+    } <FONT CLASS="ST0">// end CTor MinFrame</FONT>
+    
+    <FONT CLASS="ST1">public</FONT> <FONT CLASS="ST1">static</FONT> <FONT CLASS="ST1">void</FONT> main(String[] args) {
+        <FONT CLASS="ST1">try</FONT> {
+            <FONT CLASS="ST0">// select Look and Feel</FONT>
+            UIManager.setLookAndFeel(<FONT CLASS="ST2">"com.jtattoo.plaf.smart.SmartLookAndFeel"</FONT>);
+            <FONT CLASS="ST0">// start application</FONT>
+            <FONT CLASS="ST1">new</FONT> MinFrame();
+        }
+        <FONT CLASS="ST1">catch</FONT> (Exception ex) {
+            ex.printStackTrace();
+        }
+    } <FONT CLASS="ST0">// end main</FONT>
+    
+} <FONT CLASS="ST0">// end class MinFrame</FONT>
+</PRE>
+</BODY>
+</HTML>
