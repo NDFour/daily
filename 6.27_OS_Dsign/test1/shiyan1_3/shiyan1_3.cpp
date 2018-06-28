@@ -10,6 +10,8 @@
 #include<stdio.h>
 static LPCTSTR g_szMutexName="w2kdg.ProcTerm.mutex.Suicide";
 
+using namespace std;
+
 // 创建当前进程的克隆进程的简单方法
 void StartClone()
 {
@@ -59,6 +61,7 @@ void Parent()
 		NULL, // 缺省的安全性
 		TRUE, // 最初拥有的
 		g_szMutexName); // 互斥体名称
+
 	if(hMutexSuicide!=NULL)
 	{
 		// 创建子进程
@@ -78,10 +81,12 @@ void Parent()
 void Child()
 {
 	// 打开”自杀“互斥体
+	// 为了获得互斥体，首先，想要访问调用的线程可使用 OpenMutex() API 来获得指向对象的句柄；
 	HANDLE hMutexSuicide=OpenMutex(
 		SYNCHRONIZE, // 打开用于同步
 		FALSE, // 不需要向下传递
 		g_szMutexName); // 名称
+
 	if(hMutexSuicide!=NULL)
 	{
 		// 报告我们正在等待指令
@@ -90,6 +95,7 @@ void Child()
 		// 子进程进入阻塞状态，等待父进程通过互斥体发来的信号
 		WaitForSingleObject(hMutexSuicide,INFINITE);
 		// 实验1-3步骤4：将上句改为 WaitForSingleObject(hMutexSuicide,0),重新执行
+		// 按照上述注释修改代码的话，程序不再等待（等待时间为0），而是直接清除句柄，放弃进程
 		
 		// 准备好终止，清除句柄
 		std::cout<<"Child quiting."<<std::endl;
@@ -102,10 +108,12 @@ int main(int argc,char* argv[])
 	// 决定其行为是父进程还是子进程
 	if(argc>1 && ::strcmp(argv[1],"child")==0)
 	{
+		cout<<"Start Child() process..."<<endl;
 		Child();
 	}
 	else
 	{
+		cout<<"Start Parent() process..."<<endl;
 		Parent();
 	}
 	return 0;

@@ -24,22 +24,31 @@ int main()
 	//注意，互斥信号量和同步信号量的定义方法不同，互斥信号量调用的是 CreateMutex 函数，
 	//同步信号量调用的是 CreateSemaphore 函数，函数的返回值都是句柄。
     Mutex = CreateMutex(NULL,FALSE,NULL);
+
     EmptySemaphore = CreateSemaphore(NULL,SIZE_OF_BUFFER,SIZE_OF_BUFFER,NULL);
 	//将上句做如下修改，看看结果会怎样
 	//EmptySemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER-1,NULL);
+	// 第一个参数表示安全控制，一般直接传入NULL。
+	// 第二个参数表示初始资源数量。
+	// 第三个参数表示最大并发数量。
+	// 第四个参数表示信号量的名称，传入NULL表示匿名信号量。
     FullSemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER,NULL);
+
 	//调整下面的数值，可以发现，当生产者个数多于消费者个数时，
 	//生产速度快，生产者经常等待消费者；反之，消费者经常等待
     const unsigned short PRODUCERS_COUNT = 3; //生产者的个数
     const unsigned short CONSUMERS_COUNT = 1; //消费者的个数
+
 	//总的线程数
     const unsigned short THREADS_COUNT = PRODUCERS_COUNT+CONSUMERS_COUNT;
     HANDLE hThreads[THREADS_COUNT]; //各线程的 handle
     DWORD producerID[PRODUCERS_COUNT]; //生产者线程的标识符
     DWORD consumerID[CONSUMERS_COUNT]; //消费者线程的标识符
+
 	//创建生产者线程
     for (int i=0; i<PRODUCERS_COUNT; ++i)
     {
+		// 1: /  2:新线程初始堆栈大小  /  3:指向线程函数的指标  / 6:接受执行线程ID值的变量
         hThreads[i]=CreateThread(NULL,0,Producer,NULL,0,&producerID[i]);
         if (hThreads[i]==NULL) return -1;
     }
