@@ -10,12 +10,17 @@
 void StartClone(int nCloneID)
 {
 	// 提取用于当前可执行文件的文件名
+	// szFilename:[D:\testProject\Debug\testProject.exe]
+	// MAX_PATH:[MAX_PATH是C语言运行时库中通过#define指令定义的一个宏常量，它定义了编译器所支持的最长全路径名的长度]
+	// Windows的MAX_PATH:[MAX_PATH的解释： 文件名最长256（ANSI），加上盘符（X:\）3字节，259字节，再加上结束符1字节，共260]
 	TCHAR szFilename[MAX_PATH];
 	GetModuleFileName(NULL,szFilename,MAX_PATH);
 
 	// 格式化用于子进程的命令行并通知其EXE文件名和克隆ID
+	// szCmdLine:["D:\testProject\Debug\testProject.exe"5]
 	TCHAR szCmdLine[MAX_PATH];
 	sprintf(szCmdLine,"\"%s\"%d",szFilename,nCloneID);
+
 
 	// 用于子进程的STARTUPINFO结构
 	STARTUPINFO si;
@@ -51,15 +56,16 @@ int main(int argc, char* argv[])
 	// 确定派生出几个进程，及派生进程在进程列表中的位置
 	int nClone=0;
 	// 修改语句: int nClone;
-
 	// 第一次修改： nClone=0;
 	if(argc>1)
 	{
 		// 从第二个参数中提取克隆 ID
+		// 之所以按照注释修改代码就会死循环，原因在于父进程在创建子进程时会把nClone当作命令行参数传入子进程，nClone=0的位置就显得尤为重要!!（参考line 20注释，命令行后附带参数[cClone]）
 		::sscanf(argv[1],"%d",&nClone);
+		printf("子进程读取到命令行参数:%d\n",nClone);
 	}
 	// 第二次修改： nClone=0;
-	// nCLone=0;
+	//nClone=0;
 	// 显示进程位置
 	std::cout<<"Process ID:"<<::GetCurrentProcessId()
 		<<",Clone　ID:"<<nClone

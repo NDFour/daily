@@ -20,6 +20,7 @@ void StartClone()
 	// 格式化用于子进程的命令行，字符串”child“将作为形参传递给子进程的main函数
 	TCHAR szCmdLine[MAX_PATH];
 	//// 实验1-3 步骤3：将下句中的字符创child改为别的字符创，重新编译执行，执行前请先保存已经完成的工作
+	// 按照上述注释修改代码的话，会造成循环执行parent（）函数，死循环
 	sprintf(szCmdLine,"\"%s\"child",szFilename);
 
 	// 子进程的启动信息结构
@@ -88,7 +89,7 @@ void Child()
 
 		// 子进程进入阻塞状态，等待父进程通过互斥体发来的信号
 		WaitForSingleObject(hMutexSuicide,INFINITE);
-		// 实验1-3步骤4：将上句改为 WaitForSingleObject(hMutexSuicide,0),重新百衲衣执行
+		// 实验1-3步骤4：将上句改为 WaitForSingleObject(hMutexSuicide,0),重新执行
 		
 		// 准备好终止，清除句柄
 		std::cout<<"Child quiting."<<std::endl;
