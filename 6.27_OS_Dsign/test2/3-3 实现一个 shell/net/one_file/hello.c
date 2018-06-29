@@ -3,7 +3,7 @@
  *         Author: Lynn
  *          Email: lgang219@gmail.com
  *         Create: 2018-06-26 13:40:09
- *  Last Modified: 2018-06-26 17:57:29
+ *  Last Modified: 2018-06-29 14:37:36
  */
 
 /* char* getcwn(char *buf, size_t size);
@@ -32,9 +32,11 @@ int shell_buildin_command(char *);
     while(1){
         // 修改提示符颜色
         printf("\033[37;43m *myshell*>\033[0m");
+        // 清空缓冲流，使stdout清空，就会立刻输出所有在缓冲区的内容
         fflush(stdout);
 
-        /*read*/
+        /* read */
+        // ssize_t read(int fd, void * buf, size_t count)
         if((n=read(0,cmdstring,MAX_CMD))<0){
             printf("read error");
         }
@@ -46,22 +48,23 @@ int shell_buildin_command(char *);
 
 
 void eval(char *cmdstring){
-    /*parse the cmdstring to argv*/
+    // command
     char *argv[MAX_CMD];
-    /*Holds modified command line*/
+    // 暂存command
     char buf[MAX_CMD];
 
     strcpy(buf,cmdstring);
-    /*parse the cmdstring*/
+    // 解析cmdstring中的command和params
     parseline(buf,argv);
+    // printf("arter parseline():%s\n",argv[0]);
     if(argv[0]==NULL){
-        return;/*ignore empty lines*/
+        return;
     }
-    /*is a buildin command*/
-    /*direct return*/
+    // 判断是否为mySHELL内置command
     if(buildin_command(argv)) 
         return;
 
+    // 不是内置命令的话直接fork创建子进程利用execvp函数执行command
     int pid = fork();
     if(pid == 0){
         if(execvp(argv[0],argv)<0){
@@ -69,6 +72,7 @@ void eval(char *cmdstring){
             exit(0);
         }
     }
+    // 等待子进程执行结束
     // wait(pid);
     wait(NULL);
 }
@@ -87,8 +91,9 @@ int buildin_command(char **argv){
     }
 
     if(strcmp(argv[0],"cd")==0){
+        // 返回-1，代表执行失败，否则返回0
         if(chdir(argv[1])){
-            printf("myselous:cd:%s:no such directory\n",argv[1]);
+            printf("mySHELL:cd:%s:no such directory\n",argv[1]);
         }
         return 1;
     }
@@ -98,7 +103,7 @@ int buildin_command(char **argv){
         return 1;
     }
     if(strcmp(argv[0],"help")==0){
-        printf("        mySHELL\n\n");
+        printf("\n        mySHELL\n\n");
         printf("    - environ 列出所有环境变量字符串的设置\n");
         printf("    - echo <内容> 显示 echo 后的内容且换行\n");
         printf("    - help 简短概要的输出你的 shell 的使用方法和基本功能\n");
