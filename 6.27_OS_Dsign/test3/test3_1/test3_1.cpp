@@ -27,11 +27,16 @@ int main()
 
     EmptySemaphore = CreateSemaphore(NULL,SIZE_OF_BUFFER,SIZE_OF_BUFFER,NULL);
 	//将上句做如下修改，看看结果会怎样
-	//EmptySemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER-1,NULL);
+	// EmptySemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER-1,NULL);
 	// 第一个参数表示安全控制，一般直接传入NULL。
 	// 第二个参数表示初始资源数量。
 	// 第三个参数表示最大并发数量。
 	// 第四个参数表示信号量的名称，传入NULL表示匿名信号量。
+	// RETURN :
+	// If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object 
+	// existed before the function call, the function returns a handle to the existing object and GetLastError returns 
+	// ERROR_ALREADY_EXISTS.
+	// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
     FullSemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER,NULL);
 
 	//调整下面的数值，可以发现，当生产者个数多于消费者个数时，
@@ -126,6 +131,7 @@ void Consume()
 //生产者
 DWORD WINAPI Producer(LPVOID lpPara)
 {
+	//printf(">> 进入生产者函数\n");
     while(p_ccontinue)
     {
         WaitForSingleObject(EmptySemaphore,INFINITE); //p(empty);
@@ -136,13 +142,15 @@ DWORD WINAPI Producer(LPVOID lpPara)
         ReleaseMutex(Mutex); //V(mutex);
         ReleaseSemaphore(FullSemaphore,1,NULL); //V(full);
     }
-    return 0;
+
+	return 0;
 }
 
 
 //消费者
 DWORD WINAPI Consumer(LPVOID lpPara)
 {
+	//printf(">> 进入消费者函数\n");
     while(p_ccontinue)
     {
         WaitForSingleObject(FullSemaphore,INFINITE); //P(full);
