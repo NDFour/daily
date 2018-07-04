@@ -34,7 +34,7 @@ void show()
 		cout << endl;
 	}
 	cout << "------------Need-----------------------" << endl;
-	for (int i=0; i < nPortNum; i++)
+	for (i=0; i < nPortNum; i++)
 	{
 		cout << "port" << i << "\t";
 		for (int j = 0; j < nSource; j++)
@@ -46,6 +46,7 @@ void show()
 	cout << endl;
 	cout << "---------------------------------------" << endl;
 }
+
 void Init()//初始化函数
 {
 	cout << "请输入资源种类数" << endl;
@@ -69,7 +70,7 @@ void Init()//初始化函数
 	// 输入已分配资源矩阵 Allcation
 	cout << "ALLOCATION请输入已经分配各个资源的数量" << nPortNum << "*" << nSource << "的矩阵" << endl;
 start:
-	for (int i = 0; i < nPortNum; i++)
+	for (i = 0; i < nPortNum; i++)
 	{
 		for (int j = 0; j < nSource; j++)
 		{
@@ -84,7 +85,7 @@ start:
 
 
 	// 计算Need矩阵
-	for (int i = 0; i < nPortNum; i++)
+	for ( i = 0; i < nPortNum; i++)
 	{
 		for (int j = 0; j < nSource; j++)
 		{
@@ -93,7 +94,7 @@ start:
 	}
 
 	// 计算当前已经分配出去的资源数量Available，真正的Available的值会在后面赋值
-	for (int i = 0; i < nPortNum; i++)
+	for ( i = 0; i < nPortNum; i++)
 	{
 		for (int j = 0; j < nSource; j++)
 		{
@@ -104,7 +105,7 @@ start:
     // 输入开始时刻各种资源数量
 	cout << "请输入各种资源开始的数量" << nSource << "列" << endl;
 begin:
-	for (int i = 0; i < nSource; i++)
+	for ( i = 0; i < nSource; i++)
 	{
 		cin >> BeginSource[i];
 		if (BeginSource[i] < Available[i])
@@ -115,11 +116,12 @@ begin:
 	}
 
     // 剩余可用的资源数量 Available
-	for (int i = 0; i < nSource; i++)
+	for (i = 0; i < nSource; i++)
 	{
 		Available[i] = BeginSource[i] - Available[i];
 	}
 }
+
 //安全性算法，计算此刻状态是否安全
 bool Safe()
 {
@@ -132,7 +134,7 @@ bool Safe()
 		Work[i] = Available[i];
 	}
 	//初始化finish全为false
-	for (int i = 0; i < nPortNum; i++)
+	for (i = 0; i < nPortNum; i++)
 	{
 		Finish[i] = false;
 	}
@@ -175,6 +177,7 @@ bool Safe()
 	}
 	return false;
 }
+
 //银行家算法
 void BankSort()
 {
@@ -209,7 +212,7 @@ void BankSort()
 	}
 
 	// 成功分配资源后调整各个数组
-	for (int i = 0; i < nSource; i++)
+	for (i = 0; i < nSource; i++)
 	{
 		Available[i] -= Requset[i];
 		Allocation[n][i] += Requset[i];
@@ -262,6 +265,11 @@ void BankSort()
 
 int main()
 {
+	// 当一进程提出资源申请时，银行家算法执行下列步骤以决定是否向其分配资源：
+    // 1）检查该进程所需要的资源是否已超过它所宣布的最大值。
+    // 2）检查系统当前是否有足够资源满足该进程的请求。
+    // 3）系统试探着将资源分配给该进程，得到一个新状态。
+    // 4）执行安全性算法，若该新状态是安全的，则分配完成；若新状态是不安全的，则恢复原状态，阻塞该进程。
 	Init();
 	BankSort();
 	system("pause");
