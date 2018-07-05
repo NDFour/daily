@@ -1,293 +1,148 @@
-#include"stdio.h"
-
-#include"stdlib.h"
-
-#define maxsize 1000 //定义最大数组域
-
-//先进先出调度算法
-
-void FIFO(int array[],int m)
-
+// 工程 vmwalker
+#include <windows.h>
+#include <iostream>
+#include <shlwapi.h>
+#include <iomanip>
+#pragma comment(lib, "Shlwapi.lib")
+// 以可读方式对用户显示保护的辅助方法。
+// 保护标记表示允许应用程序对内存进行访问的类型
+// 以及操作系统强制访问的类型
+inline bool TestSet(DWORD dwTarget, DWORD dwMask)
 {
-
-int sum=0,j,i,now;
-
-float avg;
-
-printf("\n 请输入当前的磁道号：");
-
-
-scanf("%d",&now);
-
-printf("\n FIFO 调度结果:	");
-
-printf("%d ",now);
-
-for(i=0;i<m;i++)	printf("%d ",array[i]);
-
-sum=abs(now-array[0]);
-
-for(j=1;j<m;j++) sum+=abs(array[j]-array[j-1]);//累计总的移动距离avg=(float)sum/m;//计算平均寻道长度 printf("\n 移动的总道数： %d \n",sum);
-
-printf(" 平均寻道长度： %f \n",avg);
-
+    return ((dwTarget &dwMask) == dwMask) ;
 }
-
-//最短服务时间优先调度算法
-
-void SSTF(int array[],int m)
-
-{
-
-int temp;
-
-int k=1;
-
-int now,l,r;
-
-int i,j,sum=0;
-
-float avg;
-
-for(i=0;i<m;i++)
-
-{
-
-for(j=i+1;j<m;j++)//对磁道号进行从小到大排列
-
-{
-
-if(array[i]>array[j])//两磁道号之间比较
-
-{
-
-temp=array[i];
-
-array[i]=array[j];
-
-array[j]=temp;
-
-}
-
-}
-
-}
-
-for( i=0;i<m;i++)//输出排序后的磁道号数组
-
-printf("%d	",array[i]);
-
-printf("\n 请输入当前的磁道号：");
-
-scanf("%d",&now);
-
-printf("\n SSTF 调度结果:	");
-
-if(array[m-1]<=now)//判断整个数组里的数是否都小于当前磁道号
-
-{
-
-for(i=m-1;i>=0;i--)//将数组磁道号从大到小输出
-
-printf("%d	",array[i]);
-
-sum=now-array[0];//计算移动距离
-
-}
-
-else if(array[0]>=now)//判断整个数组里的数是否都大于当前磁道号
-
-{
-
-for(i=0;i<m;i++)//将磁道号从小到大输出
-
-printf("%d	",array[i]);
-
-
-sum=array[m-1]-now;//计算移动距离
-
-}
-
-else
-
-{
-
-while(array[k]<now)//逐一比较以确定 K 值
-
-{
-
-k++;
-
-}
-
-l=k-1;
-
-r=k;
-
-//确定当前磁道在已排的序列中的位置
-
-while((l>=0)&&(r<m))
-
-{
-
-if((now-array[l])<=(array[r]-now))//判断最短距离
-
-{
-
-printf("%d	",array[l]);
-
-sum+=now-array[l];//计算移动距离
-
-now=array[l];
-
-l=l-1;
-
-}
-
-else
-
-{
-
-printf("%d	",array[r]);
-
-sum+=array[r]-now;//计算移动距离
-
-now=array[r];
-
-r=r+1;
-
-}
-
-}
-
-if(l=-1)
-
-{
-
-for(j=r;j<m;j++)
-
-{
-
-printf("%d	",array[j]);
-
-}
-
-sum+=array[m-1]-array[0];//计算移动距离
-
-}
-
-else
-
-{
-
-for(j=l;j>=0;j--)
-
-{
-
-printf("%d	",array[j]);
-
-}
-
-sum+=array[m-1]-array[0];//计算移动距离
-
-}
-
-}
-
-avg=(float)sum/m;
-
-
-printf("\n 移动的总道数： %d \n",sum);
-
-printf(" 平均寻道长度： %f \n",avg);
-
-}
-
-//	操作界面
-int main()
-
-{
-
-int c;
-
-int count; //int m=0;
-
-int cidao[maxsize];//定义磁道号数组 int i=0;
-
-int b;
-
-printf("\n --------------------------------------------------\n");
-
-printf("磁盘调度算法模拟");
-
-printf("\n --------------------------------------------------\n");
-printf("请先输入磁道数量：\n");
-scanf("%d",&b);
-printf("请先输入磁道序列：\n");
-for(int i=0;i<b;i++){
-scanf("%d",&cidao[i]);
-}
-
-printf("\n 磁道读取结果：\n"); 
-for(i=0;i<b;i++)
-
-{
-
-printf("%d   ",cidao[i]);//输出读取的磁道的磁道号
-
-}
-
-count=b;
-
-printf("\n "); while(1)
-
-{
-
-printf("\n   算法选择：\n");
-
-printf(" 1、先进先出算法（FIFO）\n");
-
-printf(" 2、最短服务时间优先算法（SSTF）\n"); printf(" 3、扫描算法（SCAN）\n");
-
-printf(" 4、循环扫描算法（C-SCAN）\n"); printf(" 5. 退出\n");
-
-printf("\n"); printf("请选择："); scanf("%d",&c); if(c>5)
-
-break;
-
-switch(c)//算法选择
-
-{
-
-case 1:
-
-FIFO(cidao,count);//先进先出算法 printf("\n");
-
-
-break;
-
-case 2:
-
-SSTF(cidao,count);//最短服务时间优先算法
-
-printf("\n");
-
-break;
-
-case 3:
-
-//	SCAN(cidao,count);//扫描算法，待补充！ printf("\n");
-
-break; case 4:
-
-//	CSCAN(cidao,count);//循环扫描算法，待补充！ printf("\n");
-
-break; case 5: exit(0);
-
-}
-
-}
-
-return 0;
-
-}
+# define SHOWMASK(dwTarget, type) if (TestSet(dwTarget, PAGE_##type) ) {std :: cout << ", " << type; }
+    void ShowProtection(DWORD dwTarget)
+    {
+        SHOWMASK(dwTarget, READONLY) ;
+        SHOWMASK(dwTarget, GUARD) ;
+        SHOWMASK(dwTarget, NOCACHE) ;
+        SHOWMASK(dwTarget, READWRITE) ;
+        SHOWMASK(dwTarget, WRITECOPY) ;
+        SHOWMASK(dwTarget, EXECUTE) ;
+        SHOWMASK(dwTarget, EXECUTE_READ) ;
+        SHOWMASK(dwTarget, EXECUTE_READWRITE) ;
+        SHOWMASK(dwTarget, EXECUTE_WRITECOPY) ;
+        SHOWMASK(dwTarget, NOACCESS) ;
+    }
+// 遍历整个虚拟内存并对用户显示其属性的工作程序的方法
+    23
+    void WalkVM(HANDLE hProcess)
+    {
+// 首先，获得系统信息
+        SYSTEM_INFO si;
+        :: ZeroMemory(&si, sizeof(si) ) ;
+        :: GetSystemInfo(&si) ;
+// 分配要存放信息的缓冲区
+        MEMORY_BASIC_INFORMATION mbi;
+        :: ZeroMemory(&mbi, sizeof(mbi) ) ;
+// 循环整个应用程序地址空间
+        LPCVOID pBlock = (LPVOID) si.lpMinimumApplicationAddress;
+        while (pBlock < si.lpMaximumApplicationAddress)
+        {
+// 获得下一个虚拟内存块的信息
+            if (:: VirtualQueryEx(
+                hProcess,
+                pBlock,
+                &mbi,
+                sizeof(mbi))==sizeof(mbi) )
+// 相关的进程
+// 开始位置
+// 缓冲区
+// 大小的确认
+            {
+// 计算块的结尾及其大小
+                LPCVOID pEnd = (PBYTE) pBlock + mbi.RegionSize;
+                TCHAR szSize[MAX_PATH];
+                :: StrFormatByteSize(mbi.RegionSize, szSize, MAX_PATH) ;
+// 显示块地址和大小
+                std :: cout.fill ('0') ;
+                std :: cout
+                        << std :: hex << std :: setw(8) << (DWORD) pBlock << "-"
+                << std :: hex << std :: setw(8) << (DWORD) pEnd << (:: strlen(szSize)==7? " (" : " (") << szSize << ") " ;
+// 显示块的状态
+                switch(mbi.State)
+                {
+                case MEM_COMMIT :
+                    std :: cout << "Committed" ;
+                    break;
+                case MEM_FREE :
+                    std :: cout << "Free" ;
+                    break;
+                case MEM_RESERVE :
+                    24
+                    std :: cout << "Reserved" ;
+                    break;
+                }
+// 显示保护
+                if(mbi.Protect==0 && mbi.State!=MEM_FREE)
+                {
+                    mbi.Protect=PAGE_READONLY;
+                }
+                ShowProtection(mbi.Protect);
+// 显示类型
+                switch(mbi.Type)
+                {
+                case MEM_IMAGE :
+                    std :: cout << ", Image" ;
+                    break;
+                case MEM_MAPPED:
+                    std :: cout << ", Mapped";
+                    break;
+                case MEM_PRIVATE :
+                    std :: cout << ", Private" ;
+                    break;
+                }
+// 检验可执行的影像
+                TCHAR szFilename [MAX_PATH] ;
+                if (:: GetModuleFileName (
+                            (HMODULE) pBlock,
+                            szFilename,
+                            MAX_PATH)>0)
+// 实际虚拟内存的模块句柄
+//完全指定的文件名称
+//实际使用的缓冲区大小
+                {
+// 除去路径并显示
+                    :: PathStripPath(szFilename) ;
+                    std :: cout << ", Module: " << szFilename;
+                }
+                std :: cout << std :: endl;
+// 移动块指针以获得下一下个块
+                pBlock = pEnd;
+            }
+        }
+    }
+    void ShowVirtualMemory()
+    {
+// 首先，让我们获得系统信息
+        SYSTEM_INFO si;
+        :: ZeroMemory(&si, sizeof(si) ) ;
+        :: GetSystemInfo(&si) ;
+// 使用外壳辅助程序对一些尺寸进行格式化
+        TCHAR szPageSize[MAX_PATH];
+        ::StrFormatByteSize(si.dwPageSize, szPageSize, MAX_PATH) ;
+        25
+        DWORD dwMemSize = (DWORD)si.lpMaximumApplicationAddress - (DWORD) si.lpMinimumApplicationAddress;
+        TCHAR szMemSize [MAX_PATH] ;
+        :: StrFormatByteSize(dwMemSize, szMemSize, MAX_PATH) ; // 将内存信息显示出来
+        std :: cout << "Virtual memory page size: " << szPageSize << std :: endl;
+        std :: cout.fill ('0') ;
+        std :: cout << "Minimum application address: 0x"
+                    << std :: hex << std :: setw(8)
+                    << (DWORD) si.lpMinimumApplicationAddress
+                    << std :: endl;
+        std :: cout << "Maximum application address: 0x"
+                    << std :: hex << std :: setw(8)
+                    << (DWORD) si.lpMaximumApplicationAddress
+                    << std :: endl;
+        std :: cout << "Total available virtual memory: "
+                    << szMemSize << std :: endl ;
+    }
+    void main()
+    {
+//显示虚拟内存的基本信息
+        ShowVirtualMemory();
+// 遍历当前进程的虚拟内存
+        ::WalkVM(::GetCurrentProcess());
+    }

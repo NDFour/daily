@@ -6,6 +6,10 @@ using namespace std;
 
 
 #define P(S) WaitForSingleObject(S,INFINITE)//定义Windows下的P操作
+
+// A handle to the semaphore object.
+// The amount by which the semaphore object's current count is to be increased. 
+// A pointer to a variable to receive the previous count for the semaphore.
 #define V(S) ReleaseSemaphore(S,1,NULL)//定义Windows下的V操作
 
 HANDLE Wmutex, Rmutex ,Authmutex,Amutex;
@@ -20,13 +24,14 @@ int readercount = 0;
 // 读者
 DWORD WINAPI reader()
 {
+	// door 确保 readercount 被正确更新
     P(door);
     readercount++;
     if(readercount == 1)
         P(wsm);
     V(door);
 
-    cout<<"正在读数据，，，线程ID："<<GetCurrentThreadId()<<endl;
+    cout<<"Readding... [ID]："<<GetCurrentThreadId()<<endl;
     Sleep(500);
 
     P(door);
@@ -34,7 +39,7 @@ DWORD WINAPI reader()
     if(readercount == 0)
         V(wsm);
     V(door);
-    cout<<"读取完毕 ："<<GetCurrentThreadId()<<endl;
+    cout<<"Read complete"<<GetCurrentThreadId()<<endl;
     return 1;
 };
 
@@ -44,10 +49,10 @@ DWORD WINAPI writer()
     P(wsm);
 
     Sleep(200);
-    cout<<"正在写数据，，，线程ID："<<GetCurrentThreadId()<<endl;
+    cout<<"Writting... [ID]："<<GetCurrentThreadId()<<endl;
 
     V(wsm);
-    cout<<"写入完毕"<<GetCurrentThreadId()<<endl;
+    cout<<"Wrote complete"<<GetCurrentThreadId()<<endl;
 
     return 1;
 };
@@ -71,7 +76,7 @@ int main(int argc, char* argv[])
         srand((unsigned)time(NULL));
         int rC=rand()%1000;
         Sleep(rC);
-        if( rC % 6==0)
+        if( (rC % 6)==0)
 			// writer
             CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)writer,NULL,NULL,NULL);
         else
@@ -80,6 +85,7 @@ int main(int argc, char* argv[])
 
     }
 
-    Sleep(600000);
+    // Sleep(600000);
+	cout<<"Program finished"<<endl;
     return 0;
 }

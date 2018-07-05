@@ -27,7 +27,7 @@ int main()
 
     EmptySemaphore = CreateSemaphore(NULL,SIZE_OF_BUFFER,SIZE_OF_BUFFER,NULL);
 	//将上句做如下修改，看看结果会怎样
-	// EmptySemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER-1,NULL);
+	// EmptySemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER-1,NULL); // 初始化时资源为0，p(EmptySemaphore)进入阻塞状态
 	// 第一个参数表示安全控制，一般直接传入NULL。
 	// 第二个参数表示初始资源数量。
 	// 第三个参数表示最大并发数量。
