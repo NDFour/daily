@@ -5,18 +5,18 @@
 #include <windows.h>
 #include <iostream>
 const unsigned short SIZE_OF_BUFFER = 2; //缓冲区长度
-unsigned short ProductID = 0; //产品号
-unsigned short ConsumeID = 0; //将被消耗的产品号
-unsigned short in = 0; //产品进缓冲区时的缓冲区下标
-unsigned short out = 0; //产品出缓冲区时的缓冲区下标
-int buffer[SIZE_OF_BUFFER]; //缓冲区是个循环队列
-bool p_ccontinue = true; //控制程序结束
+unsigned short ProductID = 0;   //产品号
+unsigned short ConsumeID = 0;   //将被消耗的产品号
+unsigned short in = 0;          //产品进缓冲区时的缓冲区下标
+unsigned short out = 0;         //产品出缓冲区时的缓冲区下标
+int buffer[SIZE_OF_BUFFER];     //缓冲区是个循环队列
+bool p_ccontinue = true;        //控制程序结束
 
-HANDLE Mutex; //用于线程间的互斥
-HANDLE FullSemaphore; //当缓冲区满时迫使生产者等待
-HANDLE EmptySemaphore; //当缓冲区空时迫使消费者等待
-DWORD WINAPI Producer(LPVOID); //生产者线程
-DWORD WINAPI Consumer(LPVOID); //消费者线程
+HANDLE Mutex;                   //用于线程间的互斥
+HANDLE FullSemaphore;           //当缓冲区满时迫使生产者等待
+HANDLE EmptySemaphore;          //当缓冲区空时迫使消费者等待
+DWORD WINAPI Producer(LPVOID);  //生产者线程
+DWORD WINAPI Consumer(LPVOID);  //消费者线程
 
 int main()
 {
@@ -33,8 +33,8 @@ int main()
 	// 第三个参数表示最大并发数量。
 	// 第四个参数表示信号量的名称，传入NULL表示匿名信号量。
 	// RETURN :
-	// If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object 
-	// existed before the function call, the function returns a handle to the existing object and GetLastError returns 
+	// If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object
+	// existed before the function call, the function returns a handle to the existing object and GetLastError returns
 	// ERROR_ALREADY_EXISTS.
 	// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
     FullSemaphore = CreateSemaphore(NULL,0,SIZE_OF_BUFFER,NULL);

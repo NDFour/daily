@@ -26,7 +26,6 @@ inline bool TestSet(DWORD dwTarget, DWORD dwMask)
         SHOWMASK(dwTarget, NOACCESS) ;
     }
 // 遍历整个虚拟内存并对用户显示其属性的工作程序的方法
-    23
     void WalkVM(HANDLE hProcess)
     {
 // 首先，获得系统信息
@@ -70,7 +69,6 @@ inline bool TestSet(DWORD dwTarget, DWORD dwMask)
                     std :: cout << "Free" ;
                     break;
                 case MEM_RESERVE :
-                    24
                     std :: cout << "Reserved" ;
                     break;
                 }

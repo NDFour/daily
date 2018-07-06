@@ -8,7 +8,7 @@ using namespace std;
 #define P(S) WaitForSingleObject(S,INFINITE)//定义Windows下的P操作
 
 // A handle to the semaphore object.
-// The amount by which the semaphore object's current count is to be increased. 
+// The amount by which the semaphore object's current count is to be increased.
 // A pointer to a variable to receive the previous count for the semaphore.
 #define V(S) ReleaseSemaphore(S,1,NULL)//定义Windows下的V操作
 
@@ -72,10 +72,12 @@ int main(int argc, char* argv[])
 
     while(1)
     {
-        Sleep(100);
+        // 生成随机数，用于生成线程
         srand((unsigned)time(NULL));
-        int rC=rand()%1000;
+        int rC=rand()%500;
+        // 阻塞当前进程
         Sleep(rC);
+        // 分别创建读者、写者线程
         if( (rC % 6)==0)
 			// writer
             CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)writer,NULL,NULL,NULL);
