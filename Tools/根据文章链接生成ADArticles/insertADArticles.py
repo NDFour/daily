@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-04-22 10:40:47
-# Last Modified: 2018-07-11 23:39:52
+# Last Modified: 2018-07-16 22:16:20
 #
 
 import re
@@ -50,7 +50,7 @@ def findAdPic(html_text):
     return pic
 
 def getSql(title,url,pic):
-    sql_raw='insertadarticles INSERT INTO adarticles(title,picurl,url,canbeuse) VALUES ( "▉ title_sql","pic_sql" ,"url_sql" ,1, 1);'
+    sql_raw='insertadarticles INSERT INTO adarticles(title,picurl,url,canbeuse,tab) VALUES ( "▉ title_sql","pic_sql" ,"url_sql" ,1, 1);'
 
     sql_insert=sql_raw.replace('title_sql',title).replace('url_sql',url).replace('pic_sql',pic)
     return sql_insert
