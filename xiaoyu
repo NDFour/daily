@@ -1,1 +1,1 @@
-<
+mysql -u root -p bdpan < out.sql
