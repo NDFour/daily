@@ -1,0 +1,33 @@
+<html>
+ <head>
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+</head>
+ <body class="ke-content">
+
+  <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+
+<h3>{{ movie.v_name }}</h3>
+
+  <!-- <p style="text-indent: 2em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">电影名称：</span></b> {{ movie.v_name }}</p> -->
+
+
+  <p style="text-indent: 1em;"><b><img src="{{ movie.v_pic }}" data-ke-src="{{ movie.v_pic }}" alt=""  title="" align="" width=50%  /><br /></b></p>
+
+  <p style="text-indent: 1em;"><b><br /></b></p>
+  
+  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(255, 0, 0);">网盘：</span></b> <a href="{{ movie.v_bdpan }}">百度网盘<a/> </p>
+
+  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(255, 0, 0);">{{ movie.v_pass }}</span></b> </p>
+
+<!--
+  <p style="text-indent: 2em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 1：</span></b> {{ movie.v_ed2k }}</p>
+
+  <p style="text-indent: 2em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 2：</span></b> {{ movie.v_magnet }}</p>
+-->
+
+  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">发布时间：</span></b> {{ movie.v_pub_date }}</p>
+
+  <p style="text-indent: 1em;"><strong><br /></strong></p>
+
+ </body>
+</html>

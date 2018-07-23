@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+</head>
+
+<body>
+  <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+
+{% if movie_list %}
+    <ul>
+            {% for movie in movie_list %}
+            <li><a href="/movie/{{ movie.id }}/">{{ movie.v_name }}</a></li>
+            <br/>
+            {% endfor %}
+    </ul>
+
+{% else %}
+    <br/>
+    <p style="font-size: 16px; color: rgb(200, 69, 29)">没有相关电影的网盘资源，请等待管理员更新.</p>
+    <p style="font-size: 16px; color: rgb(200, 69, 29)">管理员微信：ndfour001</p>
+    <h4>扫码加管理员微信</h4>
+    <img src="https://upload-images.jianshu.io/upload_images/5649568-5e15ea6578b42c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width=100%>
+{% endif %}
+
+</body>
+</html>
