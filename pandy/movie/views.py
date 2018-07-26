@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'movie/index.html', context)
 
 def movie_search(request, movie_name):
-    movie_list = Movie.objects.filter(v_name__icontains=movie_name)
+    movie_list = Movie.objects.filter(v_name__icontains=movie_name)[:100]
     context = {
             'movie_list': movie_list,
             }
