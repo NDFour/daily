@@ -1,0 +1,5 @@
+1. supervisorctl -c supervisord.conf stop pandy
+2. /etc/init.d/nginx stop
+3. git pull origin master
+4. supervisorctl -c supervisord.conf start pandy
+5. /etc/init.d/nginx start
