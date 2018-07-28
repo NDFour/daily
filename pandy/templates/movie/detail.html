@@ -20,20 +20,32 @@
   
   <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(255, 0, 0);">网盘：</span></b> <a href="{{ movie.v_bdpan }}">百度网盘<a/> </p>
 
+  {% if movie.v_pass %}
   <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(255, 0, 0);">{{ movie.v_pass }}</span></b> </p>
+  {% endif %}
 
-<!--
-  <p style="text-indent: 2em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 1：</span></b> {{ movie.v_ed2k }}</p>
+  {% if movie.v_ed2k %}
+  <p style="text-indent: 1em;" ><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 1：</span></b> </p>
 
-  <p style="text-indent: 2em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 2：</span></b> {{ movie.v_magnet }}</p>
--->
+  <p style="text-indent: 2em;"><span style="font-size: 14px; word-wrap: break-word;overflow: hidden;">{{ movie.v_ed2k }}</span></p>
+  {% endif %}
 
-  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">发布时间：</span></b> {{ movie.v_pub_date }}</p>
+  {% if movie.v_magnet %}
+  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 2：</span></b> </p>
+
+  <p style="text-indent: 2em;"><span style="font-size: 14px; word-wrap: break-word;overflow: hidden;">{{ movie.v_magnet }}</span></p>
+  {% endif %}
+  <p style="text-indent: 1em;"><b><span style="font-size: 16px;">发布时间：</span></b> {{ movie.v_pub_date }}</p>
 
   <p style="text-indent: 1em;"><strong><br /></strong></p>
 
+  <p align="center"><b><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span></b> </p>
+  <p align="center"><a href="http://tnt1024.com/movie/search/rrrrr">管理员联系方式：</a></p>
+
+  <p align="center">
                                   <!-- 网站访问量统计代码 -->
 				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
                                 <!-- 网站访问量统计代码 END -->
+  </p>
  </body>
 </html>
