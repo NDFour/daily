@@ -1,51 +1,103 @@
 <html>
-
  <head>
-         <title>《{{ movie.v_name }}》免费网盘资源分享</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+     <title>《{{ movie.v_name }}》免费网盘资源分享</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <style type="text/css">
+
+         p{
+             text-indent: 1em;
+         }
+
+         .hongse{
+             text-indent: 0.5em;
+             font-size: 16px;
+             color: rgba(120, 69, 69);
+             font-weight: bold;
+         }
+
+         .zongse{
+             text-indent: 0.5em;
+             font-size: 16px;
+             color: rgba(100, 69, 29);
+         }
+
+         .magnet_url{
+             font-size: 15px;
+         }
+
+         span{
+             color: black;
+             font-weight: normal;
+             font-size: 12px;
+             text-indent: 2em;
+             display: inline;
+         }
+
+         #pan_invalid{
+             font-weight: normal;
+             font-size: 14px;
+         }
+
+         .pubdate_views{
+             font-size: 14px;
+             color:grey;
+         }
+
+     </style>
 </head>
 
- <body class="ke-content">
-
-  <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+<body class="ke-content">
+<a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
 
 <h3>{{ movie.v_name }}</h3>
 
-  <!-- <p style="text-indent: 2em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">电影名称：</span></b> {{ movie.v_name }}</p> -->
+<p class="pubdate_views">{{ movie.v_pub_date }}  {{ movie.v_views }} Views</p>
 
+  <p><img src="{{ movie.v_pic }}" data-ke-src="{{ movie.v_pic }}" alt=""  title="" align="" width=50%  /><br /></p>
 
-  <p style="text-indent: 1em;"><b><img src="{{ movie.v_pic }}" data-ke-src="{{ movie.v_pic }}" alt=""  title="" align="" width=50%  /><br /></b></p>
-
-  <p style="text-indent: 1em;"><b><br /></b></p>
-  
-  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(255, 0, 0);">网盘：</span></b> <a href="{{ movie.v_bdpan }}">百度网盘<a/> </p>
-
-  {% if movie.v_pass %}
-  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(255, 0, 0);">{{ movie.v_pass }}</span></b> </p>
+  <!-- 剧情介绍 -->
+  {% if movie.v_text_info %}
+  <p class="zongse">剧情介绍：</p>
+  <p><span>{{ movie.v_text_info }}</span></p>
   {% endif %}
+  <!-- 剧情信息 END -->
 
+  <!-- 网盘 -->
+  <p class="hongse">网盘： <a href="{{ movie.v_bdpan }}">百度网盘<a/> </p>
+  {% if movie.v_pass %}
+  <p class="hongse">{{ movie.v_pass }}</p>
+  {% endif %}
+  <!-- 网盘 END -->
+
+  <!-- 网盘链接失效报告 -->
+  <p><a id="pan_invalid" href="http://tnt1024.com/movie/confirm_invalid/{{ movie.id }}/{{ movie.v_valid }}">网盘链接失效请点我</a></p>
+
+  <!-- 磁力链接 -->
   {% if movie.v_ed2k %}
-  <p style="text-indent: 1em;" ><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 1：</span></b> </p>
-
-  <p style="text-indent: 2em;"><span style="font-size: 14px; word-wrap: break-word;overflow: hidden;">{{ movie.v_ed2k }}</span></p>
+  <p class="zongse">磁力链接 1： </p>
+  <p class="magnet_url">
+      <a target="_blank" href="{{ movie.v_ed2k }}" rel="noopener">{{ movie.v_ed2k_name }}</a>
+  </p>
   {% endif %}
 
   {% if movie.v_magnet %}
-  <p style="text-indent: 1em;"><b><span style="font-size: 16px; color: rgb(100, 69, 29);">磁力链接 2：</span></b> </p>
-
-  <p style="text-indent: 2em;"><span style="font-size: 14px; word-wrap: break-word;overflow: hidden;">{{ movie.v_magnet }}</span></p>
+  <p class="zongse">磁力链接 2：</p>
+  <p class="magnet_url">
+      <a target="_blank" href="{{ movie.v_magnet }}" rel="noopener">{{ movie.v_magnet_name }}</a>
+  </p>
   {% endif %}
-  <p style="text-indent: 1em;"><b><span style="font-size: 16px;">发布时间：</span></b> {{ movie.v_pub_date }}</p>
+  <!-- 磁力链接 END -->
 
-  <p style="text-indent: 1em;"><strong><br /></strong></p>
+  <br />  <hr />
 
-  <p align="center"><b><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span></b> </p>
+  <!-- 页脚 -->
+  <!-- <p align="center"><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span> </p> -->
   <p align="center"><a href="http://tnt1024.com/movie/search/rrrrr">管理员联系方式：</a></p>
 
+  <!-- 网站访问量统计代码 -->
   <p align="center">
-                                  <!-- 网站访问量统计代码 -->
-				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-                                <!-- 网站访问量统计代码 END -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
   </p>
+
  </body>
 </html>
