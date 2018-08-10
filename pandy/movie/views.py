@@ -17,6 +17,7 @@ def movie_search(request, movie_name):
     movie_list = Movie.objects.filter(v_name__icontains=movie_name)[:100]
     context = {
             'movie_list': movie_list,
+            'movie_name': movie_name,
             }
     return render(request, 'movie/index.html', context)
     # return HttpResponse('search page %s' % movie_name)
