@@ -9,6 +9,7 @@ def index(request):
     movie_list = Movie.objects.order_by('-v_pub_date')[:10]
     context = {
             'movie_list': movie_list,
+            'page_title': '',
             }
     return render(request, 'movie/index.html', context)
 
@@ -18,9 +19,19 @@ def movie_search(request, movie_name):
     context = {
             'movie_list': movie_list,
             'movie_name': movie_name,
+            'page_title': movie_name+' 搜索结果',
             }
     return render(request, 'movie/index.html', context)
     # return HttpResponse('search page %s' % movie_name)
+
+# 热搜榜，根据访问量返回阅读量最高的20部电影
+def movie_resou(request):
+    movie_list = Movie.objects.order_by('-v_views')[:20]
+    context = {
+            'movie_list': movie_list,
+            'page_title': '近期热搜榜',
+            }
+    return render(request, 'movie/index.html', context)
     
 
 def movie_detail(request, movie_id):

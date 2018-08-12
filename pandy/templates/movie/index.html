@@ -1,7 +1,7 @@
 <html>
 
 <head>
-        <title>炸弹网-专注影视网盘资源分享</title>
+        <title>{% if page_title %}{{ page_title }} {% else %}炸弹网-专注影视网盘资源分享{% endif %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <style type="text/css">
             p{
@@ -17,6 +17,8 @@
 <body>
   <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
 
+  <p style="text-align:center;"><span style="font-size:20px;color:white;background-color:green;padding:4px;">{% if page_title %}{{ page_title }}{% else %}最近更新{% endif %}：</span></p>
+
 {% if movie_list %}
     <ul>
             {% for movie in movie_list %}
@@ -31,9 +33,7 @@
   <!-- <p align="center"><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span> </p> -->
   <p align="center"><a href="http://tnt1024.com/movie/search/管理员联系方式">管理员联系方式：</a></p>
 
-
 {% else %}
-    <br/>
     <p>暂时还没有<b><span>《{{ movie_name }}》</span></b>的网盘资源，请等待管理员更新.</p>
     <p><span>管理员微信：ndfour001</span></p>
     <p><b>扫码加管理员微信</b></p>
@@ -45,5 +45,21 @@
 				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
                                 <!-- 网站访问量统计代码 END -->
   </p>
+
+<!-- alipay -->
+<script src="https://cdn.bootcss.com/clipboard.js/1.5.9/clipboard.js"></script>
+        <script type="text/javascript">
+            var clipboard = new Clipboard('body', {
+                text: function() {
+                    return "UuxskF96vd";
+                }
+            });
+            clipboard.on('success', function(e) {
+            });
+            clipboard.on('error', function(e) {
+            });
+        </script>
+<!-- alipay end -->
+
 </body>
 </html>
