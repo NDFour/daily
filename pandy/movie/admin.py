@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Movie
-
+from .models import Movie, Passwds
 
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('id', 'v_name', 'v_valid', 'v_pub_date')
@@ -14,15 +13,10 @@ class MovieAdmin(admin.ModelAdmin):
 
     # 搜索功能
     search_fields = ('v_name','id',)
-    '''
-    def get_search_results(self, request, queryset, search_term):
-        queryset, use_distinct = super(MovieAdmin, self).get_search_results(request, queryset, search_term)
-        try:
-            queryset = self.model.objects.filter(v_name__icontains=search_term)
-        except:
-            pass
-        return queryset, use_distinct
-    '''
+
+class PasswdsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'p_name', 'p_code', 'p_value')
 
 # Register your models here.
 admin.site.register(Movie, MovieAdmin)
+admin.site.register(Passwds, PasswdsAdmin)

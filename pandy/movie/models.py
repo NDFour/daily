@@ -26,3 +26,11 @@ class Movie(models.Model):
     def increase_views(self):
         self.v_views += 1
         self.save(update_fields=['v_views'])
+
+class Passwds(models.Model):
+    p_name = models.CharField('名称', max_length=255) # passwd 用途
+    p_code = models.PositiveIntegerField('调用代码') # 用来标识某一个 passwd
+    p_value = models.CharField('密码', max_length=255) # passwd 值
+
+    def __unicode__(self):
+        return self.p_name

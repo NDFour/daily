@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-07-20 00:59:50
-# Last Modified: 2018-08-12 19:52:09
+# Last Modified: 2018-08-13 17:19:41
 #
 
 from django.urls import path
@@ -16,4 +16,6 @@ urlpatterns = [
     path('resou/', views.movie_resou, name='movie_resou'),
     path('confirm_invalid/<int:movie_id>/<int:urlstate>', views.confirm_invalid, name='cofirm_invalid'),
     path('invalid_url_report/<int:movie_id>/<int:urlstate>', views.invalid_url_report, name='invalid_url_report'),
+    path('reset_form/<int:movie_id>', views.reset_form, name='reset_form'),
+    path('reset_form/reset_valid/', views.reset_valid, name='reset_valid'),
 ]

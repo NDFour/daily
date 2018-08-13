@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Movie
+from .models import Movie, Passwds
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
@@ -62,7 +62,7 @@ def invalid_url_report(request, movie_id, urlstate):
             # 置 v_valid 位为0
             movie.v_valid=0
             movie.save()
-            mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href)
+            mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s\n\n链接仍旧有效？\nhttp://tnt1024.com/movie/reset_form/%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href, movie_id)
             mail_subject='tnt1024 网盘链接失效通知 %s' % movie.id
             # send email 
             send_mail(mail_subject, mail_message, 'lgang219@qq.com', ['ndfour@foxmail.com'], fail_silently=True)
@@ -74,3 +74,37 @@ def invalid_url_report(request, movie_id, urlstate):
         info='管理员正在努力重新补链接中...'
 
     return render(request, 'movie/invalid_url_report.html', {'urlstate': urlstate,'info': info})
+
+def reset_form(request, movie_id):
+    msg = '修改 %s 网盘状态' %movie_id 
+    context = {
+            'msg': msg,
+            'page_title': '修改资源网盘状态',
+            }
+    return  render(request, 'movie/reset_valid.html', context)
+
+def reset_valid(request):
+    movie_id = request.GET['movie_id']
+    passwd = request.GET['b']
+    movie_id = int(movie_id)
+
+    # 根据后台设置的密码标识符，获取到对应的密码记录
+    passwd_obj = get_object_or_404(Passwds, p_code=1001)
+
+    msg = '重置 %s 的网盘状态' %str(movie_id)
+    if passwd == passwd_obj.p_value:
+        try:
+            movie = get_object_or_404(Movie, id = movie_id)
+            movie.v_valid = 1
+            movie.save()
+            msg+='成功'
+        except:
+            msg+='失败，获取资源对象出错'
+    else:
+        msg+='%s-%s失败，验证码出错'%(passwd, passwd_obj.p_value)
+
+    context = {
+            'msg' : msg,
+            'page_title': '重置影片网盘状态',
+            }
+    return render(request, 'movie/reset_valid.html', context)
