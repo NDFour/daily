@@ -62,7 +62,7 @@ def invalid_url_report(request, movie_id, urlstate):
             # 置 v_valid 位为0
             movie.v_valid=0
             movie.save()
-            mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s\n\n链接仍旧有效？\nhttp://tnt1024.com/movie/reset_form/%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href, movie_id)
+            mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s\n\n链接仍旧有效？\nhttp://tnt1024.com/movie/reset_form/%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href, movie.id)
             mail_subject='tnt1024 网盘链接失效通知 %s' % movie.id
             # send email 
             send_mail(mail_subject, mail_message, 'lgang219@qq.com', ['ndfour@foxmail.com'], fail_silently=True)
