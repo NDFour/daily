@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
 
+import requests
+import re
+
 # Create your views here.
 def index(request):
     movie_list = Movie.objects.order_by('-v_pub_date')[:10]
@@ -16,10 +19,18 @@ def index(request):
 
 def movie_search(request, movie_name):
     movie_list = Movie.objects.filter(v_name__icontains=movie_name)[:100]
+
+    # 是否展示支付宝 领红包 js代码
+    alipay_code = '0'
+    alipay_obj = get_object_or_404(Passwds, p_code=1002)
+    if alipay_obj:
+        alipay_code = alipay_obj.p_value
+
     context = {
             'movie_list': movie_list,
             'movie_name': movie_name,
             'page_title': movie_name+' 搜索结果',
+            'alipay_code': alipay_code,
             }
     return render(request, 'movie/index.html', context)
     # return HttpResponse('search page %s' % movie_name)
@@ -39,7 +50,18 @@ def movie_detail(request, movie_id):
     # 阅读量自增 1 
     movie.increase_views()
 
-    return render(request, 'movie/detail.html', {'movie': movie})
+    # 是否展示支付宝 领红包 js代码
+    alipay_code = "0"
+    alipay_obj = get_object_or_404(Passwds, p_code=1002)
+    if alipay_obj:
+        alipay_code = alipay_obj.p_value
+
+    context = {
+            'movie': movie,
+            'alipay_code': alipay_code,
+            }
+
+    return render(request, 'movie/detail.html', context)
 
 
 def confirm_invalid(request, movie_id, urlstate):
@@ -57,8 +79,8 @@ def invalid_url_report(request, movie_id, urlstate):
         movie = get_object_or_404(Movie, id = movie_id)
         urlstate = movie.v_valid
 
-        # 还未有人报告过还 失效链接
-        if urlstate == 1:
+        # 判断网盘链接是否确实已失效
+        if isInvalid(movie.v_bdpan) == 1:
             # 置 v_valid 位为0
             movie.v_valid=0
             movie.save()
@@ -67,11 +89,14 @@ def invalid_url_report(request, movie_id, urlstate):
             # send email 
             send_mail(mail_subject, mail_message, 'lgang219@qq.com', ['ndfour@foxmail.com'], fail_silently=True)
 
-        # 已有人报告过该 失效链接
+        # 经程序判断网盘链接未失效
         else:
-            info='管理员正在努力重新补链接中...'
+            # 程序判断链接未失效
+            info='[CODE:8001] 管理员正在努力重新补链接中...'
+
+    # 已有人报告过该失效链接
     else:
-        info='管理员正在努力重新补链接中...'
+        info='[CODE:8002] 管理员正在努力重新补链接中...'
 
     return render(request, 'movie/invalid_url_report.html', {'urlstate': urlstate,'info': info})
 
@@ -80,6 +105,7 @@ def reset_form(request, movie_id):
     context = {
             'msg': msg,
             'page_title': '修改资源网盘状态',
+            'movie_id': movie_id,
             }
     return  render(request, 'movie/reset_valid.html', context)
 
@@ -106,5 +132,34 @@ def reset_valid(request):
     context = {
             'msg' : msg,
             'page_title': '重置影片网盘状态',
+            'movie_id': movie_id,
             }
     return render(request, 'movie/reset_valid.html', context)
+
+
+##################### 以下函数与渲染网页无关
+
+def getHtml(url):
+    headers = {
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Cache-Control': 'max-age=0',
+            'Connection': 'keep-alive',
+            'Host': 'pan.baidu.com',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+            }
+    r=requests.get(url,headers=headers)
+    r.encoding = r.apparent_encoding
+    return r.text
+
+# 判断网盘链接是否真的失效
+def isInvalid(url):
+    html_text = getHtml(url)
+    answer = re.search('不存在', html_text)
+    # 失效
+    if(answer):
+        return 1
+    # 未失效
+    else:
+        return 0
+
