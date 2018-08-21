@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-19 13:03:37
-# Last Modified: 2018-08-21 14:33:24
+# Last Modified: 2018-08-21 22:57:20
 #
 
 from werobot import WeRoBot
@@ -12,7 +12,7 @@ import re
 import os
 import configparser
 
-robot=WeRoBot(token='wxtnt1024@')
+robot=WeRoBot(token='wxtnt1024lynn')
 robot.config['SESSION_STORAGE'] = False
 
 ### global isdebugi TO JUDGE IF THE PROGRAM IS IN DEBUG (test account)
