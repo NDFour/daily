@@ -1,20 +1,48 @@
 <html>
- <head> 
-  <title>免费百度网盘电影资源站</title> 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />  
- </head>
- <body align="center"> 
-  <p align="center" style="color:red"><b>目前已有的功能有：</b></p> 
-  <p><a href="/movie/">影视资源网盘分享</a></p> 
-  <p><a href="#">正在开发中...</a></p> 
-  <br /> 
-  <br /> 
-  <hr /> 
-  <!-- 页脚 --> 
-  <!-- <p align="center"><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span> </p> --> 
-  <p align="center"><a href="http://tnt1024.com/movie/search/管理员联系方式">管理员联系方式：</a></p> 
-  <p align="center"> 
-   <!-- 网站访问量统计代码 --> <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script> 
-   <!-- 网站访问量统计代码 END --> </p>  
- </body>
-</html>
+
+<head>
+    <title>免费百度网盘电影资源站</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+    <div align="center">
+        <!-- 功能导航栏 -->
+        {% include 'movie/navbar.html' %}
+
+        <!-- 当且仅当页面为手机屏幕大小时才显示 -->
+        <!-- 影片搜索栏 -->
+        {% include 'movie/search_box_for_mobile.html' %}
+        <!-- 影片搜索栏 End -->
+
+        <!-- 功能列表 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">目前已有的功能有：</h3>
+            </div>
+            <div class="panel-body">
+                <button class="btn btn-warning btn-lg"><a href="{% url 'movie_index_by_page' 1 %}">影视资源网盘分享</a></button>
+                <br />
+                <br />
+                <button class="btn btn-warning btn-lg"><a href="{% url 'index' %}">正在开发中...</a></button>
+            </div>
+        </div>
+        <!-- 功能列表 End -->
+
+        <!-- 公众号推广广告 -->
+        {% include 'movie/wechat_ad.html' %}
+
+        <!-- 页脚 -->
+        {% include 'movie/footer.html' %}
+        <!-- page_footer End -->
+    </div>
+    <!-- align="center"  End -->
+</body>
+
+</html

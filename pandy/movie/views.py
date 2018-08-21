@@ -4,21 +4,60 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
 
+from django.urls import reverse
+
+# 验证网盘链接是否失效
 import requests
 import re
 
+# 分页
+from django.core.paginator import Paginator, EmptyPage
+
 # Create your views here.
 def index(request):
-    movie_list = Movie.objects.order_by('-v_pub_date')[:10]
+    movie_list = Movie.objects.order_by('-v_pub_date')[:12]
+    resou_movie_list = Movie.objects.order_by('-v_views')[:7]
+
     context = {
             'movie_list': movie_list,
+            'resou_movie_list': resou_movie_list,
             'page_title': '',
             }
     return render(request, 'movie/index.html', context)
 
+def index_by_page(request, page_num):
+    try:
+        tmp = int(page_num)
+    except:
+        tmp = 1
+    page_num = tmp
 
-def movie_search(request, movie_name):
+    movie_list = Movie.objects.all().order_by('-v_pub_date')
+    # 生成 paginator 对象
+    paginator = Paginator(movie_list, 12)
+
+    try:
+        # 获取当前页码中的数据记录
+        movie_list = paginator.page(page_num)
+    except EmptyPage:
+        movie_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
+
+    resou_movie_list = Movie.objects.order_by('-v_views')[:7]
+
+    context = {
+            'movie_list': movie_list,
+            'resou_movie_list': resou_movie_list,
+            'page_title': '',
+            }
+
+    return render(request, 'movie/index.html', context)
+
+
+# 正常通过 navbar 中的 Form 搜索
+def movie_search_navbar(request):
+    movie_name = request.GET['movie_name']
     movie_list = Movie.objects.filter(v_name__icontains=movie_name)[:100]
+    resou_movie_list = Movie.objects.order_by('-v_views')[:7]
 
     # 是否展示支付宝 领红包 js代码
     alipay_code = '0'
@@ -28,6 +67,7 @@ def movie_search(request, movie_name):
 
     context = {
             'movie_list': movie_list,
+            'resou_movie_list': resou_movie_list,
             'movie_name': movie_name,
             'page_title': movie_name+' 搜索结果',
             'alipay_code': alipay_code,
@@ -47,6 +87,7 @@ def movie_resou(request):
 
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, id  = movie_id)
+    resou_movie_list = Movie.objects.order_by('-v_views')[:7]
     # 阅读量自增 1 
     movie.increase_views()
 
@@ -58,6 +99,7 @@ def movie_detail(request, movie_id):
 
     context = {
             'movie': movie,
+            'resou_movie_list': resou_movie_list,
             'alipay_code': alipay_code,
             }
 
@@ -79,24 +121,28 @@ def invalid_url_report(request, movie_id, urlstate):
         movie = get_object_or_404(Movie, id = movie_id)
         urlstate = movie.v_valid
 
-        # 判断网盘链接是否确实已失效
-        if isInvalid(movie.v_bdpan) == 1:
-            # 置 v_valid 位为0
-            movie.v_valid=0
-            movie.save()
-            mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s\n\n链接仍旧有效？\nhttp://tnt1024.com/movie/reset_form/%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href, movie.id)
-            mail_subject='tnt1024 网盘链接失效通知 %s' % movie.id
-            # send email 
-            send_mail(mail_subject, mail_message, 'lgang219@qq.com', ['ndfour@foxmail.com'], fail_silently=True)
+        if urlstate == 1:
+            # 判断网盘链接是否确实已失效
+            if isInvalid(movie.v_bdpan) == 1:
+                # 置 v_valid 位为0
+                movie.v_valid=0
+                movie.save()
+                mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s\n\n链接仍旧有效？\nhttp://tnt1024.com/movie/reset_form/%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href, movie.id)
+                mail_subject='tnt1024 网盘链接失效通知 %s' % movie.id
+                # send email 
+                send_mail(mail_subject, mail_message, 'lgang219@qq.com', ['ndfour@foxmail.com'], fail_silently=True)
 
-        # 经程序判断网盘链接未失效
+            # 经程序判断网盘链接未失效
+            else:
+                # 程序判断链接未失效
+                info='[CODE:8001] 管理员正在努力重新补链接中...'
         else:
-            # 程序判断链接未失效
-            info='[CODE:8001] 管理员正在努力重新补链接中...'
+            # 多次点击重置按钮
+            info='[CODE:8002] 管理员正在努力重新补链接中...'
 
     # 已有人报告过该失效链接
     else:
-        info='[CODE:8002] 管理员正在努力重新补链接中...'
+        info='[CODE:8003] 管理员正在努力重新补链接中...'
 
     return render(request, 'movie/invalid_url_report.html', {'urlstate': urlstate,'info': info})
 

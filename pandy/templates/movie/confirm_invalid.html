@@ -1,7 +1,11 @@
 <html>
- <head>
+<head>
      <title>网盘链接失效报告</title>
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- Bootstrap -->
+     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
      <style type="text/css">
         h3{
             color:#298A08;
@@ -24,26 +28,41 @@
 </head>
 
 <body>
-<a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    <div align="center">
+        <!-- 功能导航栏 -->
+        {% include 'movie/navbar.html' %}
+        <!-- 功能导航栏 End -->
 
-<h3>资源网盘链接失效反馈页面</h3>
+        <!-- 反馈页面主要内容 -->
+        <div class="feedback">
+            <h3>资源网盘链接失效反馈页面</h3>
+            <br />
+            <p>您确认该资源的网盘链接已经失效了吗？</p>
+            <span><em>点击<b>”已失效”</b>将通知管理员更新网盘链接</em></span>
+            <!-- 反馈按钮 -->
+            <!--
+            <p id="yes_button"><a href="http://tnt1024.com/movie/invalid_url_report/{{ movie_id }}/{{ urlstate }}">确定</a></p>
+            -->
+            <br />
+            <br />
+            <br />
+            <button class="btn btn-warning"><a href="{% url 'invalid_url_report' movie_id urlstate %}">已失效</a></button>
+            &nbsp &nbsp
+            <button class="btn btn-success"><a href="{% url 'movie_detail' movie_id %}">未失效</a></button>
+            <br /> <br />  <hr />
+        </div>
 
-<p>您确认该资源的网盘链接已经失效了吗？</p>
-<span><em>点击<b>”确定”</b>将通知管理员更新网盘链接</em></span>
+    </div>
+    <!-- class="center" End -->
 
-<!-- 反馈按钮 -->
-<p id="yes_button"><a href="http://tnt1024.com/movie/invalid_url_report/{{ movie_id }}/{{ urlstate }}">确定</a></p>
 
-<br /> <br />  <hr />
+    <!-- 微信推广图文 -->
+    <!--
+    <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    -- >
 
-  <!-- 页脚 -->
-  <!-- <p align="center"><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span> </p> -->
-  <p align="center"><a href="http://tnt1024.com/movie/search/管理员联系方式">管理员联系方式：</a></p>
+    <!-- 页脚 -->
+    {% include 'movie/footer.html' %}
 
-  <!-- 网站访问量统计代码 -->
-  <p align="center">
-      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-  </p>
-
- </body>
+</body>
 </html>

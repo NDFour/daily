@@ -1,68 +1,96 @@
 <html>
 
 <head>
-        <title>{% if page_title %}{{ page_title }} {% else %}炸弹网-专注影视网盘资源分享{% endif %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style type="text/css">
-            p{
-                text-align: center;
-            }
-            span{
-                font-size: 16px;
-                color: rgb(200, 69, 29);
-            }
-        </style>
+    <title>{% if page_title %}{{ page_title }} {% else %}炸弹网-专注影视网盘资源分享{% endif %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        p {
+            text-align: center;
+        }
+
+        .pub_date {
+            font-size: 14px;
+            color: #9999CC;
+        }
+        span {
+            font-size: 14px;
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
-  <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    <div align="center">
+        <!-- 导航栏 -->
+        {% include 'movie/navbar.html' %}
+    </div>
+    <!-- align="center" End -->
 
-  <p style="text-align:center;"><span style="font-size:20px;color:white;background-color:green;padding:4px;">{% if page_title %}{{ page_title }}{% else %}最近更新{% endif %}：</span></p>
+    <!-- 推广微信图文消息 -->
+    <!--
+    <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" style="padding-top:100px,"><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    -->
 
-{% if movie_list %}
-    <ul>
-            {% for movie in movie_list %}
-            <li><a href="/movie/{{ movie.id }}/">{{ movie.v_name }}</a></li>
-            <br/>
-            {% endfor %}
+    <!-- 当屏幕为手机屏幕大小时，展示手机端搜索框 -->
+    {% include 'movie/search_box_for_mobile.html' %}
+
+    <div class="container">
+        <div class="row">
+
+            <!-- 2/3 窗口 -->
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <!-- 电影列表 -->
+                {% include 'movie/movie_list.html' %}
+            </div>
+
+            <!-- 1/3 窗口 -->
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <!-- 判断是否需要展示 热搜榜 -->
+                {% if resou_movie_list %}
+                    {% include 'movie/resou_movie.html' %}
+                {% endif %}
+
+                <!-- 微信公众号吸粉广告 -->
+                {% include 'movie/wechat_ad.html' %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <ul class="pagination">
+        <!-- 上一页按钮 -->
+        {% if movie_list.has_previous %}
+            <li class="previous"><a href="{% url 'movie_index_by_page' movie_list.previous_page_number %}">上一页</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="{% url 'movie_index_by_page' 1 %}">上一页</a></li>
+        {% endif %}
+
+        <!-- 页码 -->
+        {% for num in paginator.page_range %}
+            {% if num == currentPage %}
+                <li class="item active"><a href="{% url 'movie_index_by_page' num }">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a href="{% url 'movie_index_by_page' num}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- 下一页按钮 -->
+        {% if movie_list.has_next %}
+            <li class="next"><a href="{% url 'movie_index_by_page' movie_list.next_page_number %}">下一页</a></li>
+        {% else %}
+            <li class="next disabled"><a href="{% url 'movie_index_by_page' 1 %}" >下一页</a></li>
+        {% endif %}
     </ul>
 
-<br />  <hr />
+    <!-- 页脚 -->
+    {% include 'movie/footer.html' %}
 
-  <!-- 页脚 -->
-  <!-- <p align="center"><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span> </p> -->
-  <p align="center"><a href="http://tnt1024.com/movie/search/管理员联系方式">管理员联系方式：</a></p>
-
-{% else %}
-    <p>暂时还没有<b><span>《{{ movie_name }}》</span></b>的网盘资源，请等待管理员更新.</p>
-    <p><span>管理员微信：ndfour001</span></p>
-    <p><b>扫码加管理员微信</b></p>
-    <img src="https://upload-images.jianshu.io/upload_images/5649568-5e15ea6578b42c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width=100%>
-
-{% if alipay_code == "1" %}
-<!-- alipay -->
-<script src="https://cdn.bootcss.com/clipboard.js/1.5.9/clipboard.js"></script>
-        <script type="text/javascript">
-            var clipboard = new Clipboard('body', {
-                text: function() {
-                    return "UuxskF96vd";
-                }
-            });
-            clipboard.on('success', function(e) {
-            });
-            clipboard.on('error', function(e) {
-            });
-        </script>
-<!-- alipay end -->
-{% endif %}
-
-{% endif %}
-
-  <p align="center"
-                                <!-- 网站访问量统计代码 -->
-				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-                                <!-- 网站访问量统计代码 END -->
-  </p>
 
 </body>
+
 </html>

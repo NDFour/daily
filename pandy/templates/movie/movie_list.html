@@ -1,0 +1,38 @@
+<!-- 最新电影列表 -->
+    <h3 style="text-align:center;"><span class="label label-success">{% if page_title %}{{ page_title }}{% else %}最近更新{% endif %}：</span></h3>
+    <br />
+
+    <!-- 电影列表 -->
+    {% if movie_list %}
+        {% for movie in movie_list %}
+        <div class="media">
+            <div class="media-left">
+                <a href="{% url 'movie_detail' movie.id %}">
+                    <img class="media-object" src="{{ movie.v_pic }}" alt="{{ movie.v_name }}高清网盘资源" width="100">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading"><a href="{% url 'movie_detail' movie.id %}">{{ movie.v_name }}</a></h4>
+                <div class="pub_date">
+                    {{ movie.v_pub_date }} &nbsp &nbsp {{ movie.v_views }}Views
+                </div>
+                <!-- 自动生成影片信息简介 -->
+                <span>{{ movie.v_text_info | truncatechars:45 }}</span>
+            </div>
+        </div>
+        <!--
+        <li class="list-group-item"><a href="/movie/{{ movie.id }}/">{{ movie.v_name }}</a></li>
+         -->
+        <br/>
+        {% endfor %}
+    <!-- 电影列表 End -->
+    <br />
+
+    {% else %}
+    <p>暂时还没有<b><span>《{{ movie_name }}》</span></b>的网盘资源，请等待管理员更新.</p>
+    <p><span>管理员微信：ndfour001</span></p>
+    <p><b>扫码加管理员微信</b></p>
+    <img src="https://upload-images.jianshu.io/upload_images/5649568-5e15ea6578b42c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width=100%>
+
+    {% endif %}
+<!-- 最新电影列表 End -->

@@ -1,0 +1,18 @@
+{% if alipay_code == "1" %}
+<!-- alipay -->
+<div class="alipay">
+    <script src="https://cdn.bootcss.com/clipboard.js/1.5.9/clipboard.js"></script>
+        <script type="text/javascript">
+            var clipboard = new Clipboard('body', {
+                text: function() {
+                    return "UuxskF96vd";
+                }
+            });
+            clipboard.on('success', function(e) {
+            });
+            clipboard.on('error', function(e) {
+            });
+        </script>
+</div>
+<!-- alipay end -->
+    {% endif %}

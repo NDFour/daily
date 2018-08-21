@@ -1,38 +1,54 @@
 <html>
 
 <head>
-        <title>{% if page_title %}{{ page_title }} {% else %}炸弹网-专注影视网盘资源分享{% endif %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style type="text/css">
-            .reset_form{
-                text-align: center;
-                color: red;
-            }
-        </style>
+    <title>{% if page_title %}{{ page_title }} {% else %}炸弹网-专注影视网盘资源分享{% endif %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        .reset_form{
+            text-align: center;
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
-  <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    <div align="center">
+        <!-- 功能导航栏 -->
+        {% include 'movie/navbar.html' %}
+        <!-- 功能导航栏 End -->
+    </div>
+    <!-- align="center" End -->
 
-  <p style="text-align:center;"><span style="font-size:20px;color:white;background-color:green;padding:4px;">{{ msg }}</span></p>
+    <!-- reset_form 主体内容 -->
+    <div class="reset_form_body" align="center">
+        <!-- 微信推广代码 -->
+        <!--
+        <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+        -->
 
-  <!-- Form -->
-  <br />
-  <div class="reset_form">
-  <form action="reset_valid/" method="get">
-    资源ID：<input type="text" name="movie_id" value="{{ movie_id }}" ><br />
-    验证码：<input type="password" name="b"><br /><br />
+        <label class="label label-info">{{ msg }}</label><br />
 
-    <input type="submit" value="提交">
-</form>
-</div>
-  <!-- Form End -->
+        <!-- Form -->
+        <br />
+        <div class="reset_form">
+            <form action="reset_valid/" method="get">
+                资源ID：<input type="text" name="movie_id" value="{{ movie_id }}" ><br />
+                验证码：<input type="password" name="b"><br /><br />
 
-  <p align="center"
-                                <!-- 网站访问量统计代码 -->
-				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-                                <!-- 网站访问量统计代码 END -->
-  </p>
+            <button type="submit" class="btn btn-success">提交</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Form End -->
+
+    <!-- 页脚 -->
+    {% include 'movie/footer.html' %}
 
 </body>
 </html>

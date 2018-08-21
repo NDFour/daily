@@ -1,120 +1,71 @@
 <html>
  <head>
      <title>《{{ movie.v_name }}》免费网盘资源分享</title>
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- Bootstrap -->
+     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
      <style type="text/css">
-
          p{
              text-indent: 1em;
          }
-
-         .hongse{
-             text-indent: 0.5em;
-             font-size: 16px;
-             color: rgba(120, 69, 69);
-             font-weight: bold;
-         }
-
-         .zongse{
-             text-indent: 0.5em;
-             font-size: 16px;
-             color: rgba(100, 69, 29);
-         }
-
          .magnet_url{
              font-size: 15px;
          }
-
          span{
              color: black;
              font-weight: normal;
-             font-size: 12px;
+             font-size: 14px;
              text-indent: 2em;
              display: inline;
          }
-
-         #pan_invalid{
-             font-weight: normal;
-             font-size: 14px;
-         }
-
          .pubdate_views{
              font-size: 14px;
              color:grey;
+             padding-bottom: 6px;
          }
-
      </style>
 </head>
 
-<body class="ke-content">
-<a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+<body>
+    <div align="center">
+        <!-- 导航栏 -->
+        {% include 'movie/navbar.html' %}
+    </div>
+    <!-- align="center" End -->
 
-<h3>{{ movie.v_name }}</h3>
+    <!-- 公众号推广图文 -->
+    <!--
+    <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    -->
+    <!-- 公众号推广图文 End -->
 
-<p class="pubdate_views">{{ movie.v_pub_date }}  {{ movie.v_views }} Views</p>
+    <div class="container">
+        <div class="row">
 
-  <p><img src="{{ movie.v_pic }}" data-ke-src="{{ movie.v_pic }}" alt=""  title="" align="" width=50%  /><br /></p>
+            <!-- 电影信息区域 -->
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                {% include 'movie/movie_info_jumbotron.html' %}
+            </div>
 
-  <!-- 剧情介绍 -->
-  {% if movie.v_text_info %}
-  <p class="zongse">剧情介绍：</p>
-  <p><span>{{ movie.v_text_info }}</span></p>
-  {% endif %}
-  <!-- 剧情信息 END -->
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <!-- 判断是否需要展示 热搜榜 -->
+                {% if resou_movie_list %}
+                <!-- 热搜榜 -->
+                    {% include 'movie/resou_movie.html' %}
+                {% endif %}
 
-  <!-- 网盘 -->
-  <p class="hongse">网盘： <a href="{{ movie.v_bdpan }}">百度网盘<a/> </p>
-  {% if movie.v_pass %}
-  <p class="hongse">{{ movie.v_pass }}</p>
-  {% endif %}
-  <!-- 网盘 END -->
+                <!-- 微信公众号吸粉广告 -->
+                {% include 'movie/wechat_ad.html' %}
+            </div>
 
-  <!-- 网盘链接失效报告 -->
-  <p><a id="pan_invalid" href="http://tnt1024.com/movie/confirm_invalid/{{ movie.id }}/{{ movie.v_valid }}">网盘链接失效请点我</a></p>
+        </div>
+    </div>
 
-  <!-- 磁力链接 -->
-  {% if movie.v_ed2k %}
-  <p class="zongse">磁力链接 1： </p>
-  <p class="magnet_url">
-      <a target="_blank" href="{{ movie.v_ed2k }}" rel="noopener">{{ movie.v_ed2k_name }}</a>
-  </p>
-  {% endif %}
+    {% include 'movie/alipay.html' %}
 
-  {% if movie.v_magnet %}
-  <p class="zongse">磁力链接 2：</p>
-  <p class="magnet_url">
-      <a target="_blank" href="{{ movie.v_magnet }}" rel="noopener">{{ movie.v_magnet_name }}</a>
-  </p>
-  {% endif %}
-  <!-- 磁力链接 END -->
+    {% include 'movie/footer.html' %}
 
-<br /> <br />  <hr />
-
-  <!-- 页脚 -->
-  <!-- <p align="center"><span style="font-size: 14px; color: blue;">如遇网网盘链接失效等问题请联系管理员修复</span> </p> -->
-  <p align="center"><a href="http://tnt1024.com/movie/search/管理员联系方式">管理员联系方式：</a></p>
-
-{% if alipay_code == "1" %}
-<!-- alipay -->
-<script src="https://cdn.bootcss.com/clipboard.js/1.5.9/clipboard.js"></script>
-        <script type="text/javascript">
-            var clipboard = new Clipboard('body', {
-                text: function() {
-                    return "UuxskF96vd";
-                }
-            });
-            clipboard.on('success', function(e) {
-            });
-            clipboard.on('error', function(e) {
-            });
-        </script>
-<!-- alipay end -->
-{% endif %}
-
-  <!-- 网站访问量统计代码 -->
-  <p align="center">
-      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274275806'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274275806%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-  </p>
-
- </body>
+</body>
 </html>

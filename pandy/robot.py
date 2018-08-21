@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-19 13:03:37
-# Last Modified: 2018-08-19 13:55:39
+# Last Modified: 2018-08-21 14:33:24
 #
 
 from werobot import WeRoBot
@@ -31,7 +31,10 @@ ad2_state=1
 reply_info_state=1
 
 # baseUrl 构造search页链接
-baseUrl='http://m.bjwxzs.com.cn/index.php/home/index/search.html?k='
+# 在线播放
+baseUrl1='http://m.bjwxzs.com.cn/index.php/home/index/search.html?k='
+# 百度网盘 链接
+baseUrl2='http://tnt1024.com/movie/?movie_name='
 
 @robot.subscribe
 def subscribe(message):
@@ -103,12 +106,19 @@ def hello(message):
             msgWriteToConfigFile=writeToConfigFile('ad2_state',str(ad2_state))
             return msgWriteToConfigFile+'\nNow the ad2_state is : %s'%str(ad2_state)
 
-        # 更改 reply_info_bygenurl 中的 baseUrl
-        elif re.match(r'changebaseurl .*',message.content):
-            global baseUrl
-            baseUrl=message.content[14:]
-            msgWriteToConfigFile=writeToConfigFile('baseUrl',baseUrl)
-            return msgWriteToConfigFile+'\n更改 baseUrl 成功!'
+        # 更改 reply_info_bygenurl 中 在线观看 的 baseUrl1
+        elif re.match(r'changebaseurl1 .*',message.content):
+            global baseUrl1
+            baseUrl1=message.content[15:]
+            msgWriteToConfigFile=writeToConfigFile('baseUrl1',baseUrl1)
+            return msgWriteToConfigFile+'\n更改 baseUrl1 成功!'
+
+        # 更改 reply_info_bygenurl 中 网盘链接 的 baseUrl2
+        elif re.match(r'changebaseurl2 .*',message.content):
+            global baseUrl2
+            baseUrl2=message.content[15:]
+            msgWriteToConfigFile=writeToConfigFile('baseUrl2',baseUrl2)
+            return msgWriteToConfigFile+'\n更改 baseUrl2 成功!'
 
         # 返回程序配置文件config.ini中相关配置
         elif message.content=='showConfig':
@@ -208,9 +218,12 @@ def reply_info(v_name):
 # 构造查询 url 返回给用户
 def reply_info_bygenurl(v_name):
     out_list=[]
+
+    # 罗拉电影搜索 URL
+    '''
     #baseUrl='http://m.nemfh.cn/index.php/home/index/search.html?k='
-    global baseUrl
-    url=baseUrl+v_name
+    global baseUrl1
+    url=baseUrl1+v_name
     name='【在线观看】《'+v_name+'》'
     picurl='https://s1.ax1x.com/2018/08/11/P6L2sU.jpg'
     # 插入搜索词条链接图文消息
@@ -220,16 +233,21 @@ def reply_info_bygenurl(v_name):
     in_list.append(picurl)
     in_list.append(url)
     out_list.append(in_list)
-    #   网盘电影网站 搜索结果
+    '''
+
+    # 网盘电影网站 搜索结果
     in_list=[]
     name_pan='【网盘资源】《' + v_name + '》'
-    pic_pan='https://upload-images.jianshu.io/upload_images/5649568-867870961e0b81c5.jpg'
-    url_pan='http://tnt1024.com/movie/search/' + v_name
+    global baseUrl2
+    # pic_pan='https://upload-images.jianshu.io/upload_images/5649568-867870961e0b81c5.jpg'
+    pic_pan = 'http://wx1.sinaimg.cn/mw690/0060lm7Tly1fuh4pci3jjj30p00dwgmc.jpg'
+    url_pan=baseUrl2 + v_name
     in_list.append(name_pan)
     in_list.append(name_pan)
     in_list.append(pic_pan)
     in_list.append(url_pan)
     out_list.append(in_list)
+
     #   图文消息加上一条之前的广告推文链接
     global adtuple
     global adtuple2
@@ -308,13 +326,15 @@ def showConfig():
     global ad1_state
     global ad2_state
     global reply_info_state
-    global baseUrl
+    global baseUrl1
+    global baseUrl2
 
     msg='config.ini:\n'
     msg+='\nad1_state:'+str(ad1_state)
     msg+='\nad2_state:'+str(ad2_state)
     msg+='\nreply_info_state:'+str(reply_info_state)
-    msg+='\nbaseUrl:'+baseUrl
+    msg+='\nbaseUrl1:'+baseUrl1
+    msg+='\nbaseUrl2:'+baseUrl2
 
     return msg
 
@@ -323,7 +343,8 @@ def loadConfig():
     global ad1_state
     global ad2_state
     global reply_info_state
-    global baseUrl
+    global baseUrl1
+    global baseUrl2
 
     config=configparser.ConfigParser()
     config.read("config.ini")
@@ -335,7 +356,8 @@ def loadConfig():
         # global reply_info_state 用来标识回复用户信息所需要调用的方法函数
         reply_info_state=config.getint('werobot','reply_info_state')
         # baseUrl 构造search页链接
-        baseUrl=config.get('werobot','baseUrl')
+        baseUrl1=config.get('werobot','baseUrl1')
+        baseUrl2=config.get('werobot','baseUrl2')
     except:
         return 'config.ini配置文件加载失败'
 
