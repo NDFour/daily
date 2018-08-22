@@ -3,7 +3,8 @@
         <h4><span class="label label-info">近期热搜榜</span></h4>
         <div class="list-group">
             {% for resou in resou_movie_list %}
-                <a href="{% url 'movie_detail' resou.id %}" class="list-group-item active"> <span class="badge">{{ resou.v_views }}</span>{{ resou.v_name }}</a>
+                <a href="{% url 'movie_detail' resou.id %}" class="list-group-item active">
+                    <span class="badge"><span class="glyphicon glyphicon-fire" aria-hiden="true" style="color: red;"></span> {{ resou.v_views }}</span>{{ resou.v_name }}</a>
             {% endfor %}
         </div>
     </div>
