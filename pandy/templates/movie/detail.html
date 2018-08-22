@@ -31,7 +31,7 @@
 <body>
     <div align="center">
         <!-- 导航栏 -->
-        {% include 'movie/navbar.html' %}
+        {% include 'index/navbar.html' %}
     </div>
     <!-- align="center" End -->
 
@@ -53,19 +53,19 @@
                 <!-- 判断是否需要展示 热搜榜 -->
                 {% if resou_movie_list %}
                 <!-- 热搜榜 -->
-                    {% include 'movie/resou_movie.html' %}
+                    {% include 'movie/resou_movie_bar.html' %}
                 {% endif %}
 
                 <!-- 微信公众号吸粉广告 -->
-                {% include 'movie/wechat_ad.html' %}
+                {% include 'index/wechat_ad.html' %}
             </div>
 
         </div>
     </div>
 
-    {% include 'movie/alipay.html' %}
+    {% include 'index/alipay.html' %}
 
-    {% include 'movie/footer.html' %}
+    {% include 'index/footer.html' %}
 
 </body>
 </html>

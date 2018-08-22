@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-07-20 00:59:50
-# Last Modified: 2018-08-21 20:46:29
+# Last Modified: 2018-08-22 09:55:00
 #
 
 from django.urls import path

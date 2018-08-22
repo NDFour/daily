@@ -15,13 +15,25 @@ from django.core.paginator import Paginator, EmptyPage
 
 # Create your views here.
 def index(request):
-    movie_list = Movie.objects.order_by('-v_pub_date')[:12]
+    movie_list = Movie.objects.all().order_by('-v_pub_date')
+    # 一页的数据数据
+    per_page = 12
+    # 生成 paginator 对象
+    paginator = Paginator( movie_list, per_page )
+
+    try:
+        # 获取第一页的数据并返回
+        movie_list = paginator.page(1)
+    except:
+        movie_list = paginator.page(1)
+
     resou_movie_list = Movie.objects.order_by('-v_views')[:7]
 
     context = {
             'movie_list': movie_list,
             'resou_movie_list': resou_movie_list,
             'page_title': '',
+            'url_name': 'movie_index', # 传递给模板，用以区别显示 页码 链接
             }
     return render(request, 'movie/index.html', context)
 
@@ -33,8 +45,10 @@ def index_by_page(request, page_num):
     page_num = tmp
 
     movie_list = Movie.objects.all().order_by('-v_pub_date')
+    # 一页的数据数目
+    per_page = 12
     # 生成 paginator 对象
-    paginator = Paginator(movie_list, 12)
+    paginator = Paginator( movie_list, per_page )
 
     try:
         # 获取当前页码中的数据记录
@@ -48,6 +62,7 @@ def index_by_page(request, page_num):
             'movie_list': movie_list,
             'resou_movie_list': resou_movie_list,
             'page_title': '',
+            'url_name': 'movie_index_by_page',
             }
 
     return render(request, 'movie/index.html', context)
@@ -56,7 +71,24 @@ def index_by_page(request, page_num):
 # 正常通过 navbar 中的 Form 搜索
 def movie_search_navbar(request):
     movie_name = request.GET['movie_name']
-    movie_list = Movie.objects.filter(v_name__icontains=movie_name)[:100]
+    # 尝试获取页码
+    try:
+        page_num = request.GET['page_num']
+    except:
+        page_num = 1
+
+    movie_list = Movie.objects.filter(v_name__icontains=movie_name)
+
+    per_page = 12
+    # 生成 paginator 对象
+    paginator = Paginator(movie_list, per_page)
+
+    try:
+        # 获取当前页码中的数据记录
+        movie_list = paginator.page(page_num)
+    except:
+        movie_list = paginator.page(1)
+
     resou_movie_list = Movie.objects.order_by('-v_views')[:7]
 
     # 是否展示支付宝 领红包 js代码
@@ -71,6 +103,7 @@ def movie_search_navbar(request):
             'movie_name': movie_name,
             'page_title': movie_name+' 搜索结果',
             'alipay_code': alipay_code,
+            'url_name': 'movie_search_navbar',
             }
     return render(request, 'movie/index.html', context)
     # return HttpResponse('search page %s' % movie_name)
