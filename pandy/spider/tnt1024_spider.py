@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-30 11:18:12
-# Last Modified: 2018-08-30 11:47:16
+# Last Modified: 2018-08-30 19:26:09
 #
 
 '''
@@ -67,7 +67,7 @@ class movieSpider:
         for category in self.category_urls:
             # 遍历 pages_num 页
             while current_page < self.pages_num:
-                print('>> [get_url] 当前是第 %s 页\n>> %s\n' % (current_page, category + str(current_page) ) )
+                print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) ) )
                 # 构造响应页码目录url，并获取目录页网页 文本
                 category_html = self.get_html(category + str(current_page))
                 # 只解析 <h2> 标签，其中包含电影名和详情页url
@@ -81,7 +81,7 @@ class movieSpider:
                     title = i.string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
                     if self.is_saved(title):
-                        print('>> [get_url] 跳过，该电影已存在\n  %s' % title)
+                        print('>> [get_url] skip already exsist\n  %s' % title)
                     else:
                         title_list.append(title)
                         url_list.append(href)
@@ -89,7 +89,7 @@ class movieSpider:
                 # 页码数 ++ ，构造下一页的目录页url
                 current_page += 1
 
-        print('>> [get_url] 共找到 %s 部电影' % movies_num)
+        print('>> [get_url] total %s movies' % movies_num)
         return title_list,url_list
 
     # 解析详情页获得电影信息，返回电影信息 列表
