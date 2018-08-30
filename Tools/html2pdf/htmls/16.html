@@ -1,0 +1,162 @@
+<meta charset="utf-8" /><h1>调用函数</h1><!DOCTYPE html>
+<div class="x-wiki-content x-main-content">
+ <p>
+  Python内置了很多有用的函数，我们可以直接调用。
+ </p>
+ <p>
+  要调用一个函数，需要知道函数的名称和参数，比如求绝对值的函数
+  <code>
+   abs
+  </code>
+  ，只有一个参数。可以直接从Python的官方网站查看文档：
+ </p>
+ <p>
+  <a href="http://docs.python.org/3/library/functions.html#abs" target="_blank">
+   http://docs.python.org/3/library/functions.html#abs
+  </a>
+ </p>
+ <p>
+  也可以在交互式命令行通过
+  <code>
+   help(abs)
+  </code>
+  查看
+  <code>
+   abs
+  </code>
+  函数的帮助信息。
+ </p>
+ <p>
+  调用
+  <code>
+   abs
+  </code>
+  函数：
+ </p>
+ <pre><code>&gt;&gt;&gt; abs(100)
+100
+&gt;&gt;&gt; abs(-20)
+20
+&gt;&gt;&gt; abs(12.34)
+12.34
+</code></pre>
+ <p>
+  调用函数的时候，如果传入的参数数量不对，会报
+  <code>
+   TypeError
+  </code>
+  的错误，并且Python会明确地告诉你：
+  <code>
+   abs()
+  </code>
+  有且仅有1个参数，但给出了两个：
+ </p>
+ <pre><code>&gt;&gt;&gt; abs(1, 2)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: abs() takes exactly one argument (2 given)
+</code></pre>
+ <p>
+  如果传入的参数数量是对的，但参数类型不能被函数所接受，也会报
+  <code>
+   TypeError
+  </code>
+  的错误，并且给出错误信息：
+  <code>
+   str
+  </code>
+  是错误的参数类型：
+ </p>
+ <pre><code>&gt;&gt;&gt; abs('a')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: bad operand type for abs(): 'str'
+</code></pre>
+ <p>
+  而
+  <code>
+   max
+  </code>
+  函数
+  <code>
+   max()
+  </code>
+  可以接收任意多个参数，并返回最大的那个：
+ </p>
+ <pre><code>&gt;&gt;&gt; max(1, 2)
+2
+&gt;&gt;&gt; max(2, 3, 1, -5)
+3
+</code></pre>
+ <h3>
+  <a name="#-E6-95-B0-E6-8D-AE-E7-B1-BB-E5-9E-8B-E8-BD-AC-E6-8D-A2">
+  </a>
+  数据类型转换
+ </h3>
+ <p>
+  Python内置的常用函数还包括数据类型转换函数，比如
+  <code>
+   int()
+  </code>
+  函数可以把其他数据类型转换为整数：
+ </p>
+ <pre><code>&gt;&gt;&gt; int('123')
+123
+&gt;&gt;&gt; int(12.34)
+12
+&gt;&gt;&gt; float('12.34')
+12.34
+&gt;&gt;&gt; str(1.23)
+'1.23'
+&gt;&gt;&gt; str(100)
+'100'
+&gt;&gt;&gt; bool(1)
+True
+&gt;&gt;&gt; bool('')
+False
+</code></pre>
+ <p>
+  函数名其实就是指向一个函数对象的引用，完全可以把函数名赋给一个变量，相当于给这个函数起了一个“别名”：
+ </p>
+ <pre><code>&gt;&gt;&gt; a = abs # 变量a指向abs函数
+&gt;&gt;&gt; a(-1) # 所以也可以通过a调用abs函数
+1
+</code></pre>
+ <h3>
+  <a name="#-E7-BB-83-E4-B9-A0">
+  </a>
+  练习
+ </h3>
+ <p>
+  请利用Python内置的
+  <code>
+   hex()
+  </code>
+  函数把一个整数转换成十六进制表示的字符串：
+ </p>
+ <pre><code class="lang-x-python"># -*- coding: utf-8 -*-
+
+n1 = 255
+n2 = 1000
+----
+print(???)
+</code></pre>
+ <h3>
+  <a name="#-E5-B0-8F-E7-BB-93">
+  </a>
+  小结
+ </h3>
+ <p>
+  调用Python的函数，需要根据函数定义，传入正确的参数。如果函数调用出错，一定要学会看错误信息，所以英文很重要！
+ </p>
+ <h3>
+  <a name="#-E5-8F-82-E8-80-83-E6-BA-90-E7-A0-81">
+  </a>
+  参考源码
+ </h3>
+ <p>
+  <a href="https://github.com/michaelliao/learn-python3/blob/master/samples/function/call_func.py" target="_blank">
+   call_func.py
+  </a>
+ </p>
+</div>
