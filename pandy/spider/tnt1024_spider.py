@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-30 11:18:12
-# Last Modified: 2018-08-30 19:26:09
+# Last Modified: 2018-08-30 19:31:37
 #
 
 '''
@@ -81,7 +81,8 @@ class movieSpider:
                     title = i.string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
                     if self.is_saved(title):
-                        print('>> [get_url] skip already exsist\n  %s' % title)
+                        # print('>> [get_url] skip already exsist\n  %s' % title)
+                        print('>> [get_url] already exsist')
                     else:
                         title_list.append(title)
                         url_list.append(href)
@@ -153,7 +154,6 @@ class movieSpider:
         cursor=conn.cursor()
 
         sql_select = "SELECT * FROM movie_movie WHERE v_name='%s';" % title
-        # print('>> [is_saved] %s' %sql_select)
         try:
             cursor.execute(sql_select)
         except:
@@ -163,7 +163,6 @@ class movieSpider:
             conn.close()
 
         target_num = len(cursor.fetchall())
-        # print('>> [is_saved] type:%s' %(type(cursor.fetchall() ) ) )
 
         if target_num != 0:
             return 1
@@ -178,8 +177,7 @@ class movieSpider:
 
         sql_insert = 'INSERT INTO movie_movie(v_name, v_pic, v_text_info, v_bdpan, v_pass, v_href, v_pub_date, v_ed2k, v_magnet, v_ed2k_name, v_magnet_name, v_valid, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", "%s", "%s", "%s", "%s", "%s", 1, 0);' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], sql_param[5], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), '', '', '', '')
-        # print('>> [save_2_db] sql_insert:')
-        # print(sql_insert)
+
         try:
             cursor.execute(sql_insert)
             conn.commit()
