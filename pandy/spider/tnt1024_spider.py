@@ -41,7 +41,7 @@ class movieSpider:
             'http://www.yeyoufang.com/fl/dy/page/',
             ]
     # 每次需要更新的页数+1
-    pages_num = 800
+    pages_num = 5
 
     def __init__(self):
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
@@ -187,8 +187,6 @@ class movieSpider:
             movie_name = sql_param[0]
             movie_href = sql_param[5]
             sql_del = 'DELETE FROM movie_movie WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
-            print('>> [save_2_db] sql_del:')
-            print(sql_del)
             try:
                 cursor.execute(sql_del)
                 conn.commit()
@@ -234,19 +232,5 @@ def main():
     for detail_url in url_list:
         spider.get_info(detail_url)
     # spider.get_info('http://www.yeyoufang.com/33081.htm')
-    '''
-    list_cnt = 0
-    for movie in movie_list:
-        # 判断该电影名是否已存在于数据库中
-        if spider.is_saved(movie):
-            pass
-        else:
-            print(url_list[list_cnt])
-            get_info(url_list[list_cnt])
-        list_cnt ++
-
-    # 发送 spider 运行统计信息邮件
-    spider.send_mail()
-    '''
 
 main()
