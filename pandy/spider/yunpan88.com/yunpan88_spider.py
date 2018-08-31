@@ -12,6 +12,7 @@ import re
 import pymysql
 import time
 import os
+import traceback
 
 class movieSpider:
     # 采集网站的目录url
@@ -119,10 +120,10 @@ class movieSpider:
         movie_info_list.append(detail_url)
 
         # 传入影片信息列表保存电影信息
-        # self.save_2_db(movie_info_list)
-        print(movie_info_list)
-        self.save_2_file(movie_info_list)
-        print()
+        self.save_2_db(movie_info_list)
+        # print(movie_info_list)
+        # self.save_2_file(movie_info_list)
+        # print()
 
     # 判断传入的 影片名 是否已存在于数据库
     def is_saved(self, title):
@@ -188,6 +189,8 @@ class movieSpider:
             print('>> [save_2_file] success')
         except:
             print('>> [save_2_file] failed')
+            print(traceback.print_exc())
+            print()
 
     # 统计本次 蜘蛛 运行情况，发送邮件报告
     def send_mail(self):
