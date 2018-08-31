@@ -1,32 +1,10 @@
 # -*- coding:utf-8 -*-
-#   Description: 本程序爬取电影信息并存储到数据库用于 tnt1024.com 站点使用
+#   Description: ---
 #        Author: Lynn
 #         Email: lgang219@gmail.com
-#        Create: 2018-08-30 11:18:12
-# Last Modified: 2018-08-30 19:31:37
+#        Create: 2018-08-31 12:13:42
+# Last Modified: 2018-08-31 12:14:14
 #
-
-'''
-mysql> desc movie_movie;
-+---------------+------------------+------+-----+---------+----------------+
-| Field         | Type             | Null | Key | Default | Extra          |
-+---------------+------------------+------+-----+---------+----------------+
-| id            | int(11)          | NO   | PRI | NULL    | auto_increment |
-| v_href        | varchar(255)     | NO   |     | NULL    |                |
-| v_pic         | varchar(255)     | NO   |     | NULL    |                |
-| v_name        | varchar(255)     | NO   |     | NULL    |                |
-| v_bdpan       | varchar(255)     | NO   |     | NULL    |                |
-| v_pass        | varchar(255)     | NO   |     | NULL    |                |
-| v_ed2k        | varchar(255)     | NO   |     | NULL    |                |
-| v_magnet      | varchar(255)     | NO   |     | NULL    |                |
-| v_pub_date    | datetime(6)      | NO   |     | NULL    |                |
-| v_valid       | int(11)          | NO   |     | NULL    |                |
-| v_ed2k_name   | varchar(255)     | NO   |     | NULL    |                |
-| v_magnet_name | varchar(255)     | NO   |     | NULL    |                |
-| v_text_info   | longtext         | NO   |     | NULL    |                |
-| v_views       | int(10) unsigned | NO   |     | NULL    |                |
-+---------------+------------------+------+-----+---------+----------------+
-'''
 
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
@@ -38,14 +16,14 @@ import os
 class movieSpider:
     # 采集网站的目录url
     category_urls = [
-            'http://www.yeyoufang.com/fl/dy/page/',
+            'http://www.yunpan88.com/forum-36-',
             ]
     # 每次需要更新的页数+1
-    pages_num = 5
+    pages_num = 2
 
     def __init__(self):
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        print('\tmovieSpider for yeyoufang.com')
+        print('\tmovieSpider for yunpan88.com')
         print()
         print('>> movieSpider init...')
 
@@ -67,11 +45,11 @@ class movieSpider:
         for category in self.category_urls:
             # 遍历 pages_num 页
             while current_page < self.pages_num:
-                print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) ) )
+                print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) + '.html' ) )
                 # 构造响应页码目录url，并获取目录页网页 文本
-                category_html = self.get_html(category + str(current_page))
-                # 只解析 <h2> 标签，其中包含电影名和详情页url
-                only_title_href = SoupStrainer("h2")
+                category_html = self.get_html(category + str(current_page) + '.html')
+                # 只解析 <a class="s xst"> 标签，其中包含电影名和详情页url
+                only_title_href = SoupStrainer(class_="s xst")
                 soup = BeautifulSoup(category_html, 'lxml', parse_only=only_title_href)
                 a_list = soup.find_all('a')
                 movies_num += len(a_list)
@@ -94,39 +72,30 @@ class movieSpider:
         return title_list,url_list
 
     # 解析详情页获得电影信息，返回电影信息 列表
-    def get_info(self, detail_url):
+    def get_info(self, detail_url, movie_name):
         print('>> [get_info] %s' % detail_url)
 
         detail_html = self.get_html(detail_url)
-        # 只解析 <article> 标签，为电影信息模块
-        only_article_tag = SoupStrainer("article")
+        # 只解析 class="t_f" 标签，为电影信息模块
+        only_article_tag = SoupStrainer(class_="t_f")
         soup = BeautifulSoup(detail_html, 'lxml', parse_only=only_article_tag)
 
-        try: # 电影名
-            movie_name = soup.h1.string
-        except:
-            movie_name = ''
+        # 电影名
+        movie_name = movie_name[1:] # 去左书名号
+        movie_name = movie_name.split('》',2)[0] # 去右书名号
 
         try: # 封面图
-            movie_pic = soup.img['src']
+            movie_pic = soup.find("img")['file']
         except:
             movie_pic = ''
 
-        try: # 简介
-            movie_text = ''
-            # 查找到所有包含 strong 的标签
-            p_list = soup.find_all('p')
-            for p in p_list:
-                if p.strong:
-                    movie_text = p.contents[-1]
-            movie_text = movie_text.replace(' ','')
-        except:
-            movie_text = ''
+        # 暂时不解析影片简介
+        movie_text = ''
 
         try: # 网盘链接
             movie_bdpan = ''
-            re_bdpan = re.compile(r'http.*pan.*?"')
-            movie_bdpan = re_bdpan.findall(soup.prettify() )[0].replace('"','')
+            re_bdpan = re.compile(r'href="http.*pan.*?"')
+            movie_bdpan = re_bdpan.findall(soup.prettify() )[0].replace('"','').replace('href=','')
         except:
             movie_bdpan = ''
 
@@ -146,7 +115,9 @@ class movieSpider:
         movie_info_list.append(detail_url)
 
         # 传入影片信息列表保存电影信息
-        self.save_2_db(movie_info_list)
+        # self.save_2_db(movie_info_list)
+        print(movie_info_list)
+        print()
 
     # 判断传入的 影片名 是否已存在于数据库
     def is_saved(self, title):
@@ -201,6 +172,18 @@ class movieSpider:
         cursor.close()
         conn.close()
 
+    # 保存sql语句到文件
+    def save_2_file(self, sql_param):
+        sql_insert = 'INSERT INTO movie_movie(v_name, v_pic, v_text_info, v_bdpan, v_pass, v_href, v_pub_date, v_ed2k, v_magnet, v_ed2k_name, v_magnet_name, v_valid, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", "%s", "%s", "%s", "%s", "%s", 1, 0);' % \
+        (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], sql_param[5], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), '', '', '', '')
+
+        try:
+            with open('sql_inserts.txt','a') as f:
+                f.write(sql_insert)
+            print('>> [save_2_file] success')
+        except:
+            print('>> [save_2_file] failed')
+
     # 统计本次 蜘蛛 运行情况，发送邮件报告
     def send_mail(self):
         pass
@@ -213,13 +196,19 @@ class movieSpider:
             'Accept-Encoding': 'gzip, deflate',
             'Accept-Language': 'zh-CN,zh;q=0.9',
             'Cache-Control': 'max-age=0',
-            'Connection': 'keep-alive'
+            'Connection': 'keep-alive',
+            'Host': 'www.yunpan88.com',
+            'Referer': 'http://www.yunpan88.com/forum-36-6.html',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
             }
-            r = requests.get(url, headers = headers, timeout = 10)
+            r = requests.get(url, headers = headers, timeout = 30)
             r.encoding = r.apparent_encoding
             html_text = r.text
+            print('>> [get_html] success')
         except:
             html_text = ''
+            print('>> [get_html] failed')
         return html_text
 
 
@@ -228,9 +217,13 @@ def main():
     # 获取目录中的需要爬取的新电影名和详情页url 列表
     title_list,url_list = spider.get_url()
 
+    # for i in title_list:
+    #    print(i)
+
     # 获取详情页电影信息
+    detail_url_cnt = 0
     for detail_url in url_list:
-        spider.get_info(detail_url)
-    # spider.get_info('http://www.yeyoufang.com/33081.htm')
+        spider.get_info(detail_url, title_list[detail_url_cnt])
+        detail_url_cnt += 1
 
 main()
