@@ -13,6 +13,7 @@ import pymysql
 import time
 import os
 import traceback
+import codecs
 
 # 记录程序输入，并写入到本地文件，供 web 端展示
 str_2_logfile = []
@@ -395,31 +396,17 @@ def is_saved( href):
 def write_2_logfile(log_list):
     global line_cnt
     try:
-        with open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a') as f:
-            for log in log_list:
-                f.write(str(line_cnt) + ' ' + log + '\n')
-                line_cnt += 1
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
+        for log in log_list:
+            f.write(str(line_cnt) + ' ' + log + '\n')
+            line_cnt += 1
+        f.close()
     except:
-        with open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a') as er:
-            er.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
-            er.write('[write_2_logfile] write_2_logfile failed')
-            er.write('\n\n\n')
-
-# 删除数据库中 v_href 重复的数据项，只保留 id 最大的一项
-def del_copy_movies():
-    global str_2_logfile
-    conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
-    cursor = conn.cursor()
-
-    sql_del_copy = "DELETE FROM movie_movie WHERE v_href IN (SELECT v_href FROM movie_movie GROUP BY v_href HAVING count(v_href) > 1 ) AND id NOT IN ( SELECT max(id) FROM movie_movie GROUP BY v_href HAVING count(v_href) > 1 );"
-    try:
-        cursor.execute(sql_del_copy)
-        conn.commit()
-    except:
-        conn.rollback()
-    cursor.close()
-    conn.close()
-    str_2_logfile.append('\n删除数据库中重复数据成功\n')
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
+        f.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
+        f.write('[write_2_logfile] write_2_logfile failed')
+        f.write('\n\n\n')
+        f.close()
 
 def main():
     global str_2_logfile

@@ -10,6 +10,7 @@ import requests
 import re
 import os
 import traceback
+import codecs
 
 # 分页
 from django.core.paginator import Paginator, EmptyPage
@@ -217,9 +218,15 @@ def spiderlog(request):
     log_list = []
     rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
     try:
+        f = codecs.open(rel, 'r', 'utf-8')
+        for line in f:
+            log_list.append(line)
+        f.close()
+        '''
         with open (rel, 'r') as f:
             for line in f.readlines():
-                log_list.append(line)
+                log_list.append(line) 
+        '''
     except:
         log_list.append('The log file doesn^t exsist')
 
@@ -227,9 +234,15 @@ def spiderlog(request):
     log_list_err = []
     rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
     try:
+        f = codecs.open(rel, 'r', 'utf-8')
+        for line in f:
+            log_list_err.append(line)
+        f.close()
+        '''
         with open (rel, 'r') as f:
             for line in f.readlines():
                 log_list_err.append(line)
+        '''
     except:
         log_list_err.append('The log_err file doesn^t exsist')
 
