@@ -25,5 +25,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('movie/', include('movie.urls')),
+    path('spidermonitor/', include('spidermonitor.urls')),
     path('robot/', make_view(robot)),
 ]

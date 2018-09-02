@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Movie, Passwds
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -9,6 +8,8 @@ from django.urls import reverse
 # 验证网盘链接是否失效
 import requests
 import re
+import os
+import traceback
 
 # 分页
 from django.core.paginator import Paginator, EmptyPage
@@ -67,7 +68,6 @@ def index_by_page(request, page_num):
 
     return render(request, 'movie/index.html', context)
 
-
 # 正常通过 navbar 中的 Form 搜索
 def movie_search_navbar(request):
     movie_name = request.GET['movie_name']
@@ -116,12 +116,11 @@ def movie_resou(request):
             'page_title': '近期热搜榜',
             }
     return render(request, 'movie/index.html', context)
-    
 
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, id  = movie_id)
     resou_movie_list = Movie.objects.order_by('-v_views')[:7]
-    # 阅读量自增 1 
+    # 阅读量自增 1
     movie.increase_views()
 
     # 是否展示支付宝 领红包 js代码
@@ -138,14 +137,12 @@ def movie_detail(request, movie_id):
 
     return render(request, 'movie/detail.html', context)
 
-
 def confirm_invalid(request, movie_id, urlstate):
     context = {
             'movie_id': movie_id,
             'urlstate': urlstate,
             }
     return render(request, 'movie/confirm_invalid.html', context)
-
 
 def invalid_url_report(request, movie_id, urlstate):
     info=''
@@ -162,7 +159,7 @@ def invalid_url_report(request, movie_id, urlstate):
                 movie.save()
                 mail_message='网盘地址失效通知\n\nID:%s\n名字:%s\n\n网盘地址:%s\n网盘密码:%s\n采集页链接:%s\n\n链接仍旧有效？\nhttp://tnt1024.com/movie/reset_form/%s'%(movie.id, movie.v_name, movie.v_bdpan, movie.v_pass, movie.v_href, movie.id)
                 mail_subject='tnt1024 网盘链接失效通知 %s' % movie.id
-                # send email 
+                # send email
                 send_mail(mail_subject, mail_message, 'lgang219@qq.com', ['ndfour@foxmail.com'], fail_silently=True)
 
             # 经程序判断网盘链接未失效
@@ -180,7 +177,7 @@ def invalid_url_report(request, movie_id, urlstate):
     return render(request, 'movie/invalid_url_report.html', {'urlstate': urlstate,'info': info})
 
 def reset_form(request, movie_id):
-    msg = '修改 %s 网盘状态' %movie_id 
+    msg = '修改 %s 网盘状态' %movie_id
     context = {
             'msg': msg,
             'page_title': '修改资源网盘状态',
@@ -215,6 +212,35 @@ def reset_valid(request):
             }
     return render(request, 'movie/reset_valid.html', context)
 
+def spiderlog(request):
+    log_list = []
+    rel = os.getcwd() + '/spider/autoSpider_log.txt'
+    try:
+        with open (rel, 'r') as f:
+            for line in f.readlines():
+                log_list.append(line)
+    except:
+        log_list.append('The log file doesn^t exsist')
+
+    context = {}
+    context['log_list'] = log_list
+    if len(log_list):
+        context['start'] = log_list[0]
+        context['end'] = log_list[-1]
+    else:
+        context['start'] = ''
+        context['end'] = ''
+    return render(request, 'movie/spiderlog.html', context)
+
+def clean_spiderlog(requste):
+    msg = '清空 spiderlog 成功'
+    rel = os.getcwd() + '/spider/autoSpider_log.txt'
+    try:
+        with open(rel, 'w') as f:
+            f.write('')
+    except Exception as e:
+        msg = e.traceback()
+    return HttpResponse(msg)
 
 ##################### 以下函数与渲染网页无关
 
@@ -241,4 +267,3 @@ def isInvalid(url):
     # 未失效
     else:
         return 0
-

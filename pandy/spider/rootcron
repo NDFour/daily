@@ -1,0 +1,1 @@
+1 5 * * * /usr/bin/python3 /usr/bdpan_movie/daily/pandy/spider/autoSpider.py

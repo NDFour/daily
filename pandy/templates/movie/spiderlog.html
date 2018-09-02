@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title>炸弹网-专注影视网盘资源分享 spiderlog</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="spiderlog col-md-10 col-lg-10">
+                <h1>SpiderLog 查看</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8">
+                            <button class="btn btn-primary">开始时间：</button>  {% if start %}{{ start }}{% else %}还未到运行时间{% endif %}
+                            &nbsp&nbsp&nbsp
+                            <button class="btn btn-primary">结束时间：</button>  {% if end %}{{ end }}{% else %}还未到运行时间{% endif %}
+                            &nbsp&nbsp&nbsp
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <a href="{% url 'clean_spiderlog' %}"><button class="btn btn-danger">清空日志</button></a>
+                        </div>
+                        &nbsp
+                    </div>
+                </div>
+
+                {% if log_list %}
+                <pre>
+ {% for log in log_list %} {{ log  }} {% endfor %}
+                </pre>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div align="center">
+        <!-- 页脚 -->
+        {% include 'index/footer.html' %}
+    </div>
+
+</body>
+
+</html>

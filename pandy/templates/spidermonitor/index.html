@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="Shortcut Icon" href="{% static 'spidermonitor/img/favicon.ico' %}">
+    <title>Spider Monitor-爬虫监视框架</title>
+    <!-- Bootstrap -->
+    <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        #goodhead{
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+    </style>
+  </head>
+  <body>
+
+      <!-- 导航栏 -->
+      {% include 'spidermonitor/navbar.html' %}
+
+    <div class="container">
+       <div id="progress-div" class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- menupage 进度条 -->
+            MenuPage:
+            <div class="progress progress-striped">
+                <div id="menupage_progress" class="progress-bar progress-bar-warning" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0%;"><span id="menupage_percent"></span>
+                    <span class="sr-only">此处为 menupage 进度条，你的浏览器不支持</span>
+                </div>
+            </div>
+
+            <!-- movie 进度条 -->
+            Movie:
+            <div class="progress progress-striped">
+                <div id="movie_progress" class="progress-bar progress-bar-warning" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0%;"><span id="movie_percent"></span>
+                    <span class="sr-only">此处为 movie 进度条，你的浏览器不支持</span>
+                </div>
+            </div>
+        </div>
+       </div>
+
+       <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div id="good" class="list-group">
+                <a id="goodhead" href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">
+                        成功消息
+                    </h4>
+                </a>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div id="bad" class="list-group">
+                <a id="badhead" href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">
+                        失败消息
+                    </h4>
+                </a>
+            </div>
+          </div>
+       </div>
+    </div>
+    <!-- container END -->
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Ajax 获取爬虫运行信息 -->
+    {% include 'spidermonitor/get_info_script.html' %}
+
+  </body>
+</html>

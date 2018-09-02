@@ -34,6 +34,7 @@ import re
 import pymysql
 import time
 import os
+import spidermonitorlib
 
 class movieSpider:
     # 采集网站的目录url
@@ -44,20 +45,22 @@ class movieSpider:
     pages_num = 5
 
     def __init__(self):
+        '''
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         print('\tmovieSpider for yeyoufang.com')
         print()
         print('>> movieSpider init...')
-
         # 关闭 django 应用 pandy
         print('>> stop [pandy]')
-
         print('\n\n')
+        '''
+        # 调用 api 设置待爬取的目录url数
+        spidermonitorlib.set_menupage_total(pages_num)
 
     # 遍历目录获取电影名保存到列表，删除已存在数据库的，然后获取电影信息
     # 返回值： 1-电影名列表 2-电影详情页url列表 （返回的均为数据库中不存在的)
     def get_url(self):
-        print('>> [get_url]')
+        # print('>> [get_url]')
         current_page = 1
         movies_num = 0
         # 以下两个列表用于返回
@@ -67,7 +70,7 @@ class movieSpider:
         for category in self.category_urls:
             # 遍历 pages_num 页
             while current_page < self.pages_num:
-                print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) ) )
+                # print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) ) )
                 # 构造响应页码目录url，并获取目录页网页 文本
                 category_html = self.get_html(category + str(current_page))
                 # 只解析 <h2> 标签，其中包含电影名和详情页url
@@ -76,13 +79,17 @@ class movieSpider:
                 a_list = soup.find_all('a')
                 movies_num += len(a_list)
 
+                # 调用 api 增加已爬取的目录 url 数
+                spidermonitorlib.add_menupage_succ()
+
                 for i in a_list:
                     href = i['href']
                     title = i.string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
                     if self.is_saved(title):
                         # print('>> [get_url] skip already exsist\n  %s' % title)
-                        print('>> [get_url] already exsist')
+                        #print('>> [get_url] already exsist')
+                        spidermonitorlib.printi(href, '[get_url] already exsist', 1)
                     else:
                         title_list.append(title)
                         url_list.append(href)
@@ -90,13 +97,12 @@ class movieSpider:
                 # 页码数 ++ ，构造下一页的目录页url
                 current_page += 1
 
-        print('>> [get_url] total %s movies' % movies_num)
+        # print('>> [get_url] total %s movies' % movies_num)
         return title_list,url_list
 
     # 解析详情页获得电影信息，返回电影信息 列表
     def get_info(self, detail_url):
-        print('>> [get_info] %s' % detail_url)
-
+        # print('>> [get_info] %s' % detail_url)
         detail_html = self.get_html(detail_url)
         # 只解析 <article> 标签，为电影信息模块
         only_article_tag = SoupStrainer("article")
@@ -181,7 +187,10 @@ class movieSpider:
         try:
             cursor.execute(sql_insert)
             conn.commit()
-            print('>> [save_2_db] insert succes')
+            # print('>> [save_2_db] insert succes')
+            # 调用 api 显示信息到 web 端
+            spidermonitorlib.printi(sql_param[5], '[save_2_db] insert success', 1)
+            spidermonitorlib.add_movie_succ()
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
             movie_name = sql_param[0]
@@ -190,13 +199,16 @@ class movieSpider:
             try:
                 cursor.execute(sql_del)
                 conn.commit()
-                print('>> [save_2_db] del old version success\n')
+                # print('>> [save_2_db] del old version success\n')
             except:
                 conn.rollback()
-                print('>> [save_2_db] del old version failed\n')
+                # print('>> [save_2_db] del old version failed\n')
+                spidermonitorlib.printi(sql_param[5], '[save_2_db] del old version failed', 2)
         except:
             conn.rollback()
-            print('>> [save_2_db] insert failed')
+            # print('>> [save_2_db] insert failed')
+            spidermonitorlib.printi(sql_param[5], '[save_2_db] insert failed', 2)
+            spidermonitorlib.add_movie_fail()
 
         cursor.close()
         conn.close()
@@ -228,9 +240,10 @@ def main():
     # 获取目录中的需要爬取的新电影名和详情页url 列表
     title_list,url_list = spider.get_url()
 
+    # 利用 api 设置需要爬取的电影总数
+    spidermonitorlib.set_movie_total(len(url_list))
+
     # 获取详情页电影信息
     for detail_url in url_list:
         spider.get_info(detail_url)
     # spider.get_info('http://www.yeyoufang.com/33081.htm')
-
-main()

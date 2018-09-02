@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-07-20 00:59:50
-# Last Modified: 2018-08-22 09:55:00
+# Last Modified: 2018-09-02 14:11:27
 #
 
 from django.urls import path
@@ -26,4 +26,8 @@ urlpatterns = [
 
     path('reset_form/<int:movie_id>', views.reset_form, name='reset_form'),
     path('reset_form/reset_valid/', views.reset_valid, name='reset_valid'),
+    # 查看爬虫定时任务日志
+    path('spiderlog/', views.spiderlog, name='spiderlog'),
+    # 清空爬虫定时任务日志
+    path('spiderlog/clean/', views.clean_spiderlog, name='clean_spiderlog'),
 ]

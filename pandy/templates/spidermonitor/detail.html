@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="Shortcut Icon" href="{% static 'spidermonitor/img/favicon.ico' %}">
+    <!-- Bootstrap -->
+    <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet">
+    <title>djspider-爬虫监视框架</title>
+    <style>
+        #content{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--爬虫运行状态 导航栏 -->
+    {% include 'spidermonitor/navbar.html' %}
+
+    <div>
+        <!-- 爬虫运行信息 info -->
+        {% include 'spidermonitor/info_for_detail.html' %}
+    </div>
+
+</body>
+</html>
