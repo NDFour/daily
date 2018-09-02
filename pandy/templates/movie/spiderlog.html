@@ -25,15 +25,30 @@
                         <div class="col-md-4 col-lg-4">
                             <a href="{% url 'clean_spiderlog' %}"><button class="btn btn-danger">清空日志</button></a>
                         </div>
-                        &nbsp
                     </div>
                 </div>
 
-                {% if log_list %}
-                <pre>
+                <hr />
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-lg-7">
+                            {% if log_list %}
+                            <pre>
  {% for log in log_list %} {{ log  }} {% endfor %}
-                </pre>
-                {% endif %}
+                            </pre>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 col-lg-5">
+                            {% if log_list_err %}
+                            <pre>
+ {% for log_err in log_list_err %} {{ log_err }} {% endfor %}
+                            </pre>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

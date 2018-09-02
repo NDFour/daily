@@ -213,6 +213,7 @@ def reset_valid(request):
     return render(request, 'movie/reset_valid.html', context)
 
 def spiderlog(request):
+    # log_list
     log_list = []
     rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
     try:
@@ -222,6 +223,17 @@ def spiderlog(request):
     except:
         log_list.append('The log file doesn^t exsist')
 
+    # log_list_err
+    log_list_err = []
+    rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
+    try:
+        with open (rel, 'r') as f:
+            for line in f.readlines():
+                log_list_err.append(line)
+    except:
+        log_list_err.append('The log_err file doesn^t exsist')
+
+
     context = {}
     context['log_list'] = log_list
     if len(log_list):
@@ -230,16 +242,27 @@ def spiderlog(request):
     else:
         context['start'] = ''
         context['end'] = ''
+    context['log_list_err'] = log_list_err
     return render(request, 'movie/spiderlog.html', context)
 
 def clean_spiderlog(requste):
-    msg = '清空 spiderlog 成功'
+    msg = ''
     rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
     try:
         with open(rel, 'w') as f:
             f.write('')
+            msg += '清空 spiderlog 成功'
     except Exception as e:
-        msg = e.traceback()
+        msg += '清空 spiderlog 失败'
+
+
+    rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
+    try:
+        with open(rel, 'w') as f:
+            f.write('')
+            msg += '  清空 spiderlog_err 成功'
+    except Exception as e:
+        msg += '  清空 spiderlog_err 失败'
     return HttpResponse(msg)
 
 ##################### 以下函数与渲染网页无关
