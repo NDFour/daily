@@ -214,7 +214,7 @@ def reset_valid(request):
 
 def spiderlog(request):
     log_list = []
-    rel = os.getcwd() + '/spider/autoSpider_log.txt'
+    rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
     try:
         with open (rel, 'r') as f:
             for line in f.readlines():
@@ -234,7 +234,7 @@ def spiderlog(request):
 
 def clean_spiderlog(requste):
     msg = '清空 spiderlog 成功'
-    rel = os.getcwd() + '/spider/autoSpider_log.txt'
+    rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
     try:
         with open(rel, 'w') as f:
             f.write('')
