@@ -112,6 +112,10 @@ def movie_search_navbar(request):
 # 热搜榜，根据访问量返回阅读量最高的20部电影
 def movie_resou(request):
     movie_list = Movie.objects.order_by('-v_views')[:20]
+    # 热搜页 一页的 电影数量
+    per_page = 20
+    paginator = Paginator(movie_list, per_page)
+    movie_list = paginator.page(1)
     context = {
             'movie_list': movie_list,
             'page_title': '近期热搜榜',
@@ -225,7 +229,7 @@ def spiderlog(request):
         '''
         with open (rel, 'r') as f:
             for line in f.readlines():
-                log_list.append(line) 
+                log_list.append(line)
         '''
     except:
         log_list.append('The log file doesn^t exsist')
