@@ -1,4 +1,4 @@
-0 2018-09-04 17:57:29
+0 2018-09-04 18:14:18
 1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 2 	 autoSpider
 		the god of the spider
@@ -14,225 +14,237 @@
 
 
 9 >> [get_url] skip already exsist
-  [EERIE~看不见的脸][更新至05集][日剧]   [yeyoufang]
+  [情犹注定][更新至06集][泰剧]   [yeyoufang]
 10 >> [get_url] skip already exsist
-  [杰克·莱恩 第一季 ][2018[全集][美剧]   [yeyoufang]
+  [我们的千阙歌][更新至22集][国产剧]   [yeyoufang]
 11 >> [get_url] skip already exsist
-  [阴阳诀之祭情][2018][ 动作 / 爱情 / 悬疑 / 奇幻 / 古装][中国]   [yeyoufang]
+  [与神同行2：因与缘][2018][动作 / 奇幻][韩国]【TC版】   [yeyoufang]
 12 >> [get_url] skip already exsist
-  [德鲁大叔][2018][喜剧][美国]   [yeyoufang]
+  [斗破苍穹][更新至02集][国产剧]   [yeyoufang]
 13 >> [get_url] skip already exsist
-  [有点敏感也没关系][2018][全集][韩剧]   [yeyoufang]
+  [云巅之上 1~2季][2017][全集][国产剧]   [yeyoufang]
 14 >> [get_url] skip already exsist
-  [天坑鹰猎][更新至10集][国产剧]   [yeyoufang]
+  [开学第一课][更新至09.01期][真人秀]   [yeyoufang]
 15 >> [get_url] skip already exsist
-  [神奇马戏团之动物饼干][2018][喜剧  / 奇幻 / 冒险][动画]   [yeyoufang]
+  [EERIE~看不见的脸][更新至05集][日剧]   [yeyoufang]
 16 >> [get_url] skip already exsist
-  [黑子的篮球·终极一战][2018][运动 / 动画]   [yeyoufang]
+  [杰克·莱恩 第一季 ][2018[全集][美剧]   [yeyoufang]
 17 >> [get_url] skip already exsist
-  [天才J之致命推理][2018][中国]   [yeyoufang]
+  [阴阳诀之祭情][2018][ 动作 / 爱情 / 悬疑 / 奇幻 / 古装][中国]   [yeyoufang]
 18 >> [get_url] skip already exsist
-  [再创世纪][更新至18集][国产剧]   [yeyoufang]
+  [德鲁大叔][2018][喜剧][美国]   [yeyoufang]
 19 >> [get_url] skip already exsist
-  [神探风云][2018][动作  / 犯罪][中国]   [yeyoufang]
+  [有点敏感也没关系][2018][全集][韩剧]   [yeyoufang]
 20 >> [get_url] skip already exsist
-  [机器猛犬 A.X.L.][2018][科幻 / 冒险][美国]【TC版】   [yeyoufang]
+  [天坑鹰猎][更新至10集][国产剧]   [yeyoufang]
 21 >> [get_url] skip already exsist
-  [爱的3.14159][更新至07集][台剧]   [yeyoufang]
+  [神奇马戏团之动物饼干][2018][喜剧  / 奇幻 / 冒险][动画]   [yeyoufang]
 22 >> [get_url] skip already exsist
-  [大师兄][2018][喜剧 / 动作][中国]【TC版】   [yeyoufang]
+  [黑子的篮球·终极一战][2018][运动 / 动画]   [yeyoufang]
 23 >> [get_url] skip already exsist
-  [这！就是灌篮][更新至09.01期][真人秀]   [yeyoufang]
+  [天才J之致命推理][2018][中国]   [yeyoufang]
 24 >> [get_url] skip already exsist
-  [天下第一镖局][2018][动作 / 古装][中国]   [yeyoufang]
+  [再创世纪][更新至18集][国产剧]   [yeyoufang]
 25 >> [get_url] skip already exsist
-  [狂龙伏妖][2018][喜剧 / 动作 / 奇幻][中国]   [yeyoufang]
+  [神探风云][2018][动作  / 犯罪][中国]   [yeyoufang]
 26 >> [get_url] skip already exsist
-  [月嫂先生][更新至21集][国产剧]   [yeyoufang]
+  [机器猛犬 A.X.L.][2018][科幻 / 冒险][美国]【TC版】   [yeyoufang]
 27 >> [get_url] skip already exsist
-  [22英里 Mile 22][2018][动作 / 犯罪 / 冒险][美国]【TC版】   [yeyoufang]
+  [爱的3.14159][更新至07集][台剧]   [yeyoufang]
 28 >> [get_url] skip already exsist
-  [择天记 第四季][更新至03集][动画]   [yeyoufang]
+  [大师兄][2018][喜剧 / 动作][中国]【TC版】   [yeyoufang]
 29 >> [get_url] skip already exsist
-  [窃窃私语 속닥속닥][2018][恐怖][韩剧]   [yeyoufang]
+  [这！就是灌篮][更新至09.01期][真人秀]   [yeyoufang]
 30 >> [get_url] skip already exsist
-  [人狼 인랑][2018][动作 / 爱情 / 科幻][韩国]   [yeyoufang]
+  [天下第一镖局][2018][动作 / 古装][中国]   [yeyoufang]
 31 >> [get_url] skip already exsist
-  [恋之月 恋のツキ][更新至05集][日剧]   [yeyoufang]
+  [狂龙伏妖][2018][喜剧 / 动作 / 奇幻][中国]   [yeyoufang]
 32 >> [get_url] skip already exsist
-  [如懿传][更新至28集][国产剧]   [yeyoufang]
+  [月嫂先生][更新至21集][国产剧]   [yeyoufang]
 33 >> [get_url] skip already exsist
-  [惊涛飓浪 Adrift][2018][爱情 / 灾难][美国]   [yeyoufang]
+  [22英里 Mile 22][2018][动作 / 犯罪 / 冒险][美国]【TC版】   [yeyoufang]
 34 >> [get_url] skip already exsist
-  [龙门飞甲][2018][全集][国产剧]   [yeyoufang]
+  [择天记 第四季][更新至03集][动画]   [yeyoufang]
 35 >> [get_url] skip already exsist
-  [嗨蓝朋友][更新至08.26期][真人秀]   [yeyoufang]
+  [窃窃私语 속닥속닥][2018][恐怖][韩剧]   [yeyoufang]
 36 >> [get_url] skip already exsist
-  [相声有新人][更新至09.01期][真人秀]   [yeyoufang]
+  [人狼 인랑][2018][动作 / 爱情 / 科幻][韩国]   [yeyoufang]
 37 >> [get_url] skip already exsist
-  [欧洲攻略][2018][喜剧 / 动作 / 爱情][中国 / 英国]【TC版】   [yeyoufang]
+  [恋之月 恋のツキ][更新至05集][日剧]   [yeyoufang]
 38 >> [get_url] skip already exsist
-  [不期而爱][更新至04集][泰剧]   [yeyoufang]
+  [如懿传][更新至28集][国产剧]   [yeyoufang]
 39 >> [get_url] skip already exsist
-  [技工新娘][更新至09集][泰剧]   [yeyoufang]
+  [惊涛飓浪 Adrift][2018][爱情 / 灾难][美国]   [yeyoufang]
 40 >> [get_url] skip already exsist
-  [新乌龙院之笑闹江湖][2018][剧情 / 喜剧 / 动作][中国]【TC版】   [yeyoufang]
+  [龙门飞甲][2018][全集][国产剧]   [yeyoufang]
 41 >> [get_url] skip already exsist
-  [可爱恐惧 러블리 호러블리][更新至14集][韩剧]   [yeyoufang]
+  [嗨蓝朋友][更新至08.26期][真人秀]   [yeyoufang]
 42 >> [get_url] skip already exsist
+  [相声有新人][更新至09.01期][真人秀]   [yeyoufang]
+43 >> [get_url] skip already exsist
+  [欧洲攻略][2018][喜剧 / 动作 / 爱情][中国 / 英国]【TC版】   [yeyoufang]
+44 >> [get_url] skip already exsist
+  [不期而爱][更新至04集][泰剧]   [yeyoufang]
+45 >> [get_url] skip already exsist
+  [技工新娘][更新至09集][泰剧]   [yeyoufang]
+46 >> [get_url] skip already exsist
+  [新乌龙院之笑闹江湖][2018][剧情 / 喜剧 / 动作][中国]【TC版】   [yeyoufang]
+47 >> [get_url] skip already exsist
+  [可爱恐惧 러블리 호러블리][更新至14集][韩剧]   [yeyoufang]
+48 >> [get_url] skip already exsist
   [勇敢的世界][更新至08.31期 / 勇无止境版更新至09.02期][真人秀]   [yeyoufang]
-43 >> [get_url] total 40 movies
-44 ---------- yeyoufang 共有 6 条数据需要插入 --------
-45 >> [get_info] http://www.yeyoufang.com/71282.htm
-46 >> [save_2_db] insert succes
-47 >> [get_info] http://www.yeyoufang.com/71253.htm
-48 >> [save_2_db] insert succes
-49 >> [get_info] http://www.yeyoufang.com/71237.htm
-50 >> [save_2_db] insert succes
-51 >> [get_info] http://www.yeyoufang.com/71233.htm
-52 >> [save_2_db] insert succes
-53 >> [get_info] http://www.yeyoufang.com/71209.htm
-54 >> [save_2_db] insert succes
-55 >> [get_info] http://www.yeyoufang.com/71204.htm
-56 >> [save_2_db] insert succes
-57 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-58 	movieSpider for menggouwp.com
-59 
+49 >> [get_url] total 40 movies
+50 ---------- yeyoufang 共有 0 条数据需要插入 --------
+51 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+52 	movieSpider for menggouwp.com
+53 
 >> movieSpider init...
-60 
+54 
 
 
-61 >> [get_html] success
-62 >> [get_url] skip already exsist
+55 >> [get_html] success
+56 >> [get_url] skip already exsist
+  祈祷落幕时   [menggouwp]
+57 >> [get_url] skip already exsist
   年轻女子   [menggouwp]
-63 >> [get_url] skip already exsist
+58 >> [get_url] skip already exsist
   替身情缘   [menggouwp]
-64 >> [get_url] skip already exsist
+59 >> [get_url] skip already exsist
   遗传厄运   [menggouwp]
-65 >> [get_url] skip already exsist
+60 >> [get_url] skip already exsist
   时间陷阱   [menggouwp]
-66 >> [get_url] skip already exsist
+61 >> [get_url] skip already exsist
+  致所有我曾爱过的男孩   [menggouwp]
+62 >> [get_url] skip already exsist
   美国动物   [menggouwp]
-67 >> [get_url] skip already exsist
+63 >> [get_url] skip already exsist
   惊涛飓浪   [menggouwp]
-68 >> [get_url] skip already exsist
+64 >> [get_url] skip already exsist
   邪恶宿舍夜惊魂   [menggouwp]
-69 >> [get_url] skip already exsist
+65 >> [get_url] skip already exsist
   瞒天过海：美人计   [menggouwp]
-70 >> [get_url] skip already exsist
+66 >> [get_url] skip already exsist
   人狼   [menggouwp]
-71 >> [get_url] skip already exsist
+67 >> [get_url] skip already exsist
   栋笃特工   [menggouwp]
-72 >> [get_url] skip already exsist
+68 >> [get_url] skip already exsist
   洛杉矶大劫难   [menggouwp]
-73 >> [get_url] skip already exsist
+69 >> [get_url] skip already exsist
   吸血粘土   [menggouwp]
-74 >> [get_url] skip already exsist
+70 >> [get_url] skip already exsist
   成人婴儿的进攻   [menggouwp]
-75 >> [get_url] skip already exsist
+71 >> [get_url] skip already exsist
   行动时刻   [menggouwp]
-76 >> [get_url] skip already exsist
+72 >> [get_url] skip already exsist
   抓人游戏   [menggouwp]
-77 >> [get_url] skip already exsist
+73 >> [get_url] skip already exsist
   升级   [menggouwp]
-78 >> [get_url] skip already exsist
+74 >> [get_url] skip already exsist
   得心拳手   [menggouwp]
-79 >> [get_url] skip already exsist
+75 >> [get_url] skip already exsist
   在切瑟尔海滩上   [menggouwp]
-80 >> [get_url] skip already exsist
+76 >> [get_url] skip already exsist
   边山   [menggouwp]
-81 >> [get_url] skip already exsist
+77 >> [get_url] skip already exsist
   哆啦A梦：大雄的金银岛   [menggouwp]
-82 >> [get_url] skip already exsist
+78 >> [get_url] skip already exsist
   魔女   [menggouwp]
-83 >> [get_url] skip already exsist
+79 >> [get_url] skip already exsist
   角头2：王者再起   [menggouwp]
-84 >> [get_html] success
-85 >> [get_url] skip already exsist
+80 >> [get_html] success
+81 >> [get_url] skip already exsist
   面对邪恶   [menggouwp]
-86 >> [get_url] skip already exsist
+82 >> [get_url] skip already exsist
   护垫侠   [menggouwp]
-87 >> [get_url] skip already exsist
+83 >> [get_url] skip already exsist
   光阴鬼幻   [menggouwp]
-88 >> [get_url] skip already exsist
+84 >> [get_url] skip already exsist
   女黑手党   [menggouwp]
-89 >> [get_url] skip already exsist
+85 >> [get_url] skip already exsist
   灭绝   [menggouwp]
-90 >> [get_url] skip already exsist
+86 >> [get_url] skip already exsist
   落水姻缘   [menggouwp]
-91 >> [get_url] skip already exsist
+87 >> [get_url] skip already exsist
   为爱叛逆2之逆战到底   [menggouwp]
-92 >> [get_url] skip already exsist
+88 >> [get_url] skip already exsist
   炎夏之夜   [menggouwp]
-93 >> [get_url] skip already exsist
+89 >> [get_url] skip already exsist
   哥斯拉：决战之都   [menggouwp]
-94 >> [get_url] skip already exsist
+90 >> [get_url] skip already exsist
   进击的巨人剧场版：觉醒的咆哮   [menggouwp]
-95 >> [get_url] skip already exsist
+91 >> [get_url] skip already exsist
   塔利   [menggouwp]
-96 >> [get_url] skip already exsist
+92 >> [get_url] skip already exsist
   骑士   [menggouwp]
-97 >> [get_url] skip already exsist
+93 >> [get_url] skip already exsist
   亿万少年俱乐部   [menggouwp]
-98 >> [get_url] skip already exsist
+94 >> [get_url] skip already exsist
   佐伊   [menggouwp]
-99 >> [get_url] skip already exsist
+95 >> [get_url] skip already exsist
   鬼故事   [menggouwp]
-100 >> [get_url] skip already exsist
+96 >> [get_url] skip already exsist
   西伯利亚   [menggouwp]
-101 >> [get_url] skip already exsist
+97 >> [get_url] skip already exsist
   无尽   [menggouwp]
-102 >> [get_url] skip already exsist
+98 >> [get_url] skip already exsist
+  书店   [menggouwp]
+99 >> [get_url] skip already exsist
   末日   [menggouwp]
-103 >> [get_url] skip already exsist
+100 >> [get_url] skip already exsist
   贝鲁特   [menggouwp]
-104 >> [get_url] skip already exsist
+101 >> [get_url] skip already exsist
   假期惊魂   [menggouwp]
-105 >> [get_url] skip already exsist
+102 >> [get_url] skip already exsist
   启示录叛乱   [menggouwp]
-106 >> [get_url] skip already exsist
+103 >> [get_url] skip already exsist
   给19岁的我自己   [menggouwp]
-107 >> [get_url] skip already exsist
+104 >> [get_url] skip already exsist
   违命   [menggouwp]
-108 >> [get_html] success
-109 >> [get_url] skip already exsist
+105 >> [get_html] success
+106 >> [get_url] skip already exsist
   午夜人   [menggouwp]
-110 >> [get_url] skip already exsist
+107 >> [get_url] skip already exsist
   第三波   [menggouwp]
-111 >> [get_url] skip already exsist
+108 >> [get_url] skip already exsist
   白牙   [menggouwp]
-112 >> [get_url] skip already exsist
+109 >> [get_url] skip already exsist
   去年冬天与你分手   [menggouwp]
-113 >> [get_url] skip already exsist
+110 >> [get_url] skip already exsist
   大传说   [menggouwp]
-114 >> [get_url] skip already exsist
+111 >> [get_url] skip already exsist
   现代狼人   [menggouwp]
-115 >> [get_url] skip already exsist
+112 >> [get_url] skip already exsist
   从外而内   [menggouwp]
-116 >> [get_url] skip already exsist
+113 >> [get_url] skip already exsist
   黑夜吞噬世界   [menggouwp]
-117 >> [get_url] skip already exsist
+114 >> [get_url] skip already exsist
   嫁我吧，哥们   [menggouwp]
-118 >> [get_url] skip already exsist
+115 >> [get_url] skip already exsist
   镰仓物语   [menggouwp]
-119 >> [get_url] skip already exsist
+116 >> [get_url] skip already exsist
   女先行者   [menggouwp]
-120 >> [get_url] skip already exsist
+117 >> [get_url] skip already exsist
   忍无可忍   [menggouwp]
-121 >> [get_url] skip already exsist
+118 >> [get_url] skip already exsist
   京城之王   [menggouwp]
-122 >> [get_url] skip already exsist
+119 >> [get_url] skip already exsist
   逃亡   [menggouwp]
-123 >> [get_url] skip already exsist
+120 >> [get_url] skip already exsist
   最终幻想女孩   [menggouwp]
-124 >> [get_url] skip already exsist
+121 >> [get_url] skip already exsist
   纸牌人生   [menggouwp]
-125 >> [get_url] skip already exsist
+122 >> [get_url] skip already exsist
+  信徒   [menggouwp]
+123 >> [get_url] skip already exsist
   扭曲   [menggouwp]
-126 >> [get_url] skip already exsist
+124 >> [get_url] skip already exsist
   花季少女   [menggouwp]
-127 >> [get_url] skip already exsist
+125 >> [get_url] skip already exsist
+  抹大拉的玛丽亚   [menggouwp]
+126 >> [get_url] skip already exsist
   口径   [menggouwp]
+127 >> [get_url] skip already exsist
+  智慧囚屋   [menggouwp]
 128 >> [get_url] skip already exsist
   真心话大冒险   [menggouwp]
 129 >> [get_url] skip already exsist
@@ -279,126 +291,425 @@
 150 >> [get_url] skip already exsist
   侏罗纪世界2   [menggouwp]
 151 >> [get_url] skip already exsist
+  九三年夏天   [menggouwp]
+152 >> [get_url] skip already exsist
   面纱下的那不勒斯   [menggouwp]
-152 >> [get_url] total 96 movies
-153 ---------- menggouwp 共有 9 条数据需要插入 --------
-154 >> [get_info] http://www.menggouwp.com/a/dianying/20180904/7309.html
-155 >> [get_html] success
-156 >> [save_2_db] insert succes
-157 >> [get_info] http://www.menggouwp.com/a/dianying/20180823/7302.html
-158 >> [get_html] success
-159 >> [save_2_db] insert succes
-160 >> [get_info] http://www.menggouwp.com/a/dianying/20180716/7249.html
-161 >> [get_html] success
-162 >> [save_2_db] insert succes
-163 >> [get_info] http://www.menggouwp.com/a/dianying/20180704/7219.html
-164 >> [get_html] success
-165 >> [save_2_db] insert succes
-166 >> [get_info] http://www.menggouwp.com/a/dianying/20180630/7216.html
-167 >> [get_html] success
-168 >> [save_2_db] insert succes
-169 >> [get_info] http://www.menggouwp.com/a/dianying/20180630/7214.html
-170 >> [get_html] success
-171 >> [save_2_db] insert succes
-172 >> [get_info] http://www.menggouwp.com/a/dianying/20180617/7188.html
-173 >> [get_html] success
-174 >> [save_2_db] insert succes
-175 >> [get_info] http://www.menggouwp.com/a/dianying/20180617/7186.html
-176 >> [get_html] success
-177 >> [save_2_db] insert succes
-178 >> [get_info] http://www.menggouwp.com/a/dianying/20180617/7185.html
-179 >> [get_html] success
-180 >> [save_2_db] insert succes
-181 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-182 	www_8vdy_Spider for 8vdy.com
-183 
+153 >> [get_url] skip already exsist
+  羞辱   [menggouwp]
+154 >> [get_url] skip already exsist
+  谋杀未遂   [menggouwp]
+155 >> [get_url] total 96 movies
+156 ---------- menggouwp 共有 0 条数据需要插入 --------
+157 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+158 	www_8vdy_Spider for 8vdy.com
+159 
 >> movieSpider init...
-184 
+160 
 
 
-185 >> [get_url] total 40 movies
-186 ---------- www_8vdy 共有 40 条数据需要插入 --------
-187 >> [get_info] http://www.8vdy.com/view/index36164.html
-188 >> [save_2_db] insert succes
-189 >> [get_info] http://www.8vdy.com/view/index36163.html
-190 >> [save_2_db] insert succes
-191 >> [get_info] http://www.8vdy.com/view/index36162.html
-192 >> [save_2_db] insert succes
-193 >> [get_info] http://www.8vdy.com/view/index36160.html
-194 >> [save_2_db] insert succes
-195 >> [get_info] http://www.8vdy.com/view/index36159.html
-196 >> [save_2_db] insert succes
-197 >> [get_info] http://www.8vdy.com/view/index36158.html
-198 >> [save_2_db] insert succes
-199 >> [get_info] http://www.8vdy.com/view/index36157.html
-200 >> [save_2_db] insert succes
-201 >> [get_info] http://www.8vdy.com/view/index36156.html
-202 >> [save_2_db] insert succes
-203 >> [get_info] http://www.8vdy.com/view/index36155.html
-204 >> [save_2_db] insert succes
-205 >> [get_info] http://www.8vdy.com/view/index36154.html
-206 >> [save_2_db] insert succes
-207 >> [get_info] http://www.8vdy.com/view/index36153.html
-208 >> [save_2_db] insert succes
-209 >> [get_info] http://www.8vdy.com/view/index36152.html
-210 >> [save_2_db] insert succes
-211 >> [get_info] http://www.8vdy.com/view/index36151.html
-212 >> [save_2_db] insert succes
-213 >> [get_info] http://www.8vdy.com/view/index36149.html
-214 >> [save_2_db] insert succes
-215 >> [get_info] http://www.8vdy.com/view/index36090.html
-216 >> [save_2_db] insert succes
-217 >> [get_info] http://www.8vdy.com/view/index36143.html
-218 >> [save_2_db] insert succes
-219 >> [get_info] http://www.8vdy.com/view/index36132.html
-220 >> [save_2_db] insert succes
-221 >> [get_info] http://www.8vdy.com/view/index36142.html
-222 >> [save_2_db] insert succes
-223 >> [get_info] http://www.8vdy.com/view/index36141.html
-224 >> [save_2_db] insert succes
-225 >> [get_info] http://www.8vdy.com/view/index36117.html
-226 >> [save_2_db] insert succes
-227 >> [get_info] http://www.8vdy.com/view/index36165.html
-228 >> [save_2_db] insert succes
-229 >> [get_info] http://www.8vdy.com/view/index36148.html
-230 >> [save_2_db] insert succes
-231 >> [get_info] http://www.8vdy.com/view/index36147.html
-232 >> [save_2_db] insert succes
-233 >> [get_info] http://www.8vdy.com/view/index36146.html
-234 >> [save_2_db] insert succes
-235 >> [get_info] http://www.8vdy.com/view/index36145.html
-236 >> [save_2_db] insert succes
-237 >> [get_info] http://www.8vdy.com/view/index36144.html
-238 >> [save_2_db] insert succes
-239 >> [get_info] http://www.8vdy.com/view/index36130.html
-240 >> [save_2_db] insert succes
-241 >> [get_info] http://www.8vdy.com/view/index36129.html
-242 >> [save_2_db] insert succes
-243 >> [get_info] http://www.8vdy.com/view/index36128.html
+161 >> [get_url] skip already exsist
+  《惊涛飓浪》（2018）   [www_8vdy]
+162 >> [get_url] skip already exsist
+  《栋笃特工》（2018）   [www_8vdy]
+163 >> [get_url] skip already exsist
+  《行动时刻》（2018）   [www_8vdy]
+164 >> [get_url] skip already exsist
+  《抓人游戏》（2018）   [www_8vdy]
+165 >> [get_url] skip already exsist
+  《市长夫人的秘密》（2018）   [www_8vdy]
+166 >> [get_url] skip already exsist
+  《人狼》（2018）   [www_8vdy]
+167 >> [get_url] skip already exsist
+  《美国动物》（2018）   [www_8vdy]
+168 >> [get_url] skip already exsist
+  《升级》（2018）   [www_8vdy]
+169 >> [get_url] skip already exsist
+  《泡菜爱上小龙虾》（2018）   [www_8vdy]
+170 >> [get_url] skip already exsist
+  《抓人游戏》（2018）   [www_8vdy]
+171 >> [get_url] skip already exsist
+  《命运赌局》（2018）   [www_8vdy]
+172 >> [get_url] skip already exsist
+  《监护风云》（2018）   [www_8vdy]
+173 >> [get_url] skip already exsist
+  《恶与假面的规则》（2018）   [www_8vdy]
+174 >> [get_url] skip already exsist
+  《黑仙女》（2018）   [www_8vdy]
+175 >> [get_url] skip already exsist
+  《摩天营救》（2018）   [www_8vdy]
+176 >> [get_url] skip already exsist
+  《时间》（2018）   [www_8vdy]
+177 >> [get_url] skip already exsist
+  《复仇者联盟3：无限战争》（2018）   [www_8vdy]
+178 >> [get_url] skip already exsist
+  《角头2：王者再起》（2018）   [www_8vdy]
+179 >> [get_url] skip already exsist
+  《剧场誓约》（2018）   [www_8vdy]
+180 >> [get_url] skip already exsist
+  《死侍2》（2018）   [www_8vdy]
+181 >> [get_url] skip already exsist
+  《延禧攻略》（2018）   [www_8vdy]
+182 >> [get_url] skip already exsist
+  《香蜜沉沉烬如霜》（2018）   [www_8vdy]
+183 >> [get_url] skip already exsist
+  《疯人院》（2018）   [www_8vdy]
+184 >> [get_url] skip already exsist
+  《你的管家》（2018）   [www_8vdy]
+185 >> [get_url] skip already exsist
+  《认识的妻子》（2018）   [www_8vdy]
+186 >> [get_url] skip already exsist
+  《致亲爱的法官大人》（2018）   [www_8vdy]
+187 >> [get_url] skip already exsist
+  《如果是她的话》（2018）   [www_8vdy]
+188 >> [get_url] skip already exsist
+  《我的ID是江南美人》（2018）   [www_8vdy]
+189 >> [get_url] skip already exsist
+  《阳光先生》（2018）   [www_8vdy]
+190 >> [get_url] skip already exsist
+  《十八岁》（2018）   [www_8vdy]
+191 >> [get_url] skip already exsist
+  《猎毒人》（2018）   [www_8vdy]
+192 >> [get_url] skip already exsist
+  《最亲爱的你》（2018）   [www_8vdy]
+193 >> [get_url] skip already exsist
+  《合伙人》（2018）   [www_8vdy]
+194 >> [get_url] skip already exsist
+  《虽然30但仍17》（2018）   [www_8vdy]
+195 >> [get_url] skip already exsist
+  《婚外情事》（2018）   [www_8vdy]
+196 >> [get_url] skip already exsist
+  《给我一个十八岁》（2018）   [www_8vdy]
+197 >> [get_url] skip already exsist
+  《火星生活》（2018）   [www_8vdy]
+198 >> [get_url] skip already exsist
+  《阳光先生》（2018）   [www_8vdy]
+199 >> [get_url] skip already exsist
+  《青春警事》（2018）   [www_8vdy]
+200 >> [get_url] skip already exsist
+  《古剑奇谭2》（2018）   [www_8vdy]
+201 >> [get_url] skip already exsist
+  《惊涛飓浪》（2018）   [www_8vdy]
+202 >> [get_url] skip already exsist
+  《栋笃特工》（2018）   [www_8vdy]
+203 >> [get_url] skip already exsist
+  《行动时刻》（2018）   [www_8vdy]
+204 >> [get_url] skip already exsist
+  《抓人游戏》（2018）   [www_8vdy]
+205 >> [get_url] skip already exsist
+  《市长夫人的秘密》（2018）   [www_8vdy]
+206 >> [get_url] skip already exsist
+  《人狼》（2018）   [www_8vdy]
+207 >> [get_url] skip already exsist
+  《美国动物》（2018）   [www_8vdy]
+208 >> [get_url] skip already exsist
+  《升级》（2018）   [www_8vdy]
+209 >> [get_url] skip already exsist
+  《泡菜爱上小龙虾》（2018）   [www_8vdy]
+210 >> [get_url] skip already exsist
+  《抓人游戏》（2018）   [www_8vdy]
+211 >> [get_url] skip already exsist
+  《命运赌局》（2018）   [www_8vdy]
+212 >> [get_url] skip already exsist
+  《监护风云》（2018）   [www_8vdy]
+213 >> [get_url] skip already exsist
+  《恶与假面的规则》（2018）   [www_8vdy]
+214 >> [get_url] skip already exsist
+  《黑仙女》（2018）   [www_8vdy]
+215 >> [get_url] skip already exsist
+  《摩天营救》（2018）   [www_8vdy]
+216 >> [get_url] skip already exsist
+  《时间》（2018）   [www_8vdy]
+217 >> [get_url] skip already exsist
+  《复仇者联盟3：无限战争》（2018）   [www_8vdy]
+218 >> [get_url] skip already exsist
+  《角头2：王者再起》（2018）   [www_8vdy]
+219 >> [get_url] skip already exsist
+  《剧场誓约》（2018）   [www_8vdy]
+220 >> [get_url] skip already exsist
+  《死侍2》（2018）   [www_8vdy]
+221 >> [get_url] skip already exsist
+  《延禧攻略》（2018）   [www_8vdy]
+222 >> [get_url] skip already exsist
+  《香蜜沉沉烬如霜》（2018）   [www_8vdy]
+223 >> [get_url] skip already exsist
+  《疯人院》（2018）   [www_8vdy]
+224 >> [get_url] skip already exsist
+  《你的管家》（2018）   [www_8vdy]
+225 >> [get_url] skip already exsist
+  《认识的妻子》（2018）   [www_8vdy]
+226 >> [get_url] skip already exsist
+  《致亲爱的法官大人》（2018）   [www_8vdy]
+227 >> [get_url] skip already exsist
+  《如果是她的话》（2018）   [www_8vdy]
+228 >> [get_url] skip already exsist
+  《我的ID是江南美人》（2018）   [www_8vdy]
+229 >> [get_url] skip already exsist
+  《阳光先生》（2018）   [www_8vdy]
+230 >> [get_url] skip already exsist
+  《十八岁》（2018）   [www_8vdy]
+231 >> [get_url] skip already exsist
+  《猎毒人》（2018）   [www_8vdy]
+232 >> [get_url] skip already exsist
+  《最亲爱的你》（2018）   [www_8vdy]
+233 >> [get_url] skip already exsist
+  《合伙人》（2018）   [www_8vdy]
+234 >> [get_url] skip already exsist
+  《虽然30但仍17》（2018）   [www_8vdy]
+235 >> [get_url] skip already exsist
+  《婚外情事》（2018）   [www_8vdy]
+236 >> [get_url] skip already exsist
+  《给我一个十八岁》（2018）   [www_8vdy]
+237 >> [get_url] skip already exsist
+  《火星生活》（2018）   [www_8vdy]
+238 >> [get_url] skip already exsist
+  《阳光先生》（2018）   [www_8vdy]
+239 >> [get_url] skip already exsist
+  《青春警事》（2018）   [www_8vdy]
+240 >> [get_url] skip already exsist
+  《古剑奇谭2》（2018）   [www_8vdy]
+241 >> [get_url] total 200 movies
+242 ---------- www_8vdy 共有 120 条数据需要插入 --------
+243 >> [get_info] http://www.8vdy.com/view/index36140.html
 244 >> [save_2_db] insert succes
-245 >> [get_info] http://www.8vdy.com/view/index36127.html
+245 >> [get_info] http://www.8vdy.com/view/index36139.html
 246 >> [save_2_db] insert succes
-247 >> [get_info] http://www.8vdy.com/view/index36123.html
+247 >> [get_info] http://www.8vdy.com/view/index36138.html
 248 >> [save_2_db] insert succes
-249 >> [get_info] http://www.8vdy.com/view/index36122.html
+249 >> [get_info] http://www.8vdy.com/view/index35906.html
 250 >> [save_2_db] insert succes
-251 >> [get_info] http://www.8vdy.com/view/index36120.html
+251 >> [get_info] http://www.8vdy.com/view/index36001.html
 252 >> [save_2_db] insert succes
-253 >> [get_info] http://www.8vdy.com/view/index36116.html
+253 >> [get_info] http://www.8vdy.com/view/index36137.html
 254 >> [save_2_db] insert succes
-255 >> [get_info] http://www.8vdy.com/view/index36115.html
+255 >> [get_info] http://www.8vdy.com/view/index36135.html
 256 >> [save_2_db] insert succes
-257 >> [get_info] http://www.8vdy.com/view/index36114.html
+257 >> [get_info] http://www.8vdy.com/view/index36134.html
 258 >> [save_2_db] insert succes
-259 >> [get_info] http://www.8vdy.com/view/index36113.html
+259 >> [get_info] http://www.8vdy.com/view/index36133.html
 260 >> [save_2_db] insert succes
-261 >> [get_info] http://www.8vdy.com/view/index36112.html
+261 >> [get_info] http://www.8vdy.com/view/index36131.html
 262 >> [save_2_db] insert succes
-263 >> [get_info] http://www.8vdy.com/view/index36065.html
+263 >> [get_info] http://www.8vdy.com/view/index35909.html
 264 >> [save_2_db] insert succes
-265 >> [get_info] http://www.8vdy.com/view/index36086.html
+265 >> [get_info] http://www.8vdy.com/view/index36126.html
 266 >> [save_2_db] insert succes
-267 
+267 >> [get_info] http://www.8vdy.com/view/index36125.html
+268 >> [save_2_db] insert succes
+269 >> [get_info] http://www.8vdy.com/view/index36124.html
+270 >> [save_2_db] insert succes
+271 >> [get_info] http://www.8vdy.com/view/index30725.html
+272 >> [save_2_db] insert succes
+273 >> [get_info] http://www.8vdy.com/view/index36121.html
+274 >> [save_2_db] insert succes
+275 >> [get_info] http://www.8vdy.com/view/index35970.html
+276 >> [save_2_db] insert succes
+277 >> [get_info] http://www.8vdy.com/view/index36119.html
+278 >> [save_2_db] insert succes
+279 >> [get_info] http://www.8vdy.com/view/index36118.html
+280 >> [save_2_db] insert succes
+281 >> [get_info] http://www.8vdy.com/view/index31480.html
+282 >> [save_2_db] insert succes
+283 >> [get_info] http://www.8vdy.com/view/index36111.html
+284 >> [save_2_db] insert succes
+285 >> [get_info] http://www.8vdy.com/view/index36110.html
+286 >> [save_2_db] insert succes
+287 >> [get_info] http://www.8vdy.com/view/index36109.html
+288 >> [save_2_db] insert succes
+289 >> [get_info] http://www.8vdy.com/view/index36108.html
+290 >> [save_2_db] insert succes
+291 >> [get_info] http://www.8vdy.com/view/index36106.html
+292 >> [save_2_db] insert succes
+293 >> [get_info] http://www.8vdy.com/view/index36105.html
+294 >> [save_2_db] insert succes
+295 >> [get_info] http://www.8vdy.com/view/index36103.html
+296 >> [save_2_db] insert succes
+297 >> [get_info] http://www.8vdy.com/view/index30727.html
+298 >> [save_2_db] insert succes
+299 >> [get_info] http://www.8vdy.com/view/index36102.html
+300 >> [save_2_db] insert succes
+301 >> [get_info] http://www.8vdy.com/view/index36101.html
+302 >> [save_2_db] insert succes
+303 >> [get_info] http://www.8vdy.com/view/index36100.html
+304 >> [save_2_db] insert succes
+305 >> [get_info] http://www.8vdy.com/view/index36099.html
+306 >> [save_2_db] insert succes
+307 >> [get_info] http://www.8vdy.com/view/index36098.html
+308 >> [save_2_db] insert succes
+309 >> [get_info] http://www.8vdy.com/view/index36097.html
+310 >> [save_2_db] insert succes
+311 >> [get_info] http://www.8vdy.com/view/index36096.html
+312 >> [save_2_db] insert succes
+313 >> [get_info] http://www.8vdy.com/view/index36095.html
+314 >> [save_2_db] insert succes
+315 >> [get_info] http://www.8vdy.com/view/index36094.html
+316 >> [save_2_db] insert succes
+317 >> [get_info] http://www.8vdy.com/view/index36093.html
+318 >> [save_2_db] insert succes
+319 >> [get_info] http://www.8vdy.com/view/index35473.html
+320 >> [save_2_db] insert succes
+321 >> [get_info] http://www.8vdy.com/view/index36091.html
+322 >> [save_2_db] insert succes
+323 >> [get_info] http://www.8vdy.com/view/index36088.html
+324 >> [save_2_db] insert succes
+325 >> [get_info] http://www.8vdy.com/view/index36087.html
+326 >> [save_2_db] insert succes
+327 >> [get_info] http://www.8vdy.com/view/index36085.html
+328 >> [save_2_db] insert succes
+329 >> [get_info] http://www.8vdy.com/view/index31976.html
+330 >> [save_2_db] insert succes
+331 >> [get_info] http://www.8vdy.com/view/index36084.html
+332 >> [save_2_db] insert succes
+333 >> [get_info] http://www.8vdy.com/view/index36083.html
+334 >> [save_2_db] insert succes
+335 >> [get_info] http://www.8vdy.com/view/index36082.html
+336 >> [save_2_db] insert succes
+337 >> [get_info] http://www.8vdy.com/view/index36081.html
+338 >> [save_2_db] insert succes
+339 >> [get_info] http://www.8vdy.com/view/index36080.html
+340 >> [save_2_db] insert succes
+341 >> [get_info] http://www.8vdy.com/view/index36079.html
+342 >> [save_2_db] insert succes
+343 >> [get_info] http://www.8vdy.com/view/index36077.html
+344 >> [save_2_db] insert succes
+345 >> [get_info] http://www.8vdy.com/view/index36011.html
+346 >> [save_2_db] insert succes
+347 >> [get_info] http://www.8vdy.com/view/index36076.html
+348 >> [save_2_db] insert succes
+349 >> [get_info] http://www.8vdy.com/view/index36075.html
+350 >> [save_2_db] insert succes
+351 >> [get_info] http://www.8vdy.com/view/index36074.html
+352 >> [save_2_db] insert succes
+353 >> [get_info] http://www.8vdy.com/view/index36073.html
+354 >> [save_2_db] insert succes
+355 >> [get_info] http://www.8vdy.com/view/index36072.html
+356 >> [save_2_db] insert succes
+357 >> [get_info] http://www.8vdy.com/view/index36071.html
+358 >> [save_2_db] insert succes
+359 >> [get_info] http://www.8vdy.com/view/index36070.html
+360 >> [save_2_db] insert succes
+361 >> [get_info] http://www.8vdy.com/view/index36031.html
+362 >> [save_2_db] insert succes
+363 >> [get_info] http://www.8vdy.com/view/index36064.html
+364 >> [save_2_db] insert succes
+365 >> [get_info] http://www.8vdy.com/view/index36036.html
+366 >> [save_2_db] insert succes
+367 >> [get_info] http://www.8vdy.com/view/index35956.html
+368 >> [save_2_db] insert succes
+369 >> [get_info] http://www.8vdy.com/view/index36052.html
+370 >> [save_2_db] insert succes
+371 >> [get_info] http://www.8vdy.com/view/index36051.html
+372 >> [save_2_db] insert succes
+373 >> [get_info] http://www.8vdy.com/view/index32036.html
+374 >> [save_2_db] insert succes
+375 >> [get_info] http://www.8vdy.com/view/index36019.html
+376 >> [save_2_db] insert succes
+377 >> [get_info] http://www.8vdy.com/view/index36017.html
+378 >> [save_2_db] insert succes
+379 >> [get_info] http://www.8vdy.com/view/index32777.html
+380 >> [save_2_db] insert succes
+381 >> [get_info] http://www.8vdy.com/view/index35999.html
+382 >> [save_2_db] insert succes
+383 >> [get_info] http://www.8vdy.com/view/index35998.html
+384 >> [save_2_db] insert succes
+385 >> [get_info] http://www.8vdy.com/view/index35995.html
+386 >> [save_2_db] insert succes
+387 >> [get_info] http://www.8vdy.com/view/index35994.html
+388 >> [save_2_db] insert succes
+389 >> [get_info] http://www.8vdy.com/view/index35990.html
+390 >> [save_2_db] insert succes
+391 >> [get_info] http://www.8vdy.com/view/index35989.html
+392 >> [save_2_db] insert succes
+393 >> [get_info] http://www.8vdy.com/view/index33627.html
+394 >> [save_2_db] insert succes
+395 >> [get_info] http://www.8vdy.com/view/index35988.html
+396 >> [save_2_db] insert succes
+397 >> [get_info] http://www.8vdy.com/view/index35972.html
+398 >> [save_2_db] insert succes
+399 >> [get_info] http://www.8vdy.com/view/index35968.html
+400 >> [save_2_db] insert succes
+401 >> [get_info] http://www.8vdy.com/view/index35958.html
+402 >> [save_2_db] insert succes
+403 >> [get_info] http://www.8vdy.com/view/index35957.html
+404 >> [save_2_db] insert succes
+405 >> [get_info] http://www.8vdy.com/view/index35937.html
+406 >> [save_2_db] insert succes
+407 >> [get_info] http://www.8vdy.com/view/index35946.html
+408 >> [save_2_db] insert succes
+409 >> [get_info] http://www.8vdy.com/view/index35945.html
+410 >> [save_2_db] insert succes
+411 >> [get_info] http://www.8vdy.com/view/index35944.html
+412 >> [save_2_db] insert succes
+413 >> [get_info] http://www.8vdy.com/view/index35943.html
+414 >> [save_2_db] insert succes
+415 >> [get_info] http://www.8vdy.com/view/index35942.html
+416 >> [save_2_db] insert succes
+417 >> [get_info] http://www.8vdy.com/view/index35812.html
+418 >> [save_2_db] insert succes
+419 >> [get_info] http://www.8vdy.com/view/index35920.html
+420 >> [save_2_db] insert succes
+421 >> [get_info] http://www.8vdy.com/view/index33638.html
+422 >> [save_2_db] insert succes
+423 >> [get_info] http://www.8vdy.com/view/index35914.html
+424 >> [save_2_db] insert succes
+425 >> [get_info] http://www.8vdy.com/view/index33499.html
+426 >> [save_2_db] insert succes
+427 >> [get_info] http://www.8vdy.com/view/index35875.html
+428 >> [save_2_db] insert succes
+429 >> [get_info] http://www.8vdy.com/view/index35874.html
+430 >> [save_2_db] insert succes
+431 >> [get_info] http://www.8vdy.com/view/index33442.html
+432 >> [save_2_db] insert succes
+433 >> [get_info] http://www.8vdy.com/view/index12132.html
+434 >> [save_2_db] insert succes
+435 >> [get_info] http://www.8vdy.com/view/index35654.html
+436 >> [save_2_db] insert succes
+437 >> [get_info] http://www.8vdy.com/view/index4135.html
+438 >> [save_2_db] insert succes
+439 >> [get_info] http://www.8vdy.com/view/index35872.html
+440 >> [save_2_db] insert succes
+441 >> [get_info] http://www.8vdy.com/view/index34763.html
+442 >> [save_2_db] insert succes
+443 >> [get_info] http://www.8vdy.com/view/index12266.html
+444 >> [save_2_db] insert succes
+445 >> [get_info] http://www.8vdy.com/view/index35547.html
+446 >> [save_2_db] insert succes
+447 >> [get_info] http://www.8vdy.com/view/index35858.html
+448 >> [save_2_db] insert succes
+449 >> [get_info] http://www.8vdy.com/view/index33389.html
+450 >> [save_2_db] insert succes
+451 >> [get_info] http://www.8vdy.com/view/index35857.html
+452 >> [save_2_db] insert succes
+453 >> [get_info] http://www.8vdy.com/view/index35845.html
+454 >> [save_2_db] insert succes
+455 >> [get_info] http://www.8vdy.com/view/index35844.html
+456 >> [save_2_db] insert succes
+457 >> [get_info] http://www.8vdy.com/view/index30478.html
+458 >> [save_2_db] insert succes
+459 >> [get_info] http://www.8vdy.com/view/index35838.html
+460 >> [save_2_db] insert succes
+461 >> [get_info] http://www.8vdy.com/view/index35837.html
+462 >> [save_2_db] insert succes
+463 >> [get_info] http://www.8vdy.com/view/index35836.html
+464 >> [save_2_db] insert succes
+465 >> [get_info] http://www.8vdy.com/view/index35814.html
+466 >> [save_2_db] insert succes
+467 >> [get_info] http://www.8vdy.com/view/index35813.html
+468 >> [save_2_db] insert succes
+469 >> [get_info] http://www.8vdy.com/view/index32017.html
+470 >> [save_2_db] insert succes
+471 >> [get_info] http://www.8vdy.com/view/index35811.html
+472 >> [save_2_db] insert succes
+473 >> [get_info] http://www.8vdy.com/view/index31963.html
+474 >> [save_2_db] insert succes
+475 >> [get_info] http://www.8vdy.com/view/index30348.html
+476 >> [save_2_db] insert succes
+477 >> [get_info] http://www.8vdy.com/view/index35793.html
+478 >> [save_2_db] insert succes
+479 >> [get_info] http://www.8vdy.com/view/index35792.html
+480 >> [save_2_db] insert succes
+481 >> [get_info] http://www.8vdy.com/view/index33564.html
+482 >> [save_2_db] insert succes
+483 
 --------------------------------
-268 autoSpider done !
-269 2018-09-04 17:58:01
+484 autoSpider done !
+485 2018-09-04 18:15:26

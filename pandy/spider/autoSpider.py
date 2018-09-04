@@ -404,13 +404,13 @@ class www_8vdy_Spider:
     def get_url(self):
         global str_2_logfile
         # print('>> [get_url]')
-        current_page = 1
         movies_num = 0
         # 以下两个列表用于返回
         title_list = []
         url_list = []
 
         for category in self.category_urls:
+            current_page = 1
             # 遍历 pages_num 页
             while current_page < self.pages_num:
                 # print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) ) )
