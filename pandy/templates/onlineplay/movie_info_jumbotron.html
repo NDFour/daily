@@ -9,9 +9,13 @@
 
     <!-- 播放器 -->
     <iframe src="{{ index_video }}" id="playvideo" width="100%" height="230" allowtransparency="true" frameborder="0" allowfullscreen="true" scrolling="no" style="background: black;"></iframe>
-    <label class="visible-sm visible-md visible-lg label label-success">注：PC用户如无法播放请使用网盘链接,或扫描右侧二维码使用手机在线观看</label>
-
-    <span id="playindex" class="label label-info"></span>
+    <label class="visible-sm visible-md visible-lg btn label-warning"><strong>温馨提示：</strong>PC用户如无法播放请使用网盘链接,或扫描右侧二维码使用手机在线观看</label>
+    <label class="visible-xs btn label-warning"><strong>温馨提示：</strong>首次加载较慢，请耐心等待<br />微信公众号搜索：[一起来电影] 免费看电影</label>
+    <div align="center">
+        <span id="playindex" class="label label-info"></span>
+    </div>
+    <br />
+    <div style="color:purple;"><strong>请从下方播放来源中选择要播放的视频，选集后才可播放</strong></div>
     <br />
     {% for sources in playurls %}
         {% for url in sources %}
@@ -26,12 +30,11 @@
         {% endfor %}
         <!-- </div> --> <!-- 按钮组结束 -->
         <br />
-        <br />
     {% endfor %}
 
     <!-- 剧情介绍 -->
     {% if movie.v_text_info %}
-        <p>剧情介绍：</p>
+        <h4>剧情介绍：</h4>
         <p><span style="font-size:14px;">{{ movie.v_text_info }}</span></p>
     {% endif %}
     <!-- 剧情信息 END -->
