@@ -32,9 +32,9 @@ reply_info_state=1
 
 # baseUrl 构造search页链接
 # 在线播放
-baseUrl1='http://m.bjwxzs.com.cn/index.php/home/index/search.html?k='
+baseUrl1='http://tnt1024.com/movie/search/?movie_name='
 # 百度网盘 链接
-baseUrl2='http://tnt1024.com/movie/?movie_name='
+baseUrl2='http://tnt1024.com/movie/search/?movie_name='
 
 @robot.subscribe
 def subscribe(message):
@@ -219,13 +219,13 @@ def reply_info(v_name):
 def reply_info_bygenurl(v_name):
     out_list=[]
 
-    # 罗拉电影搜索 URL
-    '''
+    # 在线搜索 URL
     #baseUrl='http://m.nemfh.cn/index.php/home/index/search.html?k='
     global baseUrl1
-    url=baseUrl1+v_name
+    url = baseUrl1 + v_name + '&onlineplay_search=onlineplay_search'
     name='【在线观看】《'+v_name+'》'
-    picurl='https://s1.ax1x.com/2018/08/11/P6L2sU.jpg'
+    # picurl='https://s1.ax1x.com/2018/08/11/P6L2sU.jpg'
+    picurl = 'http://wx1.sinaimg.cn/mw690/0060lm7Tly1fuh4pci3jjj30p00dwgmc.jpg'
     # 插入搜索词条链接图文消息
     in_list=[]
     in_list.append(name)
@@ -233,7 +233,6 @@ def reply_info_bygenurl(v_name):
     in_list.append(picurl)
     in_list.append(url)
     out_list.append(in_list)
-    '''
 
     # 网盘电影网站 搜索结果
     in_list=[]
@@ -241,7 +240,7 @@ def reply_info_bygenurl(v_name):
     global baseUrl2
     # pic_pan='https://upload-images.jianshu.io/upload_images/5649568-867870961e0b81c5.jpg'
     pic_pan = 'http://wx1.sinaimg.cn/mw690/0060lm7Tly1fuh4pci3jjj30p00dwgmc.jpg'
-    url_pan=baseUrl2 + v_name
+    url_pan=baseUrl2 + v_name + '&movie_search=movie_search'
     in_list.append(name_pan)
     in_list.append(name_pan)
     in_list.append(pic_pan)
