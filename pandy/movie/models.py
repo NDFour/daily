@@ -16,6 +16,7 @@ class Movie(models.Model):
     v_magnet = models.CharField('磁力链接 2', max_length=255, blank=True)
     v_valid = models.IntegerField('网盘链接是否可用', default=1)
     v_views = models.PositiveIntegerField('阅读次数', default=0)
+    v_belong_to = models.PositiveIntegerField('影片类别（网盘/在线）', default=1)
 
     v_pub_date = models.DateTimeField('最后更新时间', default=timezone.now())
 
@@ -34,4 +35,3 @@ class Passwds(models.Model):
 
     def __unicode__(self):
         return self.p_name
-

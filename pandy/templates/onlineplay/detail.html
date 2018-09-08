@@ -1,0 +1,80 @@
+<html>
+ <head>
+     <title>《{{ movie.v_name }}》免费网盘资源分享</title>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     {% load staticfiles %}
+     <!-- Bootstrap -->
+    <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet">
+     <style type="text/css">
+         p{
+             text-indent: 1em;
+         }
+         .magnet_url{
+             font-size: 15px;
+         }
+
+         .pubdate_views{
+             font-size: 14px;
+             color:grey;
+             padding-bottom: 6px;
+         }
+         .jumbotron{
+             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+         }
+     </style>
+    <script>
+        <!-- 播放不同集视频 -->
+        function changevideo(url, playindex)
+        {
+            document.getElementById('playvideo').src=url;
+            document.getElementById('playindex').innerHTML=" 正在播放：第"+playindex+"集  <br />";
+        }
+    </script>
+</head>
+
+<body>
+    <div align="center">
+        <!-- 导航栏 -->
+        {% include 'index/navbar.html' %}
+    </div>
+    <!-- align="center" End -->
+
+    <!-- 公众号推广图文 -->
+    <!--
+    <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    -->
+    <!-- 公众号推广图文 End -->
+
+    <div class="container">
+        <div class="row">
+
+            <!-- 电影信息区域 -->
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                {% include 'onlineplay/movie_info_jumbotron.html' %}
+            </div>
+
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <!-- 判断是否需要展示 热搜榜 -->
+                {% if resou_movie_list %}
+                <!-- 热搜榜 -->
+                    {% include 'movie/resou_movie_bar.html' %}
+                {% endif %}
+
+                <!-- 微信公众号吸粉广告 -->
+                {% include 'index/wechat_ad.html' %}
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'index/alipay.html' %}
+
+    <div align="center">
+        {% include 'index/footer.html' %}
+    </div>
+
+</body>
+
+</html>

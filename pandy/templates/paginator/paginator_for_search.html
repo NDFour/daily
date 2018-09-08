@@ -1,0 +1,40 @@
+    {% if movie_list %}
+    <!-- 页码 -->
+    <div align="center">
+        <div>
+            第 {{ movie_list.number }} 页 / 共 {{ movie_list.paginator.num_pages }} 页
+        </div>
+        <div class="pagination">
+            <!-- 首页 -->
+            {% if search_type %}
+                <button class="btn btn-warning"><a href="{% url 'movie_search_navbar'  %}?movie_name={{ movie_name }}&page_num=1&{{ search_type }}={{ search_type }}">首页</a></button>
+            {% else %}
+                <button class="btn btn-warning"><a href="{% url 'movie_search_navbar'  %}?movie_name={{ movie_name }}&page_num=1">首页</a></button>
+            {% endif %}
+
+            <!-- 上一页按钮 -->
+            {% if movie_list.has_previous %}
+                {% if search_type %}
+                    <button class="btn btn-warning"><a href="{% url 'movie_search_navbar' %}?movie_name={{ movie_name }}&page_num={{ movie_list.previous_page_number }}&{{ search_type }}={{ search_type }}">上一页</a></button>
+                {% else %}
+                    <button class="btn btn-warning"><a href="{% url 'movie_search_navbar' %}?movie_name={{ movie_name }}&page_num={{ movie_list.previous_page_number }}">上一页</a></button>
+                {% endif %}
+            {% endif %}
+            <!-- 下一页按钮 -->
+            {% if movie_list.has_next %}
+                {% if search_type %}
+                    <button class="btn btn-warning"><a href="{% url 'movie_search_navbar' %}?movie_name={{ movie_name }}&page_num={{ movie_list.next_page_number }}&{{ search_type }}={{ search_type }}">下一页</a></button>
+                {% else %}
+                    <button class="btn btn-warning"><a href="{% url 'movie_search_navbar' %}?movie_name={{ movie_name }}&page_num={{ movie_list.next_page_number }}">下一页</a></button>
+                {% endif %}
+            {% endif %}
+            <!-- 尾页 -->
+            {% if search_type %}
+                <button class="btn btn-warning"><a href="{% url 'movie_search_navbar' %}?movie_name={{ movie_name }}&page_num={{ movie_list.paginator.num_pages }}&{{ search_type }}={{ search_type }}">尾页</a></li>
+            {% else %}
+                <button class="btn btn-warning"><a href="{% url 'movie_search_navbar' %}?movie_name={{ movie_name }}&page_num={{ movie_list.paginator.num_pages }}">尾页</a></li>
+            {% endif %}
+
+        </div>
+    </div>
+    {% endif %}

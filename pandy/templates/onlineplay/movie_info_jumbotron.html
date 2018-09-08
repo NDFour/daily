@@ -1,0 +1,41 @@
+<!-- 巨幕区域 -->
+<div class="jumbotron">
+    <h3>{{ movie.v_name }}</h3>
+    <div class="pubdate_views">{{ movie.v_pub_date }}  {{ movie.v_views }} Views</div>
+
+    <!-- 影片海报
+    <p><img src="{{ movie.v_pic }}" data-ke-src="{{ movie.v_pic }}" alt=""  title="" align="" width=50%  /><br /></p>
+    -->
+
+    <!-- 播放器 -->
+    <iframe src="{{ index_video }}" id="playvideo" width="100%" height="230" allowtransparency="true" frameborder="0" allowfullscreen="true" scrolling="no" style="background: black;"></iframe>
+    <label class="visible-sm visible-md visible-lg label label-success">注：PC用户如无法播放请使用网盘链接,或扫描右侧二维码使用手机在线观看</label>
+
+    <span id="playindex" class="label label-info"></span>
+    <br />
+    {% for sources in playurls %}
+        {% for url in sources %}
+            {% if forloop.first %}
+                <span class="btn btn-success">{{ url }}</span><br />
+                <!-- <div class="btn-toolbar" role="toolbar" aria-label="dfdks"> --> <!-- 按钮组 -->
+            {% else %}
+                <button class="btn" onclick="changevideo('{{ url }}', '{{ forloop.counter|add:-1 }}')" role="group" aria-label="">
+                    第{{ forloop.counter|add:-1 }}集
+                </button>
+            {% endif %}
+        {% endfor %}
+        <!-- </div> --> <!-- 按钮组结束 -->
+        <br />
+        <br />
+    {% endfor %}
+
+    <!-- 剧情介绍 -->
+    {% if movie.v_text_info %}
+        <p>剧情介绍：</p>
+        <p><span style="font-size:14px;">{{ movie.v_text_info }}</span></p>
+    {% endif %}
+    <!-- 剧情信息 END -->
+
+
+</div>
+<!-- 巨幕区域 End -->

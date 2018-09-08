@@ -1,4 +1,5 @@
 from .models import Movie, Passwds
+from onlineplay.models import Onlineplay
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
@@ -46,9 +47,9 @@ def index_by_page(request, page_num):
         tmp = 1
     page_num = tmp
 
-    movie_list = Movie.objects.all().order_by('-v_pub_date')
     # 一页的数据数目
     per_page = 12
+    movie_list = Movie.objects.all().order_by('-v_pub_date')
     # 生成 paginator 对象
     paginator = Paginator( movie_list, per_page )
 
@@ -72,18 +73,36 @@ def index_by_page(request, page_num):
 # 正常通过 navbar 中的 Form 搜索
 def movie_search_navbar(request):
     movie_name = request.GET['movie_name']
+
+    # 搜索在线 或 搜索网盘
+    search_type = ''
+    try:
+        search_type = request.GET['onlineplay_search']
+    except:
+        search_type = ''
+    if search_type:
+        pass
+    else:
+        try:
+            search_type = request.GET['movie_search']
+        except:
+            search_type = ''
+
     # 尝试获取页码
     try:
         page_num = request.GET['page_num']
     except:
         page_num = 1
 
-    movie_list = Movie.objects.filter(v_name__icontains=movie_name)
+    # 根据不同的搜索按钮 (onlineplay_search, movie_search)，搜索不同的数据
+    if search_type == 'onlineplay_search':
+        movie_list = Onlineplay.objects.filter(v_name__icontains=movie_name)
+    else:
+        movie_list = Movie.objects.filter(v_name__icontains=movie_name)
 
     per_page = 12
     # 生成 paginator 对象
     paginator = Paginator(movie_list, per_page)
-
     try:
         # 获取当前页码中的数据记录
         movie_list = paginator.page(page_num)
@@ -105,6 +124,7 @@ def movie_search_navbar(request):
             'page_title': movie_name+' 搜索结果',
             'alipay_code': alipay_code,
             'url_name': 'movie_search_navbar',
+            'search_type': search_type,
             }
     return render(request, 'movie/index.html', context)
     # return HttpResponse('search page %s' % movie_name)

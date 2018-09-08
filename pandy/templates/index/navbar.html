@@ -19,7 +19,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'index' %}">首页<span class="sr-only">(current)</span></a></li>
-                <li><a href="{% url 'movie_index_by_page' 1 %}">影视资源</a></li>
+                <li><a href="{% url 'onlineplay_index_by_page' 1 %}">在线播放</a></li>
+                <li><a href="{% url 'movie_index_by_page' 1 %}">网盘资源</a></li>
                 <li><a href="https://mp.weixin.qq.com/s/zBSdKU-qgr4FH2VEMjSscw" target="_blank">公众号自助查询机器人</a></li>
                 <li><a href="https://mp.weixin.qq.com/s/irDWAq4HOGQ3TXWGcqozXQ" target="_blank">公众号合作</a></li>
             </ul>
@@ -28,9 +29,10 @@
             <!-- 搜索功能 -->
             <form class="navbar-form navbar-right visible-sm visible-md visible-lg" action="{% url 'movie_search_navbar' %}" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="输入电影名搜索网盘资源" name=movie_name>
+                    <input type="text" class="form-control" placeholder="输入电影名搜索资源" name=movie_name>
                 </div>
-                <button type="submit" class="btn btn-default">搜索</button>
+                <button type="submit" class="btn btn-default" name="onlineplay_search" value="onlineplay_search">搜在线播放</button>
+                <button type="submit" class="btn btn-default" name="movie_search" value="movie_search">搜&nbsp&nbsp网&nbsp&nbsp盘</button>
             </form>
             <!-- 搜索功能 End -->
         </div>

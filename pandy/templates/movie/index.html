@@ -13,10 +13,25 @@
             text-align: center;
         }
 
+        .movie_section{
+            padding: 10px;
+        }
         .pub_date {
-            font-size: 14px;
+            font-size: 12px;
             color: #9999CC;
         }
+
+        .belong_to_title{
+            display: inline-block;
+            background-color:#f76c3d;
+            padding:0.1rem 0.2rem;
+            font-size:0.625rem;
+            color:#fff;
+            position: absolute;
+            top:1rem;
+            left:0.5rem;
+        }
+
     </style>
 </head>
 
@@ -39,13 +54,13 @@
         <div class="row">
 
             <!-- 2/3 窗口 -->
-            <div class="col-sm-8 col-md-8 col-lg-8">
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
                 <!-- 电影列表 -->
                 {% include 'movie/movie_list.html' %}
             </div>
 
             <!-- 1/3 窗口 -->
-            <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
                 <!-- 判断是否需要展示 热搜榜 -->
                 {% if resou_movie_list %}
                     {% include 'movie/resou_movie_bar.html' %}
@@ -62,10 +77,17 @@
     <!-- 根据不同的函数 展示不同的分页文件，因为不同函数对应结果列表的url不同 -->
     <!-- search 使用 -->
     {% if url_name == "movie_search_navbar" %}
-        {% include 'movie/paginator_for_search.html' %}
+        {% include 'paginator/paginator_for_search.html' %}
     <!-- index 和 index_by_page 使用 -->
-    {% else %}
-        {% include 'movie/paginator_for_index.html' %}
+    {% elif url_name == 'movie_index' %}
+        {% include 'paginator/paginator_for_movie_index.html' %}
+    {% elif url_name == 'movie_index_by_page' %}
+        {% include 'paginator/paginator_for_movie_index.html' %}
+
+    {% elif url_name == "onlineplay_index" %}
+        {% include 'paginator/paginator_for_onlineplay_index.html' %}
+    {% elif url_name == 'onlineplay_index_by_page' %}
+        {% include 'paginator/paginator_for_onlineplay_index.html' %}
     {% endif %}
 
 
