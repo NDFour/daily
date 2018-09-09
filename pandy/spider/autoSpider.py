@@ -15,6 +15,7 @@ import os
 import sys
 import traceback
 import codecs
+import json
 
 # 记录程序输入，并写入到本地文件，供 web 端展示
 str_2_logfile = []
@@ -573,7 +574,104 @@ class kuyunzy_Spider:
             str_2_logfile.append('>> [get_html] failed : %s' %url)
         return html_text
 
+class xujiating_Spider:
+    # 0-*, 12-*
+    # 1,5,6,7,8,9,10,11,18,19 罗拉电影
+    # typeid:
+    # 电影： 5-动作片 6-喜剧 8-科幻 9-恐怖 10-剧情 11-战争 18-惊悚 (2,7, 16-爱奇艺直链 1-不好用)
+    # 电视剧： 12-国产剧 13-港台剧 14-日韩剧 15-欧美剧
+    # 动漫： 4-动漫
+    # 综艺 3-综艺
+    url = 'http://w.xujiating.cn/index.php/home/index/addpian.html'
+    pages_num = 772
+    current_page = 0
 
+    def get_info(self):
+        global str_2_logfile
+        data = {
+            'start': '0',
+            'typeid': '1,5,6,7,8,9,10,11,18,19',
+        }
+
+        headers = {
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Connection': 'keep-alive',
+            'Content-Length': '57',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Host': 'w.xujiating.cn',
+            'Origin': 'http://w.xujiating.cn',
+            'Referer': 'http://w.xujiating.cn/index.php/home/index/dianying.html',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+
+        while self.current_page < self.pages_num:
+            data['start'] = str(self.current_page*12)
+            try:
+                r = requests.post(self.url, data=data, headers = headers)
+                parsed_json = json.loads(r.text[307:])
+            except:
+                empt_dic = '{"info":"0"}'
+                parsed_json = json.loads(empt_dic)
+                # str_2_logfile.append(sys.exc_info() )
+                str_2_logfile.append('>> [get_info] 获取 json 数据失败 start: %s' %data['start'])
+
+            if parsed_json['info'] == 1:
+                if parsed_json['conter']:
+                    for movie in parsed_json['conter']:
+                        if is_saved(movie['d_id'], 2):
+                            str_2_logfile.append('>> [get_info] skip already exsist\n %s' % movie['d_name'] + '   [xujiating]')
+                        else:
+                            movie_info_list = []
+                            movie_info_list.append(movie['d_name'])
+                            movie_info_list.append(movie['d_pic'])
+                            movie_info_list.append(movie['d_content'].replace('"','').replace("'",''))
+                            movie_info_list.append(movie['d_playurl'].replace('#','$$').replace('$$$','$$')+'$$')
+                            movie_info_list.append(movie['d_id']) # detail_url
+                            self.save_2_db(movie_info_list)
+
+            write_2_logfile(str_2_logfile)
+            str_2_logfile = []
+            self.current_page += 1
+
+    def save_2_db(self, sql_param):
+        global str_2_logfile
+        # sql_param: name, pic, text_info, playurl, href
+        conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
+        cursor = conn.cursor()
+
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0);' % \
+        (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
+
+        try:
+            cursor.execute(sql_insert)
+            conn.commit()
+            # print('>> [save_2_db] insert succes')
+            str_2_logfile.append('>> [save_2_db] insert succes')
+
+            # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            movie_name = sql_param[0]
+            movie_href = sql_param[4]
+            sql_del = 'DELETE FROM onlineplay_onlineplay WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
+            try:
+                cursor.execute(sql_del)
+                conn.commit()
+                # print('>> [save_2_db] del old version success\n')
+            except:
+                conn.rollback()
+                # print('>> [save_2_db] del old version failed\n')
+                str_2_logfile.append('>> [save_2_db] del old version failed\n')
+        except:
+            str_2_logfile.append(sys.exc_info())
+            conn.rollback()
+            # print('>> [save_2_db] insert failed')
+            str_2_logfile.append('>> [save_2_db] insert failed')
+            str_2_logfile.append(sql_insert)
+
+        cursor.close()
+        conn.close()
 
 # 判断传入的 影片名 是否已存在于数据库
 # table = 1 时，查 movie_movie 表，对应网盘
@@ -667,6 +765,13 @@ def main():
         kuyunzy_cnt += 1
         write_2_logfile(str_2_logfile)
         str_2_logfile = []
+
+    write_2_logfile(str_2_logfile)
+    str_2_logfile = []
+
+    # xujiating.cn 罗拉电影
+    xujiating = xujiating_Spider()
+    xujiating.get_info()
 
     write_2_logfile(str_2_logfile)
     str_2_logfile = []

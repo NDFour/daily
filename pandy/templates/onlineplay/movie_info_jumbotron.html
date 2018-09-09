@@ -15,22 +15,24 @@
         <span id="playindex" class="label label-info"></span>
     </div>
     <br />
-    <div style="color:purple;"><strong>请从下方播放来源中选择要播放的视频，选集后才可播放</strong></div>
-    <br />
+    <h4>播放来源：</h4>
     {% for sources in playurls %}
         {% for url in sources %}
             {% if forloop.first %}
                 <span class="btn btn-success">{{ url }}</span><br />
-                <!-- <div class="btn-toolbar" role="toolbar" aria-label="dfdks"> --> <!-- 按钮组 -->
             {% else %}
                 <button class="btn" onclick="changevideo('{{ url }}', '{{ forloop.counter|add:-1 }}')" role="group" aria-label="">
                     第{{ forloop.counter|add:-1 }}集
                 </button>
             {% endif %}
         {% endfor %}
-        <!-- </div> --> <!-- 按钮组结束 -->
         <br />
     {% endfor %}
+
+    <div align="center">
+        <p style="padding:2px;background-color:#8181F7;color:white;font-size:16px;"><strong>请从上方播放来源中选择要播放的视频,选集后才可播放<br />如无法播放或卡顿请尝试切换不同片源。</strong></p>
+    </div>
+    <br />
 
     <!-- 剧情介绍 -->
     {% if movie.v_text_info %}

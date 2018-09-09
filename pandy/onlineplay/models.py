@@ -10,7 +10,7 @@ class Onlineplay(models.Model):
     v_playurl = models.TextField('播放链接', blank=True)
     v_views = models.PositiveIntegerField('浏览次数', default=0)
     v_pub_date = models.DateTimeField('更新时间', default=timezone.now())
-    v_belong_to = models.PositiveIntegerField('影片类别（网盘/在线）', default=2)
+    v_belong_to = models.PositiveIntegerField('影片类别（网盘/在线）', default=2, blank=True)
 
     def __unicode__(self):
         return self.v_name
