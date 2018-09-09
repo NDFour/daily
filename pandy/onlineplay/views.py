@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from django.core.paginator import Paginator, EmptyPage
+import re
 
 # Create your views here.
 def onlineplay_index(request):
@@ -67,6 +68,15 @@ def onlineplay_detail(request, movie_id):
     sourceurls = movie.v_playurl.split('$$')
     for s in sourceurls:
         urls_tmp = s.split('$')
+        # 免费解析接口
+        if re.match(r'.*www.mgtv.com.*',urls_tmp):
+            urls_tmp = 'https://jiexi.gysc88.cn//mdparse/index.php?id=' + urls_tmp
+        elif re.match(r'.*v.qq.com.*',urls_tmp):
+            urls_tmp = 'https://api.flvsp.com/?url=' + urls_tmp
+        elif re.match(r'.*letv.com.*',urls_tmp):
+            urls_tmp = 'https://jiexi.gysc88.cn//mdparse/index.php?id=' + urls_tmp
+        elif re.match(r'.*iqiyi.com.*',urls_tmp):
+            urls_tmp = 'https://www.1616v.com/1616/?url=' + urls_tmp
         playurls.append(urls_tmp)
     playurls[-1].pop()
 
