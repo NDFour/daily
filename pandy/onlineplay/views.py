@@ -69,15 +69,19 @@ def onlineplay_detail(request, movie_id):
     for s in sourceurls:
         urls_tmp = s.split('$')
         # 免费解析接口
-        if re.match(r'.*www.mgtv.com.*',urls_tmp):
-            urls_tmp = 'https://jiexi.gysc88.cn//mdparse/index.php?id=' + urls_tmp
-        elif re.match(r'.*v.qq.com.*',urls_tmp):
-            urls_tmp = 'https://api.flvsp.com/?url=' + urls_tmp
-        elif re.match(r'.*letv.com.*',urls_tmp):
-            urls_tmp = 'https://jiexi.gysc88.cn//mdparse/index.php?id=' + urls_tmp
-        elif re.match(r'.*iqiyi.com.*',urls_tmp):
-            urls_tmp = 'https://www.1616v.com/1616/?url=' + urls_tmp
-        playurls.append(urls_tmp)
+        urls_tmp2 = []
+        for url_tmp in urls_tmp:
+            if re.match(r'.*www.mgtv.com.*',url_tmp):
+                urls_tmp2.append('https://jiexi.gysc88.cn//mdparse/index.php?id=' + url_tmp)
+            elif re.match(r'.*v.qq.com.*',url_tmp):
+                urls_tmp2.append('https://api.flvsp.com/?url=' + url_tmp)
+            elif re.match(r'.*letv.com.*',url_tmp):
+                urls_tmp2.append('https://jiexi.gysc88.cn//mdparse/index.php?id=' + url_tmp)
+            elif re.match(r'.*iqiyi.com.*',url_tmp):
+                urls_tmp2.append('https://www.1616v.com/1616/?url=' + url_tmp)
+            else:
+                urls_tmp2.append(url_tmp)
+        playurls.append(urls_tmp2)
     playurls[-1].pop()
 
     # 跳转到 detail 页先播放第一集
