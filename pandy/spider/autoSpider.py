@@ -583,7 +583,7 @@ class xujiating_Spider:
     # 动漫： 4-动漫
     # 综艺 3-综艺
     url = 'http://w.xujiating.cn/index.php/home/index/addpian.html'
-    pages_num = 772
+    pages_num = 10
     current_page = 0
 
     def get_info(self):
