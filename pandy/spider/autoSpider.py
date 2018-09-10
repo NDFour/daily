@@ -679,7 +679,7 @@ class www_605zy_Spider:
             'http://www.135zy.net/vod-type-id-1-pg-', # 电影
             ]
     # 每次需要更新的页数+1
-    pages_num = 110
+    pages_num = 3
 
     def __init__(self):
         global str_2_logfile
@@ -917,7 +917,6 @@ def main():
     write_2_logfile(str_2_logfile)
     str_2_logfile = []
 
-    '''
     # 网盘资源
     # yeyoufang.com 爬虫
     yeyoufang = yeyoufang_Spider()
@@ -959,7 +958,6 @@ def main():
 
     write_2_logfile(str_2_logfile)
     str_2_logfile = []
-    '''
 
     # 605资源
     www_605zy = www_605zy_Spider()
