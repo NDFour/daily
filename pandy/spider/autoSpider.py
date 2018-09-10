@@ -673,6 +673,189 @@ class xujiating_Spider:
         cursor.close()
         conn.close()
 
+class www_605zy_Spider:
+    # 采集网站的目录url
+    category_urls = [
+            'http://www.135zy.net/vod-type-id-1-pg-', # 电影
+            ]
+    # 每次需要更新的页数+1
+    pages_num = 110
+
+    def __init__(self):
+        global str_2_logfile
+        # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        str_2_logfile.append('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        # print('\tmovieSpider for yeyoufang.com')
+        str_2_logfile.append('\tmovieSpider for www.135zy.net')
+        # print()
+        # print('>> movieSpider init...')
+        str_2_logfile.append('\n>> movieSpider init...')
+
+        # 关闭 django 应用 pandy
+        # print('>> stop [pandy]')
+        # print('\n\n')
+        str_2_logfile.append('\n\n')
+
+    # 遍历目录获取电影名保存到列表，删除已存在数据库的，然后获取电影信息
+    # 返回值： 1-电影名列表 2-电影详情页url列表 （返回的均为数据库中不存在的)
+    def get_url(self):
+        global str_2_logfile
+        current_page = 1
+        movies_num = 0
+        # 以下两个列表用于返回
+        title_list = []
+        url_list = []
+
+        for category in self.category_urls:
+            current_page = 1
+            # 遍历 pages_num 页
+            while current_page < self.pages_num:
+                # print('>> [get_url] now is page %s\n>> %s\n' % (current_page, category + str(current_page) + '.html' ) )
+                # 构造响应页码目录url，并获取目录页网页 文本
+                category_html = self.get_html(category + str(current_page) + '.html' )
+                # 只解析 align="left"的<td> 标签，其中包含电影名和详情页url
+                # <td height="20" align="left"><a href="/detail/?15422.html" target="_blank">小生梦惊魂&nbsp;</a></td>
+                only_title_href = SoupStrainer(class_="xing_vb4")
+                soup = BeautifulSoup(category_html, 'lxml', parse_only=only_title_href)
+                a_list = soup.find_all('a')
+                movies_num += len(a_list)
+
+                for i in a_list:
+                    href = 'http://www.135zy.net' + i['href']
+                    title = i.string
+                    # 判断是否已经存在于数据库，是的话跳过，不是则存储
+                    # str_2_logfile.append('http://www.menggouwp.com' + href)
+                    if is_saved( href, 2) == 1:
+                        # print('>> [get_url] skip already exsist\n  %s' % title)
+                        str_2_logfile.append('>> [get_url] skip already exsist\n  %s' % title + '   [www_605zy]')
+                        # print('>> [get_url] already exsist')
+                    else:
+                        url_list.append(href)
+                        title_list.append(title)
+
+                # 页码数 ++ ，构造下一页的目录页url
+                current_page += 1
+
+        # print('>> [get_url] total %s movies' % movies_num)
+        str_2_logfile.append('>> [get_url] total %s movies' % movies_num)
+        return title_list,url_list
+
+    # 解析详情页获得电影信息，返回电影信息 列表
+    def get_info(self, detail_url, movie_name):
+        global str_2_logfile
+        # print('>> [get_info] %s' % detail_url)
+        str_2_logfile.append('>> [get_info] %s' % detail_url)
+
+        detail_html = self.get_html(detail_url)
+        soup = BeautifulSoup(detail_html, 'lxml')
+
+        try: # 封面图
+            movie_pic = soup.find(class_="lazy")['src']
+        except:
+            movie_pic = ''
+
+        try: # 影片简介
+            movie_text = soup.find(class_="vodplayinfo").string
+        except:
+            movie_text = '影片介绍暂时为空'
+
+        try: # 在线播放链接
+            only_vodplayinfo = SoupStrainer(class_="vodplayinfo")
+            soup = BeautifulSoup(detail_html, 'lxml', parse_only=only_vodplayinfo)
+            h3_list_tmp = soup.find_all('h3')
+            h3_list = []
+            for h3 in h3_list_tmp:
+                h3_list.append(h3.string)
+
+            ul_list = soup.find_all('ul')
+            ul_cnt = 0
+            movie_playurl = ''
+            for ul in ul_list:
+                li_list = ul.find_all('li')
+                movie_playurl += h3_list[ul_cnt] + '$'
+                for li in li_list:
+                    movie_playurl += li.input['value'] + '$'
+                movie_playurl += '$'
+                ul_cnt += 1
+        except:
+            movie_playurl = ''
+
+        movie_info_list = []
+        movie_info_list.append(movie_name)
+        movie_info_list.append(movie_pic)
+        movie_info_list.append(movie_text)
+        movie_info_list.append(movie_playurl)
+        movie_info_list.append(detail_url)
+
+        # 传入影片信息列表保存电影信息
+        self.save_2_db(movie_info_list)
+
+    # 接收传入的电影信息作为参数 构造并执行sql 保存数据至db，保存新数据的同时删除旧数据
+    # 接收参数： sql_param : 影片的信息
+    def save_2_db(self, sql_param):
+        global str_2_logfile
+        # sql_param: name, pic, text_info, playurl, href
+        conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
+        cursor = conn.cursor()
+
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0);' % \
+        (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
+
+        try:
+            cursor.execute(sql_insert)
+            conn.commit()
+            # print('>> [save_2_db] insert succes')
+            str_2_logfile.append('>> [save_2_db] insert succes')
+
+            # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            movie_name = sql_param[0]
+            movie_href = sql_param[4]
+            sql_del = 'DELETE FROM onlineplay_onlineplay WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
+            try:
+                cursor.execute(sql_del)
+                conn.commit()
+                # print('>> [save_2_db] del old version success\n')
+            except:
+                conn.rollback()
+                # print('>> [save_2_db] del old version failed\n')
+                str_2_logfile.append('>> [save_2_db] del old version failed\n')
+        except:
+            str_2_logfile.append(sys.exc_info())
+            conn.rollback()
+            # print('>> [save_2_db] insert failed')
+            str_2_logfile.append('>> [save_2_db] insert failed')
+            str_2_logfile.append(sql_insert)
+
+        cursor.close()
+        conn.close()
+
+    # 获取网页文本
+    def get_html(self,url):
+        global str_2_logfile
+        try:
+            headers = {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Cache-Control': 'max-age=0',
+            'Connection': 'keep-alive',
+            'Host': 'www.135zy.net',
+            'Referer': 'http://www.135zy.net/vod-type-id-1-pg-2.html',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+            }
+            r = requests.get(url, timeout = 10)
+            r.encoding = r.apparent_encoding
+            html_text = r.text
+            # print('>> [get_html] success %s' %len(html_text))
+            str_2_logfile.append('>> [get_html] success' )
+        except:
+            html_text = ''
+            # print('>> [get_html] failed')
+            str_2_logfile.append('>> [get_html] failed : %s' %url)
+        return html_text
+
+
 # 判断传入的 影片名 是否已存在于数据库
 # table = 1 时，查 movie_movie 表，对应网盘
 # table = 2 时，查onlineplay_onlineplay 表， 对应在线播放
@@ -734,6 +917,7 @@ def main():
     write_2_logfile(str_2_logfile)
     str_2_logfile = []
 
+    '''
     # 网盘资源
     # yeyoufang.com 爬虫
     yeyoufang = yeyoufang_Spider()
@@ -775,7 +959,21 @@ def main():
 
     write_2_logfile(str_2_logfile)
     str_2_logfile = []
+    '''
 
+    # 605资源
+    www_605zy = www_605zy_Spider()
+    title_list, url_list=www_605zy.get_url()
+    str_2_logfile.append('---------- www_605zy 共有 %s 条数据需要插入 --------' % len(url_list))
+    www_605zy_cnt = 0
+    for detail_url in url_list:
+        www_605zy.get_info(detail_url, title_list[www_605zy_cnt])
+        www_605zy_cnt += 1
+        write_2_logfile(str_2_logfile)
+        str_2_logfile = []
+
+    write_2_logfile(str_2_logfile)
+    str_2_logfile = []
 
     # print()
     # print('--------------------------------')

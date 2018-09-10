@@ -12,11 +12,13 @@ import re
 import os
 import traceback
 import codecs
+from django.views.decorators.cache import cache_page
 
 # 分页
 from django.core.paginator import Paginator, EmptyPage
 
 # Create your views here.
+@cache_page(60 * 15)
 def index(request):
     movie_list = Movie.objects.all().order_by('-v_pub_date')
     # 一页的数据数据
@@ -40,6 +42,7 @@ def index(request):
             }
     return render(request, 'movie/index.html', context)
 
+@cache_page(60 * 15)
 def index_by_page(request, page_num):
     try:
         tmp = int(page_num)
@@ -130,6 +133,7 @@ def movie_search_navbar(request):
     # return HttpResponse('search page %s' % movie_name)
 
 # 热搜榜，根据访问量返回阅读量最高的20部电影
+@cache_page(60 * 15)
 def movie_resou(request):
     movie_list = Movie.objects.order_by('-v_views')[:20]
     # 热搜页 一页的 电影数量
@@ -142,6 +146,7 @@ def movie_resou(request):
             }
     return render(request, 'movie/index.html', context)
 
+@cache_page(60 * 15)
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, id  = movie_id)
     resou_movie_list = Movie.objects.order_by('-v_views')[:7]

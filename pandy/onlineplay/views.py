@@ -5,8 +5,10 @@ from django.http import HttpResponse
 
 from django.core.paginator import Paginator, EmptyPage
 import re
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
+@cache_page(60 * 15)
 def onlineplay_index(request):
     movie_list = Onlineplay.objects.all().order_by('-v_pub_date')
     # 一页的数据数据
@@ -30,6 +32,7 @@ def onlineplay_index(request):
             }
     return render(request, 'movie/index.html', context)
 
+@cache_page(60 * 15)
 def onlineplay_index_by_page(request, page_num):
     try:
         tmp = int(page_num)
@@ -60,6 +63,7 @@ def onlineplay_index_by_page(request, page_num):
 
     return render(request, 'movie/index.html', context)
 
+@cache_page(60 * 15)
 def onlineplay_detail(request, movie_id):
     movie = get_object_or_404(Onlineplay, id  = movie_id)
 
