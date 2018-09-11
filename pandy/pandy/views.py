@@ -10,7 +10,7 @@ def index(request):
 def login(request):
 	# 根据 session 判断用户是否已经登录
 	if request.session.get('is_login', None):
-		return redirect('/')
+		return redirect('/usercenter')
 
 	if request.method ==  'POST':
 		username = request.POST.get('username', None)
@@ -61,7 +61,7 @@ def user_center(request):
 def register(request):
 	# 已登录状态下不可以注册
 	if request.session.get('is_login', default=None):
-		return redirect('/')
+		return redirect('/usercenter')
 
 	if request.method == "POST":
 		message = '请检查填写的内容！'
