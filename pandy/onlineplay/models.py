@@ -11,10 +11,11 @@ class Onlineplay(models.Model):
     v_views = models.PositiveIntegerField('浏览次数', default=0)
     v_pub_date = models.DateTimeField('更新时间', default=timezone.now())
     v_belong_to = models.PositiveIntegerField('影片类别（网盘/在线）', default=2, blank=True)
+    v_type = models.PositiveIntegerField('类型', default=1) # 战争，剧情，科幻
+    v_vip = models.IntegerField('vip视频', default=0) # 0: not vip; 1: only for vip
 
     def __unicode__(self):
         return self.v_name
-
     # 阅读量自增函数
     def increase_views(self):
         self.v_views += 1

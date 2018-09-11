@@ -35,6 +35,18 @@
                 <button type="submit" class="btn btn-default" name="movie_search" value="movie_search" >搜&nbsp&nbsp网&nbsp&nbsp盘</button>
             </form>
             <!-- 搜索功能 End -->
+
+            <!-- 当前登录用户模块 -->
+            <div class="navbar-form navbar-right">
+                {% if request.session.is_login %}
+                    <li class="btn btn-success"><a href="{% url 'user_center' %}" style="color:white;">充值中心 / 个人中心</a></li>
+                    <!-- <li class="btn btn-warning"><a href="{% url 'logout' %}">注销</a></li> -->
+                {% else %}
+                    <li class="btn btn-success"><a href="{% url 'login' %}">登录</a></li>
+                    <li class="btn btn-success"><a href="{% url 'register' %}">注册</a></li>
+                {% endif %}
+            </div>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>

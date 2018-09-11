@@ -22,7 +22,14 @@
                             <a href="{% url 'onlineplay_detail' movie.id %}">
                                 <img src="{{ movie.v_pic }}" alt="{{ movie.v_name }}高清在线播放资源" style="width:90%;height:230px;">
                             </a>
-                            <p class="belong_to_title">在线播放</p>
+                            
+                            <!-- is only for VIP -->
+                            {% if movie.v_vip == 1%}
+                                <p class="belong_to_title">VIP专享</p>
+                            {% else %}
+                                <p class="belong_to_title">在线播放</p>
+                            {% endif %}
+
                             <div class="caption">
                                 <p class="media-heading" style="height:3em;"><a href="{% url 'onlineplay_detail' movie.id %}">{{ movie.v_name }}</a></p>
                                 <div class="pub_date">

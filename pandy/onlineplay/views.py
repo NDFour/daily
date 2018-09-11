@@ -63,7 +63,7 @@ def onlineplay_index_by_page(request, page_num):
 
     return render(request, 'movie/index.html', context)
 
-@cache_page(60 * 15)
+# 不能加缓存，不然用户充值之后数据要好长时间更新
 def onlineplay_detail(request, movie_id):
     movie = get_object_or_404(Onlineplay, id  = movie_id)
 
@@ -104,8 +104,12 @@ def onlineplay_detail(request, movie_id):
     if alipay_obj:
         alipay_code = alipay_obj.p_value
 
+    # 判断用户是否登录以及是否为 vip 用户
+    is_vip = request.session.get('user_isvip', default=None)
+
     context = {
             'movie': movie,
+            'is_vip': is_vip,
             'playurls': playurls,
             'index_video': index_video,
             'resou_movie_list': resou_movie_list,

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'movie.apps.MovieConfig',
     'onlineplay.apps.OnlineplayConfig',
     'spidermonitor.apps.SpidermonitorConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

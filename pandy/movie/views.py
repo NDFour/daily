@@ -18,7 +18,6 @@ from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator, EmptyPage
 
 # Create your views here.
-@cache_page(60 * 15)
 def index(request):
     movie_list = Movie.objects.all().order_by('-v_pub_date')
     # 一页的数据数据

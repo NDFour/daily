@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <title>电影免费资源网盘在线观看-用户中心</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+        .user_info{
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+          padding-left: 2px;
+        }
+    </style>
+</head>
+
+<body align="center" >
+    <div>
+        {% include 'index/navbar.html' %}
+
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+
+          <div class="user_info jumbotron">
+            <div align="right">
+              <li class="btn btn-danger"><a href="{% url 'logout' %}" style="color:white;">注销</a></li>
+            </div>
+
+            <h2 class="text-center">欢迎你：{{ user.user_name }} </h2>
+            <hr />
+            <table>
+              <tr>
+                <td><strong>用户名：</strong></td>
+                <td>{{ user.user_name }}</td>
+              </tr>
+            <tr>
+              <td><strong>VIP用户：</strong></td>
+              <td>
+                {% if user.user_isvip == 1 %}
+                  是
+                  <tr><td><strong>VIP期限：</strong></td>
+                    <td><button class="btn btn-success">{{ user.user_vip_type }}日会员</button></td>
+                  </tr>
+                {% else %}
+                  <button class="btn btn-danger">否</button>
+                {% endif %}
+              </td>
+            </tr>
+        </table>
+        <hr />
+
+            <!-- 会员充值 -->
+            <div>
+              <h3>充值 VIP</h3>
+              {% if message %}
+                <div class="alert alert-info">{{ message }}</div>
+              {% endif %}
+
+               <form action="{% url 'activate_vip' %}" method="post">
+                {% csrf_token %}
+                    <input type="text" class="form-control btn-lg" placeholder="请输入会员激活码" name="vip_code" required="required">
+                    <br />
+                    <button type="submit" class="btn btn-primary btn-lg" name="activate_btn" value="onlineplay_search">充值</button>
+              </form> 
+              <button type="submit" class="btn btn-warning"><a href="https://weidian.com/?userid=1382340997&wfr=c&ifr=shopdetail" style="color:white;" target="_blank">从哪里可以获得会员<strong>激活/充值码</strong></a></button>
+            </div> <!-- 会员充值 -->
+            <hr />
+            <div class="alert alert-info">有任何疑问欢迎添加管理员微信：<strong>ndfour001</strong></div>
+
+          </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    </div>
+
+    {% include 'index/footer.html' %}
+
+</body>
+
+</html>
