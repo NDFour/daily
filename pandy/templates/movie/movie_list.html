@@ -70,7 +70,13 @@
                                         <span>{{ movie.v_text_info | truncatechars:45 }}</span>
                                     </div>
                                 </div>
+
+                                {% if movie.v_vip ==1 %}
+                                <p class="belong_to_title">VIP专享</p>
+                                {% else %}
                                 <p class="belong_to_title">在线播放</p>
+                                {% endif %}
+
                             {% endif %}
                         </div>
                     </div> <!-- 手机屏幕浏览时展示样式 END -->
