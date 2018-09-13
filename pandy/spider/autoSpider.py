@@ -517,7 +517,7 @@ class kuyunzy_Spider:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0);' % \
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_blong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0 );' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
 
         try:
@@ -642,7 +642,7 @@ class xujiating_Spider:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0);' % \
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_blong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0);' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
 
         try:
@@ -798,7 +798,7 @@ class www_605zy_Spider:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0);' % \
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_blong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0);' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
 
         try:
