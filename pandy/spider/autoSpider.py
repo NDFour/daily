@@ -928,8 +928,8 @@ def is_saved( href, title, table):
 def write_2_logfile(log_list):
     global line_cnt
     try:
-        # f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
-        f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
+        # f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
         for log in log_list:
             f.write(str(line_cnt) + ' ' + log + '\n')
             line_cnt += 1
@@ -942,8 +942,8 @@ def write_2_logfile(log_list):
         print(log_list)
         print('-------------------------')
         '''
-        # f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
-        f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
+        # f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
         f.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
         f.write('[write_2_logfile] write_2_logfile failed')
         f.write('\n\n\n')

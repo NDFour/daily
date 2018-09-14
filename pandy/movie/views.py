@@ -245,8 +245,8 @@ def reset_valid(request):
 def spiderlog(request):
     # log_list
     log_list = []
-    # rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
-    rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt'
+    rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
+    # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt'
     try:
         f = codecs.open(rel, 'r', 'utf-8')
         for line in f:
@@ -262,8 +262,8 @@ def spiderlog(request):
 
     # log_list_err
     log_list_err = []
-    # rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
-    rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt'
+    rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
+    # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt'
     try:
         f = codecs.open(rel, 'r', 'utf-8')
         for line in f:
@@ -291,8 +291,8 @@ def spiderlog(request):
 
 def clean_spiderlog(requste):
     msg = ''
-    # rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
-    rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt'
+    rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
+    # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt'
     try:
         with open(rel, 'w') as f:
             f.write('')
@@ -301,8 +301,8 @@ def clean_spiderlog(requste):
         msg += '清空 spiderlog 失败'
 
 
-    # rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
-    rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt'
+    rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
+    # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt'
     try:
         with open(rel, 'w') as f:
             f.write('')
