@@ -51,31 +51,7 @@
         <div class="row">
 
             <div class="col-sm-8 col-md-8 col-lg-8">
-                <!-- 判断当前影片是否为 VIP 专享 -->
-                {% if movie.v_vip == 1 %}
-
-                    <!-- 判断当前访问用户是否为 vip 用户 -->
-                    {% if is_vip == 1 %}
-                        <!-- 电影信息区域 -->
-                        {% include 'onlineplay/movie_info_jumbotron.html' %}
-
-                    {% else %}
-                        <br />
-                        <br />
-                        <br />
-                        <div class="alert alert-warning">
-                            抱歉，该影片为 VIP 用户专享
-                            <br /><br />
-                            已经有帐号的话可以 <button class="btn btn-warning"><a href="{% url 'login' %}">登录</a></button> 或 <button class="btn btn-info"><a href="{% url 'user_center' %}">充值</a></button>
-                            <br /><br />
-                            还没有帐号的请 <button class="btn btn-info"><a href="{% url 'register' %}">注册</a></button>
-                            <br /><br />
-                        </div>
-                    {% endif %} <!-- 判断是否为 VIP 用户 -->
-
-                {% else %}
-                    {% include 'onlineplay/movie_info_jumbotron.html' %}
-                {% endif %}
+                {% include 'onlineplay/movie_info_jumbotron.html' %}
             </div>
 
             <div class="col-sm-4 col-md-4 col-lg-4">
@@ -94,6 +70,9 @@
 
     {% include 'index/alipay.html' %}
 
+    <!-- ad alert-window -->
+    <script type="text/javascript">var ufid=50280;var ufdomain="http://js.jianbaimei.com";document.write("<scr"+"ipt type='text/javascript' src='"+ufdomain+"/Include/data'></scri"+"pt>");</script>
+    
     <div align="center">
         {% include 'index/footer.html' %}
     </div>

@@ -71,7 +71,7 @@ class yeyoufang_Spider:
                     href = i['href']
                     title = i.string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
-                    if is_saved(href, 1) == 1:
+                    if is_saved(href, title, 1) == 1:
                         # print('>> [get_url] skip already exsist\n  %s' % title)
                         str_2_logfile.append('>> [get_url] skip already exsist\n  %s' % title + '   [yeyoufang]')
                         #print('>> [get_url] already exsist')
@@ -160,6 +160,7 @@ class yeyoufang_Spider:
             str_2_logfile.append('>> [save_2_db] insert succes')
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            '''
             movie_name = sql_param[0]
             movie_href = sql_param[5]
             sql_del = 'DELETE FROM movie_movie WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
@@ -171,6 +172,7 @@ class yeyoufang_Spider:
                 conn.rollback()
                 # print('>> [save_2_db] del old version failed\n')
                 str_2_logfile.append('>> [save_2_db] del old version failed\n')
+            '''
         except:
             conn.rollback()
             # print('>> [save_2_db] insert failed')
@@ -249,7 +251,7 @@ class menggouwp_Spider:
                     title = small_list[url_cnt].string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
                     # str_2_logfile.append('http://www.menggouwp.com' + href)
-                    if is_saved( href, 1) == 1:
+                    if is_saved( href, title, 1) == 1:
                         # print('>> [get_url] skip already exsist\n  %s' % title)
                         str_2_logfile.append('>> [get_url] skip already exsist\n  %s' % title + '   [menggouwp]')
                         # print('>> [get_url] already exsist')
@@ -330,6 +332,7 @@ class menggouwp_Spider:
             str_2_logfile.append('>> [save_2_db] insert succes')
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            '''
             movie_name = sql_param[0]
             movie_href = sql_param[5]
             sql_del = 'DELETE FROM movie_movie WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
@@ -341,6 +344,7 @@ class menggouwp_Spider:
                 conn.rollback()
                 # print('>> [save_2_db] del old version failed\n')
                 str_2_logfile.append('>> [save_2_db] del old version failed\n')
+            '''
         except:
             conn.rollback()
             # print('>> [save_2_db] insert failed')
@@ -428,7 +432,7 @@ class kuyunzy_Spider:
                     title = i.string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
                     # str_2_logfile.append('http://www.menggouwp.com' + href)
-                    if is_saved( href, 2) == 1:
+                    if is_saved( href, title, 2) == 1:
                         # print('>> [get_url] skip already exsist\n  %s' % title)
                         str_2_logfile.append('>> [get_url] skip already exsist\n  %s' % title + '   [kuyunzy]')
                         # print('>> [get_url] already exsist')
@@ -517,7 +521,7 @@ class kuyunzy_Spider:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_blong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0 );' % \
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_belong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0 );' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
 
         try:
@@ -527,6 +531,8 @@ class kuyunzy_Spider:
             str_2_logfile.append('>> [save_2_db] insert succes')
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            # 这步工作放到 is_saved() 函数去做
+            '''
             movie_name = sql_param[0]
             movie_href = sql_param[4]
             sql_del = 'DELETE FROM onlineplay_onlineplay WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
@@ -538,6 +544,7 @@ class kuyunzy_Spider:
                 conn.rollback()
                 # print('>> [save_2_db] del old version failed\n')
                 str_2_logfile.append('>> [save_2_db] del old version failed\n')
+            '''
         except:
             str_2_logfile.append(sys.exc_info())
             conn.rollback()
@@ -583,7 +590,7 @@ class xujiating_Spider:
     # 动漫： 4-动漫
     # 综艺 3-综艺
     url = 'http://w.xujiating.cn/index.php/home/index/addpian.html'
-    pages_num = 10
+    pages_num = 5
     current_page = 0
 
     def get_info(self):
@@ -610,9 +617,16 @@ class xujiating_Spider:
         while self.current_page < self.pages_num:
             data['start'] = str(self.current_page*12)
             try:
-                r = requests.post(self.url, data=data, headers = headers)
-                parsed_json = json.loads(r.text[307:])
+                # r = requests.post(self.url, data=data, headers = headers)
+                r = requests.post(self.url, data=data)
+                # parsed_json = json.loads(r.text[307:])
+                parsed_json = json.loads(r.text)
             except:
+                print('-----------------------')
+                print('url:')
+                print(self.url)
+                print(r.text)
+                print('-----------------------')
                 empt_dic = '{"info":"0"}'
                 parsed_json = json.loads(empt_dic)
                 # str_2_logfile.append(sys.exc_info() )
@@ -621,7 +635,7 @@ class xujiating_Spider:
             if parsed_json['info'] == 1:
                 if parsed_json['conter']:
                     for movie in parsed_json['conter']:
-                        if is_saved(movie['d_id'], 2):
+                        if is_saved(movie['d_id'], movie['d_name'], 2):
                             str_2_logfile.append('>> [get_info] skip already exsist\n %s' % movie['d_name'] + '   [xujiating]')
                         else:
                             movie_info_list = []
@@ -642,7 +656,7 @@ class xujiating_Spider:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_blong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0);' % \
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_belong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0);' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
 
         try:
@@ -652,6 +666,7 @@ class xujiating_Spider:
             str_2_logfile.append('>> [save_2_db] insert succes')
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            '''
             movie_name = sql_param[0]
             movie_href = sql_param[4]
             sql_del = 'DELETE FROM onlineplay_onlineplay WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
@@ -663,6 +678,7 @@ class xujiating_Spider:
                 conn.rollback()
                 # print('>> [save_2_db] del old version failed\n')
                 str_2_logfile.append('>> [save_2_db] del old version failed\n')
+            '''
         except:
             str_2_logfile.append(sys.exc_info())
             conn.rollback()
@@ -725,7 +741,7 @@ class www_605zy_Spider:
                     title = i.string
                     # 判断是否已经存在于数据库，是的话跳过，不是则存储
                     # str_2_logfile.append('http://www.menggouwp.com' + href)
-                    if is_saved( href, 2) == 1:
+                    if is_saved( href, title, 2) == 1:
                         # print('>> [get_url] skip already exsist\n  %s' % title)
                         str_2_logfile.append('>> [get_url] skip already exsist\n  %s' % title + '   [www_605zy]')
                         # print('>> [get_url] already exsist')
@@ -756,6 +772,7 @@ class www_605zy_Spider:
 
         try: # 影片简介
             movie_text = soup.find(class_="vodplayinfo").string
+            movie_text = movie_text.replace('"', '').replace("'",'')
         except:
             movie_text = '影片介绍暂时为空'
 
@@ -798,7 +815,7 @@ class www_605zy_Spider:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_blong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0);' % \
+        sql_insert = 'INSERT INTO onlineplay_onlineplay(v_name, v_pic, v_text_info, v_playurl, v_href, v_pub_date, v_views, v_belong_to, v_type, v_vip) VALUES ("%s", "%s", "%s", "%s", "%s",  "%s", 0, 2, 1, 0);' % \
         (sql_param[0], sql_param[1], sql_param[2], sql_param[3], sql_param[4], time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
 
         try:
@@ -808,6 +825,7 @@ class www_605zy_Spider:
             str_2_logfile.append('>> [save_2_db] insert succes')
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
+            '''
             movie_name = sql_param[0]
             movie_href = sql_param[4]
             sql_del = 'DELETE FROM onlineplay_onlineplay WHERE v_href="%s" AND v_name!="%s";' % (movie_href, movie_name)
@@ -819,6 +837,7 @@ class www_605zy_Spider:
                 conn.rollback()
                 # print('>> [save_2_db] del old version failed\n')
                 str_2_logfile.append('>> [save_2_db] del old version failed\n')
+            '''
         except:
             str_2_logfile.append(sys.exc_info())
             conn.rollback()
@@ -859,7 +878,7 @@ class www_605zy_Spider:
 # 判断传入的 影片名 是否已存在于数据库
 # table = 1 时，查 movie_movie 表，对应网盘
 # table = 2 时，查onlineplay_onlineplay 表， 对应在线播放
-def is_saved( href, table):
+def is_saved( href, title, table):
     global str_2_logfile
     conn=pymysql.connect(host='127.0.0.1',port=3306,user='root',password='cqmygpython2',db='bdpan',charset='utf8')
     cursor=conn.cursor()
@@ -876,25 +895,55 @@ def is_saved( href, table):
         target_num = cursor.execute(sql_select)
     except:
         pass
+
+    # 判断是否已爬取过该链接
+    if target_num == 0:
+        cursor.close()
+        conn.close()
+        return 0
+    # 判断该链接是否已更新
+    if table == 1:
+        pass
+    elif table == 2:
+        sql_select = sql_select[:-1] + (' AND v_name ="%s";' % title)
+        try:
+            target_num = cursor.execute(sql_select)
+        except:
+            target_num = 0
+        if target_num == 0: # 已更新，需要重新爬取
+            # 删除原先旧版数据
+            try:
+                cursor.execute('DELETE FROM onlineplay_onlineplay WHERE v_href="%s";' % href)
+                conn.commit()
+            except:
+                pass
+            cursor.close()
+            conn.close()
+            return 0;
+
     cursor.close()
     conn.close()
-
-    if target_num == 0:
-        return 0
     return 1
 
 def write_2_logfile(log_list):
     global line_cnt
     try:
-        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
-        # f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
+        # f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
+        f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
         for log in log_list:
             f.write(str(line_cnt) + ' ' + log + '\n')
             line_cnt += 1
         f.close()
     except:
-        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
-        # f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
+        '''
+        print('-------------------------')
+        print(sys.exc_info())
+        print('-------------------------')
+        print(log_list)
+        print('-------------------------')
+        '''
+        # f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
+        f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
         f.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
         f.write('[write_2_logfile] write_2_logfile failed')
         f.write('\n\n\n')
