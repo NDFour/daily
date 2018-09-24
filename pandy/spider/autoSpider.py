@@ -19,6 +19,8 @@ import json
 
 # 记录程序输入，并写入到本地文件，供 web 端展示
 str_2_logfile = []
+# 记录本次更新的电影名，供web端展示和公众号展示
+updatelog = []
 # 记录程序输出行数
 line_cnt = 0
 
@@ -146,6 +148,7 @@ class yeyoufang_Spider:
     # 接收参数： sql_param : 影片的信息
     def save_2_db(self, sql_param):
         global str_2_logfile
+        global updatelog
         # sql_param: name, pic, text_info, bdpan, pass, href
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
@@ -158,6 +161,7 @@ class yeyoufang_Spider:
             conn.commit()
             # print('>> [save_2_db] insert succes')
             str_2_logfile.append('>> [save_2_db] insert succes')
+            updatelog.append(sql_param[0])
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
             '''
@@ -318,6 +322,7 @@ class menggouwp_Spider:
     # 接收参数： sql_param : 影片的信息
     def save_2_db(self, sql_param):
         global str_2_logfile
+        global updatelog
         # sql_param: name, pic, text_info, bdpan, pass, href
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
@@ -330,6 +335,7 @@ class menggouwp_Spider:
             conn.commit()
             # print('>> [save_2_db] insert succes')
             str_2_logfile.append('>> [save_2_db] insert succes')
+            updatelog.append(sql_param[0])
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
             '''
@@ -517,6 +523,7 @@ class kuyunzy_Spider:
     # 接收参数： sql_param : 影片的信息
     def save_2_db(self, sql_param):
         global str_2_logfile
+        global updatelog
         # sql_param: name, pic, text_info, playurl, href
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
@@ -529,6 +536,7 @@ class kuyunzy_Spider:
             conn.commit()
             # print('>> [save_2_db] insert succes')
             str_2_logfile.append('>> [save_2_db] insert succes')
+            updatelog.append(sql_param[0])
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
             # 这步工作放到 is_saved() 函数去做
@@ -619,14 +627,16 @@ class xujiating_Spider:
             try:
                 # r = requests.post(self.url, data=data, headers = headers)
                 r = requests.post(self.url, data=data)
-                # parsed_json = json.loads(r.text[307:])
-                parsed_json = json.loads(r.text)
+                parsed_json = json.loads(r.text[307:])
+                # parsed_json = json.loads(r.text)
             except:
+                '''
                 print('-----------------------')
                 print('url:')
                 print(self.url)
                 print(r.text)
                 print('-----------------------')
+                '''
                 empt_dic = '{"info":"0"}'
                 parsed_json = json.loads(empt_dic)
                 # str_2_logfile.append(sys.exc_info() )
@@ -652,6 +662,7 @@ class xujiating_Spider:
 
     def save_2_db(self, sql_param):
         global str_2_logfile
+        global updatelog
         # sql_param: name, pic, text_info, playurl, href
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
@@ -664,6 +675,7 @@ class xujiating_Spider:
             conn.commit()
             # print('>> [save_2_db] insert succes')
             str_2_logfile.append('>> [save_2_db] insert succes')
+            updatelog.append(sql_param[0])
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
             '''
@@ -811,6 +823,7 @@ class www_605zy_Spider:
     # 接收参数： sql_param : 影片的信息
     def save_2_db(self, sql_param):
         global str_2_logfile
+        global updatelog
         # sql_param: name, pic, text_info, playurl, href
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='cqmygpython2', db='bdpan', charset='utf8')
         cursor = conn.cursor()
@@ -823,6 +836,7 @@ class www_605zy_Spider:
             conn.commit()
             # print('>> [save_2_db] insert succes')
             str_2_logfile.append('>> [save_2_db] insert succes')
+            updatelog.append(sql_param[0])
 
             # 检测数据库中是否有和该电影采集页url一致 但是 电影名 不一样（旧版）的，有的话删除
             '''
@@ -925,10 +939,22 @@ def is_saved( href, title, table):
     conn.close()
     return 1
 
+def write_2_updatelog(updatelog_list):
+    try:
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_update_log.txt', 'a', 'utf-8')
+        for log in updatelog_list:
+            f.write(log + '\n')
+        f.close()
+    except:
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log_error.txt', 'a', 'utf-8')
+        f.write('---------------\n' + 'autoSpider_update_log 写入失败!')
+        f.close()
+
+
 def write_2_logfile(log_list):
     global line_cnt
     try:
-        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log.txt', 'a', 'utf-8')
         # f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt', 'a', 'utf-8')
         for log in log_list:
             f.write(str(line_cnt) + ' ' + log + '\n')
@@ -942,7 +968,7 @@ def write_2_logfile(log_list):
         print(log_list)
         print('-------------------------')
         '''
-        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
+        f = codecs.open('/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log_error.txt', 'a', 'utf-8')
         # f = codecs.open('/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt', 'a', 'utf-8')
         f.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() ) )
         f.write('[write_2_logfile] write_2_logfile failed')
@@ -951,6 +977,7 @@ def write_2_logfile(log_list):
 
 def main():
     global str_2_logfile
+    global updatelog
 
     str_2_logfile.append(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
@@ -967,6 +994,7 @@ def main():
     str_2_logfile = []
 
     # 网盘资源
+    updatelog.append('百度网盘资源')
     # yeyoufang.com 爬虫
     yeyoufang = yeyoufang_Spider()
     title_list, url_list = yeyoufang.get_url()
@@ -988,6 +1016,8 @@ def main():
     str_2_logfile = []
 
     # online resources
+    updatelog.append('\n')
+    updatelog.append('在线播放资源')
     kuyunzy = kuyunzy_Spider()
     title_list, url_list = kuyunzy.get_url()
     str_2_logfile.append('---------- kuyunzy 共有 %s 条数据需要插入 --------' % len(url_list))
@@ -1034,5 +1064,8 @@ def main():
 
     write_2_logfile(str_2_logfile)
     str_2_logfile = []
+
+    # 写入 autoSpider_update_log.txt 文件
+    write_2_updatelog(updatelog)
 
 main()

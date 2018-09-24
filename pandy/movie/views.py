@@ -245,7 +245,7 @@ def reset_valid(request):
 def spiderlog(request):
     # log_list
     log_list = []
-    rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
+    rel =  '/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log.txt'
     # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt'
     try:
         f = codecs.open(rel, 'r', 'utf-8')
@@ -262,7 +262,7 @@ def spiderlog(request):
 
     # log_list_err
     log_list_err = []
-    rel =  '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
+    rel =  '/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log_error.txt'
     # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt'
     try:
         f = codecs.open(rel, 'r', 'utf-8')
@@ -277,6 +277,17 @@ def spiderlog(request):
     except:
         log_list_err.append('The log_err file doesn^t exsist')
 
+    # log_list_update 本次完成更新资源列表
+    log_list_update = []
+    rel = '/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_update_log.txt'
+    try:
+        f = codecs.open(rel, 'r', 'utf-8')
+        for line in f:
+            log_list_update.append(line)
+        f.close()
+    except:
+        log_list_update.append('The log_list_update doesn^t exsist')
+
 
     context = {}
     context['log_list'] = log_list
@@ -287,28 +298,37 @@ def spiderlog(request):
         context['start'] = ''
         context['end'] = ''
     context['log_list_err'] = log_list_err
+    context['log_list_update'] = log_list_update
     return render(request, 'movie/spiderlog.html', context)
 
 def clean_spiderlog(requste):
     msg = ''
-    rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log.txt'
-    # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log.txt'
+    rel = '/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log.txt'
     try:
         with open(rel, 'w') as f:
             f.write('')
             msg += '清空 spiderlog 成功'
     except Exception as e:
         msg += '清空 spiderlog 失败'
+    msg += '<br />'
 
-
-    rel = '/usr/bdpan_movie/daily/pandy/spider/autoSpider_log_error.txt'
-    # rel = '/home/lynn/github_project/daily/pandy/spider/autoSpider_log_error.txt'
+    rel = '/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_log_error.txt'
     try:
         with open(rel, 'w') as f:
             f.write('')
             msg += '  清空 spiderlog_err 成功'
     except Exception as e:
         msg += '  清空 spiderlog_err 失败'
+    msg += '<br />'
+
+    rel = '/usr/bdpan_movie/daily/pandy/spider/spider_log/autoSpider_update_log.txt'
+    try:
+        with open(rel, 'w') as f:
+            f.write('')
+            msg += '  清空 spiderlog_update_log 成功'
+    except Exception as e:
+        msg += '  清空 spiderlog_update_log 失败'
+    msg += '<br />'
     return HttpResponse(msg)
 
 ##################### 以下函数与渲染网页无关

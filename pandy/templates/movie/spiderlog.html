@@ -34,17 +34,27 @@
                     <div class="row">
                         <div class="col-md-8 col-lg-7">
                             {% if log_list %}
+                            <button class="btn">Spider log</button>
                             <pre>
  {% for log in log_list %} {{ log  }} {% endfor %}
                             </pre>
                             {% endif %}
                         </div>
                         <div class="col-md-4 col-lg-5">
+                        	<!-- Error log -->
                             {% if log_list_err %}
+                            <button class="btn">Error log</button>
                             <pre>
  {% for log_err in log_list_err %} {{ log_err }} {% endfor %}
                             </pre>
                             {% endif %}
+                        	<!-- Updatelog -->
+                        	{% if log_list_update %}
+                        	<butto class="btn">Update log</butto>
+                        	<pre>
+ {% for log_update in log_list_update %} {{ log_update }} {% endfor %}
+                           </pre>
+                           {% endif %}
                         </div>
                     </div>
                 </div>
