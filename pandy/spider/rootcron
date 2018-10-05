@@ -1,1 +1,1 @@
-1 5 * * * /usr/bin/python3 /usr/bdpan_movie/daily/pandy/spider/autoSpider.py
+5 6 * * * /usr/bin/python3 /usr/bdpan_movie/daily/pandy/spider/autoUpdate.py
