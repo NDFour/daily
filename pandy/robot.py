@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-19 13:03:37
-# Last Modified: 2018-10-13 12:32:33
+# Last Modified: 2018-10-13 13:22:53
 #
 
 from werobot import WeRoBot
@@ -374,3 +374,8 @@ def writeToConfigFile(configName,configValue):
     except:
         return '写入 %s 到配置文件 config.ini 时失败' % configName
     return '写入 %s 到配置文件 config.ini 成功' % configName
+
+# 让服务器监听在　0.0.0.0:4444
+# robot.config['HOST']='0.0.0.0'
+# robot.config['PORT']=8000
+# robot.run()
