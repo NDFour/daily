@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-19 13:03:37
-# Last Modified: 2018-08-21 22:57:20
+# Last Modified: 2018-10-13 12:32:33
 #
 
 from werobot import WeRoBot
@@ -139,7 +139,9 @@ def hello(message):
     elif reply_info_state==2:
         articles=reply_info_bygenurl(v_name)
 
-    return articles
+    a = []
+    a.append(articles[0])
+    return a
 
 # 替换用户发来的电影名字中的错别字
 def modefy_name(v_name):
