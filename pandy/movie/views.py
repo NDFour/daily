@@ -111,7 +111,10 @@ def movie_search_navbar(request):
     except:
         movie_list = paginator.page(1)
 
-    resou_movie_list = Movie.objects.order_by('-v_views')[:7]
+    # 获取网盘热搜榜
+    # resou_movie_list = Movie.objects.order_by('-v_views')[:7]
+    # 获取在线热搜榜
+    resou_movie_list = Onlineplay.objects.order_by('-v_views')[:7]
 
     # 是否展示支付宝 领红包 js代码
     alipay_code = '0'
