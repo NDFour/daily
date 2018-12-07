@@ -3,7 +3,7 @@
  *         Author: Lynn
  *          Email: lgang219@gmail.com
  *         Create: 2018-12-05 16:34:10
- *  Last Modified: 2018-12-06 22:43:40
+ *  Last Modified: 2018-12-07 22:34:05
  */
 
 #include<stdio.h>
@@ -15,15 +15,27 @@
 #include<linux/if_ether.h>
 #include<linux/in.h>
 
-// snifer frame  0:succ  -2:incomplete header
-int snifer(int sock);
+// snifer frame  0:succ  -1:parameters not equall  -2:incomplete header
+int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
+// -h show help msg
 void showhelp();
+// translate char to int
+int char2int(char ch);
 
 #define BUFFER_MAX 2048
 
 int main(int argc, char* argv[])
 {
     int sock;
+    int pPort = -1;
+    char *pprototype = NULL;
+    char *pipaddr = NULL;
+    char *pmacaddr = NULL;
+
+    char2int('1');
+    char2int('9');
+    char2int('0');
+    char2int('d');
 
     // parse paramters
     int ch;
@@ -33,15 +45,20 @@ int main(int argc, char* argv[])
         {
         case 'a': // ip
             printf("Filter IP:%s\n", optarg);
+            pipaddr = optarg;
             break;
         case 'm': // mac
             printf("Filter MAC:%s\n", optarg);
+            pmacaddr = optarg;
             break;
         case 'P': // Port
-            printf("Filter Port:%s\n", optarg);
+            // atoi: translate str to int
+            printf("Filter Port:%d\n", atoi(optarg));
+            pPort = atoi(optarg);
             break;
         case 'p': // protocol
             printf("Filter Protocol:%s\n", optarg);
+            pprototype = optarg;
             break;
         case 'h': // help
             showhelp();
@@ -61,16 +78,29 @@ int main(int argc, char* argv[])
     // always sniff
     while (1)
     {
-        snifer(sock);
+        // int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
+        snifer(sock, pPort, pprototype, pipaddr, pmacaddr);
         printf("\n");
     }
 }
 
-int snifer(int sock)
+int snifer(int sock, int pPort,  char *pprototype, char *pipaddr, char *pmacaddr)
 {
+    if (pPort > 0)
+        printf("pPort:%d\n", pPort);
+    if (pprototype != NULL)
+        printf("pprototype:%s\n", pprototype);
+    if (pipaddr != NULL)
+        printf("pipaddr:%s\n", pipaddr);
+    if (pmacaddr != NULL)
+        printf("pmacaddr:%s\n", pmacaddr);
+    printf("\n");
+
     int n_read, proto;
     char buffer[BUFFER_MAX];
     char *ethhead, *iphead, *tcphead, *udphead, *icmphead, *p;
+    unsigned int sport = 0; // source port
+    unsigned int dport = 0; // destination prot
 
     n_read = recvfrom(sock, buffer, 2048, 0, NULL, NULL);
     /*
@@ -129,8 +159,21 @@ int snifer(int sock)
     ip_dst_addr[3] = p[7] & n;
 
     proto = (iphead + 9)[0]; // position Protocol (p130)
-    p = iphead + 20; // position Variable
+    p = iphead + 20; // position TCP/UDP frame
+
     // Protocol
+    // get Port
+    if (proto == IPPROTO_TCP)
+    {
+        sport = (p[0] << 8) & 0XFF00 | p[1] & 0XFF;
+        dport = p[2] << 8 & 0XFF00 | p[3] & 0XFF;
+    }
+    else if (proto == IPPROTO_UDP)
+    {
+        sport = (p[0] << 8) & 0XFF00 | p[1] & 0XFF;
+        dport = p[2] << 8 & 0XFF00 | p[3] & 0XFF;
+    }
+
     printf("Protocol:");
     switch (proto) // int
     {
@@ -145,9 +188,21 @@ int snifer(int sock)
         break;
     case IPPROTO_TCP:
     case IPPROTO_UDP:
+        // printf("\033[47;35m%s\033[0m,", proto == IPPROTO_TCP ? "TCP" : "UDP");
+        // if(port > 0 && port==p)
+        // printf("source port:\033[;33m%u\033[0m,", (p[0] << 8) & 0XFF00 | p[1] & 0XFF);
+        // printf("dest port:\033[;33m%u\033[0m\n", (p[2] << 8) & 0XFF00 | p[3] & 0XFF);
+        // sport = (p[0] << 8) & 0XFF00 | p[1] & 0XFF;
+        // dport = p[2] << 8 & 0XFF00 | p[3] & 0XFF;
+        if (pPort > 0)
+        {
+            if (pPort != sport)
+                if (pPort != dport)
+                    return -1;
+        }
         printf("\033[47;35m%s\033[0m,", proto == IPPROTO_TCP ? "TCP" : "UDP");
-        printf("source port:\033[;33m%u\033[0m,", (p[0] << 8) & 0XFF00 | p[1] & 0XFF);
-        printf("dest port:\033[;33m%u\033[0m\n", (p[2] << 8) & 0XFF00 | p[3] & 0XFF);
+        printf("source port:\033[;33m%u\033[0m,", sport);
+        printf("dest port:\033[;33m%u\033[0m\n", dport);
         break;
     case IPPROTO_RAW:
         printf("\033[47;35mRAW\033[0m\n");
@@ -157,16 +212,20 @@ int snifer(int sock)
     }
 
     // Output
+    // MAC adrress
     printf("MAC:%.2X:%.02X:%02X:%02X:%02X:%02X => "
            "%.2X:%.2X:%.2X:%.2X:%.2X:%.2X\n",
            mac_src_addr[0], mac_src_addr[1], mac_src_addr[2], mac_src_addr[3], mac_src_addr[4], mac_src_addr[5], mac_dst_addr[0], mac_dst_addr[1], mac_dst_addr[2], mac_dst_addr[3], mac_dst_addr[4], mac_dst_addr[5]);
 
+    // IP address
     printf("IP:%d.%d.%d.%d => %d.%d.%d.%d\n",
            ip_src_addr[0], ip_src_addr[1], ip_src_addr[2], ip_src_addr[3], ip_dst_addr[0], ip_dst_addr[1], ip_dst_addr[2], ip_dst_addr[3]);
+
 
     return 0;
 }
 
+// -h show help msg
 void showhelp()
 {
     printf("\tSnifer Everything\n\n");
@@ -177,4 +236,18 @@ void showhelp()
     printf("  -h  Show this message\n");
     printf("\n");
     printf(" sudo ./snifer -a 10.1.8.1 -m ff:ff:ff:ff -P 1080 -p TCP\n\n");
+}
+
+
+// translate char to int
+int char2int(char ch)
+{
+    if (ch < 48 || ch > 59)
+    {
+        printf("\033[47;41munknow Port\033[0m\n");
+        return -1;
+    }
+    int poi = (int)ch;
+    printf("char2int:%d\n", poi - 48);
+    return poi;
 }
