@@ -3,24 +3,30 @@
  *         Author: Lynn
  *          Email: lgang219@gmail.com
  *         Create: 2018-12-05 16:34:10
- *  Last Modified: 2018-12-07 22:34:05
+ *  Last Modified: 2018-12-09 17:00:22
  */
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<unistd.h>
 #include<sys/socket.h>
+#include<string.h>
 #include<arpa/inet.h>
 #include<sys/types.h>
 #include<linux/if_ether.h>
 #include<linux/in.h>
 
 // snifer frame  0:succ  -1:parameters not equall  -2:incomplete header
-int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
+int snifer(int sock, int pPort, char *pprototype, char* pipaddr);
 // -h show help msg
 void showhelp();
 // translate char to int
 int char2int(char ch);
+// array to string
+char* arr2str(char ch[4]);
+// calc how many nums a number
+int calcmany(int a);
 
 #define BUFFER_MAX 2048
 
@@ -28,9 +34,9 @@ int main(int argc, char* argv[])
 {
     int sock;
     int pPort = -1;
+    int n_packages = 0;
     char *pprototype = NULL;
     char *pipaddr = NULL;
-    char *pmacaddr = NULL;
 
     char2int('1');
     char2int('9');
@@ -40,16 +46,12 @@ int main(int argc, char* argv[])
     // parse paramters
     int ch;
     // opterr = 0;
-    while ((ch = getopt(argc, argv, "a:m:P:p:h")) != -1)
+    while ((ch = getopt(argc, argv, "a:P:p:n:h")) != -1)
         switch (ch)
         {
         case 'a': // ip
             printf("Filter IP:%s\n", optarg);
             pipaddr = optarg;
-            break;
-        case 'm': // mac
-            printf("Filter MAC:%s\n", optarg);
-            pmacaddr = optarg;
             break;
         case 'P': // Port
             // atoi: translate str to int
@@ -59,6 +61,10 @@ int main(int argc, char* argv[])
         case 'p': // protocol
             printf("Filter Protocol:%s\n", optarg);
             pprototype = optarg;
+            break;
+        case 'n': // n packages
+            printf("N packages:%s\n", optarg);
+            n_packages = atoi(optarg);
             break;
         case 'h': // help
             showhelp();
@@ -78,23 +84,35 @@ int main(int argc, char* argv[])
     // always sniff
     while (1)
     {
-        // int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
-        snifer(sock, pPort, pprototype, pipaddr, pmacaddr);
-        printf("\n");
+        int snifer_rel = 0;
+        int n_tmp = n_packages;
+        while (n_tmp != 0)
+        {
+            // int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
+            snifer_rel = snifer(sock, pPort, pprototype, pipaddr);
+            if (snifer_rel == 0)
+            {
+                printf("\n");
+                n_tmp--;
+            }
+        }
+        break;
     }
+
+    printf("\n\nAll Down !\n%d packages\n", n_packages);
+
+    return 0;
 }
 
-int snifer(int sock, int pPort,  char *pprototype, char *pipaddr, char *pmacaddr)
+
+int snifer(int sock, int pPort,  char *pprototype, char *pipaddr)
 {
     if (pPort > 0)
         printf("pPort:%d\n", pPort);
     if (pprototype != NULL)
         printf("pprototype:%s\n", pprototype);
-    if (pipaddr != NULL)
-        printf("pipaddr:%s\n", pipaddr);
-    if (pmacaddr != NULL)
-        printf("pmacaddr:%s\n", pmacaddr);
-    printf("\n");
+//    if (pipaddr != NULL)
+//        printf("pipaddr:%s\n", pipaddr);
 
     int n_read, proto;
     char buffer[BUFFER_MAX];
@@ -158,6 +176,34 @@ int snifer(int sock, int pPort,  char *pprototype, char *pipaddr, char *pmacaddr
     ip_dst_addr[2] = p[6] & n;
     ip_dst_addr[3] = p[7] & n;
 
+    // diff with pipaddr
+    if (pipaddr != NULL)
+    {
+        char str_src[15] = {'\0'};
+        char str_dst[15] = {'\0'};
+        int i, L_src, L_dst;
+        for (i = 0; i < 4; i++)
+        {
+            L_src = strlen(str_src);
+            L_dst = strlen(str_dst);
+            if (i < 3)
+            {
+                sprintf(str_src + L_src, "%d.", ip_src_addr[i]);
+                sprintf(str_dst + L_dst, "%d.", ip_dst_addr[i]);
+            }
+            else
+            {
+                sprintf(str_src + L_src, "%d", ip_src_addr[i]);
+                sprintf(str_dst + L_dst, "%d", ip_dst_addr[i]);
+            }
+        };
+        // if str_src equal pipaddr or str_dst equal pipaddr
+        if (strcmp(str_src, pipaddr) != 0 && strcmp(str_dst, pipaddr) != 0)
+        {
+            return -1;
+        }
+    }
+
     proto = (iphead + 9)[0]; // position Protocol (p130)
     p = iphead + 20; // position TCP/UDP frame
 
@@ -188,12 +234,6 @@ int snifer(int sock, int pPort,  char *pprototype, char *pipaddr, char *pmacaddr
         break;
     case IPPROTO_TCP:
     case IPPROTO_UDP:
-        // printf("\033[47;35m%s\033[0m,", proto == IPPROTO_TCP ? "TCP" : "UDP");
-        // if(port > 0 && port==p)
-        // printf("source port:\033[;33m%u\033[0m,", (p[0] << 8) & 0XFF00 | p[1] & 0XFF);
-        // printf("dest port:\033[;33m%u\033[0m\n", (p[2] << 8) & 0XFF00 | p[3] & 0XFF);
-        // sport = (p[0] << 8) & 0XFF00 | p[1] & 0XFF;
-        // dport = p[2] << 8 & 0XFF00 | p[3] & 0XFF;
         if (pPort > 0)
         {
             if (pPort != sport)
@@ -250,4 +290,30 @@ int char2int(char ch)
     int poi = (int)ch;
     printf("char2int:%d\n", poi - 48);
     return poi;
+}
+
+// array to string
+char* arr2str(char ch[4])
+{
+    printf("INTO arr2str\n");
+    char * b = "";
+    for (int i = 0; i < 4; i++)
+    {
+        //b[i] = ch[i];
+        printf("%d", ch[i]);
+    }
+    return b;
+}
+
+// calc how many nums a number
+int calcmany(int a)
+{
+    int b = 0;
+    if (a < 10)
+        b = 1;
+    else if (a < 100)
+        b = 2;
+    else if (a < 1000)
+        b = 3;
+    return b;
 }
