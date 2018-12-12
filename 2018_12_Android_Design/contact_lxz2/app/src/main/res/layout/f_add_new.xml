@@ -7,6 +7,34 @@
     android:orientation="vertical"
     tools:context=".people_detail">
 
+    <!-- 照片 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="30dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="照片" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5">
+
+            <ImageView
+                android:id="@+id/f_add_new_imgview"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/people_icon" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <!-- 姓名 -->
     <LinearLayout
@@ -14,8 +42,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="50dp">
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/tv_new_name"
@@ -68,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="号码：" />
+            android:text="邮箱：" />
 
         <EditText
             android:id="@+id/ed_new_email"
@@ -88,16 +115,16 @@
 
         <ImageButton
             android:id="@+id/add_new_ok"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/add_new_ok" />
 
         <ImageButton
             android:id="@+id/add_new_delete"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/add_new_delete" />
 
     </LinearLayout>

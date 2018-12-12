@@ -222,39 +222,24 @@ public class fragment_contact_list extends Fragment implements View.OnClickListe
         @SuppressLint("LongLogTag")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.f_contact_list_item, parent, false);
-                holder = new ViewHolder();
-                holder.tv_name = (TextView) convertView.findViewById(R.id.f_contact_list_item_name);
-                holder.img_icon = (ImageView) convertView.findViewById(R.id.f_contact_list_item_icon);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-/*
             View view = View.inflate(getContext(), R.layout.f_contact_list_item, null);
 
             TextView tv_name = (TextView) view.findViewById(R.id.f_contact_list_item_name);
             ImageView img_icon = (ImageView) view.findViewById(R.id.f_contact_list_item_icon);
-*/
 
-            holder.tv_name.setText(contact_arr[position].getName());
-            Log.i("fragment_contact_list 正在渲染 ListView item", contact_arr[position].getName());
+            tv_name.setText(contact_arr[position].getName());
 
             Bitmap icon = contact_arr[position].getIcon();
             if (icon != null) {
-                holder.img_icon.setImageBitmap(icon);
+                Log.i("fragment_contact_list[渲染List]", "正在给"+contact_arr[position].getName()+"设置头像");
+                img_icon.setImageBitmap(icon);
+            }else{
+                Log.i("fragment_contact_list[渲染List]", "这个没有头像==>"+contact_arr[position].getName());
             }
 
-            return convertView;
+            return view;
         }
 
-        class ViewHolder {
-            TextView tv_name;
-            ImageView img_icon;
-        }
     }
 }
 

@@ -88,6 +88,7 @@ public class ContactManager {
                         num = phonesCusor.getString(0);
                     } while (phonesCusor.moveToNext());
                 }
+                phonesCusor.close();
 
                 // 获取邮件地址
                 //查询Email类型的数据操作
@@ -120,6 +121,9 @@ public class ContactManager {
                 i++;
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
+
         return arr;
     }
 
