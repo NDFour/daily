@@ -3,7 +3,7 @@
 #        Author: Lynn
 #         Email: lgang219@gmail.com
 #        Create: 2018-08-19 13:03:37
-# Last Modified: 2018-10-13 13:22:53
+# Last Modified: 2018-12-20 16:01:57
 #
 
 from werobot import WeRoBot
@@ -124,6 +124,13 @@ def hello(message):
         elif message.content=='showConfig':
             msg=showConfig()
             return msg
+        # 预留 查看公众号 message.target 接口
+        elif message.content=='showtarget':
+            return message.target
+        # 设置 不同公众号的回复方式 [在线/网盘/在线+网盘]
+        elif message.content=='changeRelMethod .*':
+            rel_msg=writeToConfigFile(message.target,message.content[-1]):
+            return rel_msg
 
     # print('《%s》'%message.content)
     v_name=message.content
@@ -134,14 +141,24 @@ def hello(message):
     v_name=modefy_name(v_name)
 
     # 调用 reply_info(), 控制 articles 生成方式
-    if reply_info_state==1:
-        articles=reply_info(v_name)
-    elif reply_info_state==2:
-        articles=reply_info_bygenurl(v_name)
+    # if reply_info_state==1:
+    #     articles=reply_info(v_name)
+    # elif reply_info_state==2:
+    #     articles=reply_info_bygenurl(v_name)
 
-    a = []
-    a.append(articles[0])
-    return a
+    rel_method=loadConfigUser(message.target)
+    # 读取失败[配置不存在]
+    if(rel_method==-1):
+        return reply_info_bygenurl(v_name)
+    elif(rel_method==0):
+        return reply_info_bygenurl(v_name)
+    elif(rel_method==1):
+        return reply_info_bygenurl_baidu(v_name)
+    elif(rel_method==2):
+        return reply_info_bygenurl_baiduonline(v_name)
+    else:
+        return '程序升级中，请稍后重试...'
+
 
 # 替换用户发来的电影名字中的错别字
 def modefy_name(v_name):
@@ -152,72 +169,8 @@ def modefy_name(v_name):
 
     return v_name
 
-# 通过查询数据库将结果返回给用户
-def reply_info(v_name):
-    #   递归调用时，如电影名为空，直接返回
-    if v_name == '':
-        return '数据库中暂无该影片，请先观看其他影片。\n\n-想让你的公众号也具有发送名字即可在线观看电影功能？\n-欢迎加我微信 ndfour001 洽谈合作。'
-
-    conn=pymysql.connect(host='127.0.0.1',port=3306,user='root',password='cqmygpython2',db='wechatmovie',charset='utf8')
-    cursor=conn.cursor()
-
-    try:
-        sql_select="SELECT name,videourl,picurl FROM weixunmi WHERE name LIKE '%v_name%';"
-        sql_select=sql_select.replace('v_name',v_name)
-        cursor.execute(sql_select)
-
-        out_list=[]
-        cnt=0
-
-        for i in cursor.fetchmany(6):
-            in_list=[]
-            in_list.append(i[0])
-            in_list.append(i[0])
-            in_list.append(i[1])
-            in_list.append(i[2])
-            # in_list.append(i[1].replace('fiml','player').replace('.html','-1-1.html').replace('18.19.ivdmh','wx.wx18.lcdoor'))
-
-            out_list.append(in_list)
-            cnt+=1
-    except:
-        cursor.close()
-        conn.close()
-        return '查询数据失败，错误代码 0x_reply_info_().SELECT ERROR\n\n-想让你的公众号也具有发送名字即可在线观看电影功能？\n-欢迎加我微信 ndfour001 洽谈合作。 '
-
-    len_v_name=len(v_name)
-    #   如果搜索不到数据，则将电影关键词长度一再缩小
-    while ((cnt == 0) and len_v_name):
-        len_v_name-=1
-        # 调用递归之前关闭本层数据库链接
-        cursor.close()
-        conn.close()
-        return reply_info(v_name[0:len_v_name])
-
-    #   图文消息加上之前的广告推文链接
-    global adtuple
-    global adtuple2
-    global ad1_state
-    global ad2_state
-    if ad2_state:
-        if adtuple2:
-            out_list.insert(1,adtuple2)
-    if ad1_state:
-        if adtuple:
-            if cnt>2:
-                out_list.insert(4,adtuple)
-            else:
-                out_list.append(adtuple)
-
-    # 关闭数据库链接
-    cursor.close()
-    conn.close()
-
-    if int(cnt)<6:
-        out_list.append(['如果无法播放点我查看教程','','https://t1.picb.cc/uploads/2018/01/27/Lz2KR.png','http://t.cn/R8hJGC7'])
-
-    return out_list
-
-# 构造查询 url 返回给用户
+# 构造查询 url 返回给用户 -- [Online]
+# loadConfigUser : 0
 def reply_info_bygenurl(v_name):
     out_list=[]
 
@@ -236,39 +189,59 @@ def reply_info_bygenurl(v_name):
     in_list.append(url)
     out_list.append(in_list)
 
-    # 网盘电影网站 搜索结果
-    in_list=[]
-    name_pan='【网盘资源】《' + v_name + '》'
-    global baseUrl2
-    # pic_pan='https://upload-images.jianshu.io/upload_images/5649568-867870961e0b81c5.jpg'
-    pic_pan = 'http://wx1.sinaimg.cn/mw690/0060lm7Tly1fuh4pci3jjj30p00dwgmc.jpg'
-    url_pan=baseUrl2 + v_name + '&movie_search=movie_search'
-    in_list.append(name_pan)
-    in_list.append(name_pan)
-    in_list.append(pic_pan)
-    in_list.append(url_pan)
-    out_list.append(in_list)
-
     #   图文消息加上一条之前的广告推文链接
-    global adtuple
-    global adtuple2
-    global ad1_state
-    global ad2_state
-    if ad1_state:
-        if adtuple:
-            out_list.append(adtuple)
-    if ad2_state:
-        if adtuple2:
-            out_list.append(adtuple2)
-    # 插入查电影服务推广图文
-    # out_list.append(['想让你的公众号也可以查电影？点我','想让你的公众号也可以查电影？点我','https://t1.picb.cc/uploads/2018/03/14/22PY0u.png','http://kks.me/a4Y9N'])
-    # 插入“视频无法播放”
-    # out_list.append(['如果无法播放点我查看教程','','https://t1.picb.cc/uploads/2018/01/27/Lz2KR.png','http://t.cn/R8hJGC7'])
+    # global adtuple
+    # global adtuple2
+    # global ad1_state
+    # global ad2_state
+    # if ad1_state:
+    #     if adtuple:
+    #         out_list.append(adtuple)
+    # if ad2_state:
+    #     if adtuple2:
+    #         out_list.append(adtuple2)
 
     # 插入点广告文章
     # 当ad1或者ad2至少存在一个时才会插入该文章
-    if ad1_state+ad2_state:
-        out_list.append(['■ 亲爱的，每天看电影时帮我点一下上面的小说呗','','https://t1.picb.cc/uploads/2018/05/21/2azICG.jpg','https://w.url.cn/s/ARlJPBS'])
+    # if ad1_state+ad2_state:
+    #     out_list.append(['■ 亲爱的，每天看电影时帮我点一下上面的小说呗','','https://t1.picb.cc/uploads/2018/05/21/2azICG.jpg','https://w.url.cn/s/ARlJPBS'])
+    return out_list
+
+# 构造查询 url 返回给用户 -- [Baidu 网盘]
+# loadConfigUser : 1
+def reply_info_bygenurl_baidu(v_name):
+    out_list=[]
+
+    # 网盘搜索 url
+    global baseUrl2
+    url = baseUrl2 + v_name + '&movie_search=movie_search'
+    name='【百度网盘】《'+v_name+'》'
+    # '点击查看电影资源' 图片
+    picurl = 'http://wx1.sinaimg.cn/mw690/0060lm7Tly1fuh4pci3jjj30p00dwgmc.jpg'
+    # 插入搜索词条链接图文消息
+    in_list=[]
+    in_list.append(name)
+    in_list.append(name)
+    in_list.append(picurl)
+    in_list.append(url)
+    out_list.append(in_list)
+
+    # 插入点广告文章
+    # 当ad1或者ad2至少存在一个时才会插入该文章
+    # if ad1_state+ad2_state:
+    #     out_list.append(['■ 亲爱的，每天看电影时帮我点一下上面的小说呗','','https://t1.picb.cc/uploads/2018/05/21/2azICG.jpg','https://w.url.cn/s/ARlJPBS'])
+    return out_list
+
+# Online + Baidu
+# loadConfigUser : 1
+def reply_info_bygenurl_baiduonline(v_name):
+    out_list=[]
+
+    # online
+    out_list.append(reply_info_bygenurl(v_name)[0])
+    # baidu
+    out_list.append(reply_info_bygenurl_baidu(v_name)[0])
+
     return out_list
 
 def insertadarticles(message_content):
@@ -363,6 +336,17 @@ def loadConfig():
         return 'config.ini配置文件加载失败'
 
     return 'config.ini配置文件加载完毕'
+
+# 查询当前用户需要使用的查询方式 [在线/网盘/在线+网盘]
+def loadConfigUser(user):
+    config=configparser.ConfigParser()
+    config.read("config.ini")
+    rel_method=-1
+    try:
+        rel_method=config.getint(user)
+    except:
+        return -1
+    return rel_method
 
 # 接受两个参数 ： 配置项名称、配置项的值
 def writeToConfigFile(configName,configValue):
