@@ -68,11 +68,7 @@ def hello(message):
     #    return '        【系统升级】\n\n  公众号系统进行服务升级，预计24小时内完成。\n  请耐心等待升级完成！'
 
     #   the account of 'Lynn'
-    master_root='o2NddxHhZloQV55azmx8zVXv9mAQ'
-    if isdebug==1:
-        master_root='ozDqGwZ__sjgDwZ2yRfusI84XeAc'
-    elif isdebug==2:
-        master_root='onD430y7UUrFB8sDV6W8PU4Skwy8'
+    master_root='onD430y7UUrFB8sDV6W8PU4Skwy8'
 
     # reply_info() 函数调用标识
     global reply_info_state
@@ -128,8 +124,8 @@ def hello(message):
         elif message.content=='showtarget':
             return message.target
         # 设置 不同公众号的回复方式 [在线/网盘/在线+网盘]
-        elif message.content=='changeRelMethod .*':
-            rel_msg=writeToConfigFile(message.target,message.content[-1]):
+        elif re.match(r'changeRelMethod .*',message.content):
+            rel_msg=writeToConfigFile(message.target,message.content[-1])
             return rel_msg
 
     # print('《%s》'%message.content)
@@ -146,19 +142,29 @@ def hello(message):
     # elif reply_info_state==2:
     #     articles=reply_info_bygenurl(v_name)
 
-    rel_method=loadConfigUser(message.target)
+    rel_method=loadConfigUser(str(message.target))
+    # return str(rel_method)+message.target
     # 读取失败[配置不存在]
-    if(rel_method==-1):
+    if(rel_method<0):
         return reply_info_bygenurl(v_name)
     elif(rel_method==0):
         return reply_info_bygenurl(v_name)
     elif(rel_method==1):
         return reply_info_bygenurl_baidu(v_name)
     elif(rel_method==2):
-        return reply_info_bygenurl_baiduonline(v_name)
+        return genHtml(reply_info_bygenurl_baiduonline(v_name))
     else:
         return '程序升级中，请稍后重试...'
 
+
+def genHtml(articles):
+    rel_str=''
+    ar_str_cnt=0
+    for ar in articles:
+        ar_str_cnt += 1
+        rel_str+='['+str(ar_str_cnt)+']  '+'<a href="'+ar[-1]+'">'+ar[0]+'</a>'+'\n\n\n'
+
+    return rel_str.strip()
 
 # 替换用户发来的电影名字中的错别字
 def modefy_name(v_name):
@@ -341,9 +347,9 @@ def loadConfig():
 def loadConfigUser(user):
     config=configparser.ConfigParser()
     config.read("config.ini")
-    rel_method=-1
+    rel_method=0
     try:
-        rel_method=config.getint(user)
+        rel_method=config.getint('werobot',user)
     except:
         return -1
     return rel_method
