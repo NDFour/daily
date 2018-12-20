@@ -73,6 +73,10 @@ def hello(message):
     # reply_info() 函数调用标识
     global reply_info_state
 
+    # 预留 查看公众号 message.target 接口
+    if message.content=='showtarget':
+        return message.target
+
     # 从'config.ini'文件中读取配置项
     loadConfigMsg=loadConfig()
 
@@ -120,12 +124,9 @@ def hello(message):
         elif message.content=='showConfig':
             msg=showConfig()
             return msg
-        # 预留 查看公众号 message.target 接口
-        elif message.content=='showtarget':
-            return message.target
         # 设置 不同公众号的回复方式 [在线/网盘/在线+网盘]
         elif re.match(r'changeRelMethod .*',message.content):
-            rel_msg=writeToConfigFile(message.target,message.content[-1])
+            rel_msg=writeToConfigFile(message.content[16:31],message.content[-1])
             return rel_msg
 
     # print('《%s》'%message.content)
