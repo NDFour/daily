@@ -3,7 +3,7 @@
  *         Author: Lynn
  *          Email: lgang219@gmail.com
  *         Create: 2018-11-25 12:50:32
- *  Last Modified: 2018-12-04 15:58:13
+ *  Last Modified: 2018-12-26 10:09:23
  */
 
 #include<iostream>
@@ -25,6 +25,13 @@ int main()
     serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     serv_addr.sin_port = htons(1234);
 
+    /*
+    char usr_name[10];
+    cout << "Please input your name:" << endl;
+    cin >> usr_name;
+    cout << "User_Name:" << usr_name << endl;
+    */
+
     char str_smthing[100] = {0};
     char buffer[100] = {0};
 
@@ -36,8 +43,12 @@ int main()
 
         // input smthing to send to serv
         cout << "To Server:";
-        cin >> str_smthing;
+        // cin >> str_smthing;
+        string data;
+        getline(cin, data);
+        strcpy(str_smthing, data.c_str());
         // write to serv
+        // int w_state = write(sock, msg, sizeof(msg));
         int w_state = write(sock, str_smthing, sizeof(str_smthing));
         cout << "Send succ :" << w_state << endl;
 

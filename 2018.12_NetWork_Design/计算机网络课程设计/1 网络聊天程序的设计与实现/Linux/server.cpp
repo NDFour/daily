@@ -3,7 +3,7 @@
  *         Author: Lynn
  *          Email: lgang219@gmail.com
  *         Create: 2018-11-25 11:43:12
- *  Last Modified: 2018-12-04 15:59:46
+ *  Last Modified: 2018-12-26 09:33:29
  */
 
 #include<iostream>
@@ -44,6 +44,7 @@ int main()
     while (1)
     {
         // accept can pause code to run, until receive a request
+        cout << "Wait client to accept..." << endl;
         int clnt_sock = accept(serv_sock, (struct sockaddr * )&clnt_addr, &clnt_addr_size);
         cout << "Accept one request" << endl;
 
@@ -52,7 +53,7 @@ int main()
         int strLen = read(clnt_sock, buffer, sizeof(buffer) - 1);
         // int w_l = write(clnt_sock, buffer, sizeof(buffer));
         // cout << "Write " << w_l << " bytes" << endl << endl;
-        cout << "From Client:" << buffer << endl;
+        cout << "From Client:" << buffer << endl << endl;
         cout << "To Client:";
         cin >> buffer;
         write(clnt_sock, buffer, sizeof(buffer));

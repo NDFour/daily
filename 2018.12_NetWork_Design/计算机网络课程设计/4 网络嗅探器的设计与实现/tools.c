@@ -3,7 +3,7 @@
  *         Author: Lynn
  *          Email: lgang219@gmail.com
  *         Create: 2018-12-05 16:34:10
- *  Last Modified: 2018-12-09 17:00:22
+ *  Last Modified: 2018-12-25 09:58:19
  */
 
 #include<stdio.h>
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 {
     int sock;
     int pPort = -1;
-    int n_packages = 0;
+    int n_packages = -1;
     char *pprototype = NULL;
     char *pipaddr = NULL;
 
@@ -65,6 +65,11 @@ int main(int argc, char* argv[])
         case 'n': // n packages
             printf("N packages:%s\n", optarg);
             n_packages = atoi(optarg);
+            if (n_packages <= 0)
+            {
+                printf("Unsupported param 'n':%d\n", n_packages);
+                return -1;
+            }
             break;
         case 'h': // help
             showhelp();
@@ -86,14 +91,33 @@ int main(int argc, char* argv[])
     {
         int snifer_rel = 0;
         int n_tmp = n_packages;
-        while (n_tmp != 0)
+
+        // -1: not assign n_packages
+        if (n_tmp == -1)
         {
             // int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
-            snifer_rel = snifer(sock, pPort, pprototype, pipaddr);
-            if (snifer_rel == 0)
+            while (1)
             {
-                printf("\n");
-                n_tmp--;
+                snifer_rel = snifer(sock, pPort, pprototype, pipaddr);
+                if (snifer_rel == 0)
+                {
+                    printf("\n");
+                    n_tmp--;
+                }
+            }
+        }
+        // assign n_packages as positive
+        else
+        {
+            while (n_tmp > 0)
+            {
+                // int snifer(int sock, int pPort, char *pprototype, char* pipaddr, char *pmacaddr);
+                snifer_rel = snifer(sock, pPort, pprototype, pipaddr);
+                if (snifer_rel == 0)
+                {
+                    printf("\n");
+                    n_tmp--;
+                }
             }
         }
         break;
@@ -271,6 +295,7 @@ void showhelp()
     printf("\tSnifer Everything\n\n");
     printf("  -a  Filte by IP address\n");
     printf("  -m  Filte by MAC address\n");
+    printf("  -n  N packages\n");
     printf("  -P  Filte by PORT\n");
     printf("  -p  Filte by Protocol\n");
     printf("  -h  Show this message\n");
