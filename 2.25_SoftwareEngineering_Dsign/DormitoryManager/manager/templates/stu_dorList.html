@@ -1,0 +1,32 @@
+<div align="left">
+
+
+  <!-- 开始循环输出宿舍 -->
+          <div class="list-group">
+  <button type="button" class="list-group-item list-group-item-success">
+  宿舍浏览：
+  </button>
+  {% for dor in dormitoryList %}
+  <a href="{% url 'dormitory_detail' dor.number %}"><button type="button" class="list-group-item list-group-item-action"><b>宿舍号：</b>{{ dor.number }} &nbsp&nbsp<b>简介：</b> {{ dor.info }} 
+<span class="badge badge-warning badge-pill">&nbsp&nbsp内务评分： {{ dor.star }}</span>
+  </button></a>
+  {% endfor %}
+</div>
+
+  <br /> <br />
+
+
+  <!-- 开始循环输出学生 -->
+          <div class="list-group">
+  <button type="button" class="list-group-item list-group-item-success">
+  学生浏览：
+  </button>
+  {% for stu in stuList %}
+  <a href="{% url 'student_detail' stu.number %}"><button type="button" class="list-group-item list-group-item-action"><b>学号：</b>{{ stu.number }} &nbsp&nbsp<b>姓名： </b>{{ stu.name }} 
+  </button></a>
+  {% endfor %}
+</div>
+
+
+
+</div>
