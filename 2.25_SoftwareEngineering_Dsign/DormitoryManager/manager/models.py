@@ -6,6 +6,8 @@ class Student(models.Model):
     name = models.CharField('姓名', max_length=255)
     classNum = models.IntegerField('班级', blank=False)
     gender = models.IntegerField('性别', blank=False)
+    dromitory = models.IntegerField('宿舍', blank=False, default=111)
+    bed = models.IntegerField('床位', blank=False, default=1)
 
     def __str__(self):
         return self.name
