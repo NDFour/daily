@@ -11,6 +11,8 @@
         <th scope="col">类别（男/女）</th>
         <th scope="col">内务评分</th>
         <th scope="col">简介</th>
+        <th scope="col">水费</th>
+        <th scope="col">电费</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +21,8 @@
         <td>{{ dormitory.gender }}</td>
         <td>{{ dormitory.star }} 星</td>
         <td>{{ dormitory.info }}</td>
+        <td>{{ dormitory.waterFee }}</td>
+        <td>{{ dormitory.elecFee }}</td>
       </tr>
     </tbody>
   </table>
@@ -58,8 +62,8 @@
     </tbody>
   </table>
 
-  <button class="btn btn-primary">报修</button>
-
+  <br />
+  <h1 class="h3 btn-warning"><a href="{% url 'repair' dormitory.number %}">报修</a></h1>
 
 
   <br /> <br />

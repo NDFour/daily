@@ -21,6 +21,9 @@ class Dormitory(models.Model):
     star = models.IntegerField('内务评级')
     info = models.CharField('简介', max_length=255)
     gender = models.IntegerField('类别（男/女）', blank=False)
+    waterFee = models.IntegerField('水费', blank=True, default=0)
+    elecFee = models.IntegerField('电费', blank=True, default=0)
+    isRepair = models.IntegerField('报修', blank=False, default=0)
 
     def __str__(self):
         return str(self.number)

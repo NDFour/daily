@@ -36,3 +36,13 @@ def student_detail(request, stu_number):
         'starList': starList,
         }
     return render(request, 'index_Student.html', context)
+
+# 宿舍保修
+def repair(request, dormitory_number):
+    dormitory = get_object_or_404(Dormitory, number = dormitory_number)
+    try:
+        dormitory.isRepair = 1
+        dormitory.save()
+        return HttpResponse('报修成功' + str(dormitory.isRepair))
+    except:
+        return HttpResponse('报修失败')
