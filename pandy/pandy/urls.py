@@ -22,7 +22,8 @@ from werobot.contrib.django import make_view
 from robot import robot
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    # path('', views.index, name='index'),
+    path('', include('onlineplay.urls'),
     path('lynnn/', admin.site.urls),
     path('movie/', include('movie.urls')),
     path('onlineplay/', include('onlineplay.urls')),
