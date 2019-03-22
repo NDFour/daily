@@ -1,4 +1,0 @@
-BeautyEye L&F, a Swing look and feel.
-Author: Jack Jiang
-Mail: jb2011@163.com
-Old Homepage: https://github.com/JackJiang2011/beautyeye
