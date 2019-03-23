@@ -80,6 +80,13 @@ def hello(message):
     # 从'config.ini'文件中读取配置项
     loadConfigMsg=loadConfig()
 
+    # 用户只发送数字 由 掌上大学接管自动回复
+    try:
+        int(message.content)
+        return ''
+    except:
+        pass
+
     if message.source==master_root:
         #   预留adarticles添加接口，发送'insertadarticles .*',执行sql语句插入adarticles
         if re.match(r'insertadarticles .*',message.content):
