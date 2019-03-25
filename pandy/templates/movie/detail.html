@@ -9,7 +9,9 @@
 <meta property="og:description" content="{{ movie_v_name }}免费分享高清电影百度网盘资源，在线播放资源。">
      {% load staticfiles %}
      <!-- Bootstrap -->
-    <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
      <style type="text/css">
          p{
              text-indent: 1em;
@@ -27,6 +29,14 @@
              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
          }
      </style>
+
+      <!-- 10s 弹窗提醒用户帮忙点广告 -->
+     <script type="text/javascript">
+        var i=0;
+        setTimeout(function(){
+            alert('亲爱的，每次看电影时帮我点一下公众号发的小说呗，点一下我就有2毛钱呢，一天点一次就可以了哦 😊\n\n谢谢你啦！ε٩(๑> ₃ <)۶з');
+        },10000);
+    </script>
 </head>
 
 <body>
