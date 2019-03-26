@@ -50,8 +50,8 @@ def rmNullItem():
             conn.commit()
          except:
             conn.rollback()
-            cursor.close()
-            conn.close()
+    cursor.close()
+    conn.close()
 
 def main():
     get_update()
