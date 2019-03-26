@@ -48,8 +48,9 @@ def rmNullItem():
         try:
             cursor.execute(i)
             conn.commit()
-         except:
+        except:
             conn.rollback()
+
     cursor.close()
     conn.close()
 
