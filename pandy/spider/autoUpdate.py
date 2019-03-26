@@ -46,7 +46,7 @@ def rmNullItem():
     sqlList.append(rmNullPlayurl)
     for i in sqlList:
         try:
-            cursor.execute()
+            cursor.execute(i)
             conn.commit()
          except:
             conn.rollback()
