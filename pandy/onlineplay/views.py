@@ -10,7 +10,7 @@ from django.views.decorators.cache import cache_page
 # Create your views here.
 @cache_page(60 * 15)
 def onlineplay_index(request):
-    movie_list = Onlineplay.objects.all().order_by('-v_pub_date')
+    movie_list = Onlineplay.objects.filter(v_vip = 0).order_by('-v_pub_date')
     # 一页的数据数据
     per_page = 12
     # 生成 paginator 对象
@@ -22,7 +22,7 @@ def onlineplay_index(request):
     except:
         movie_list = paginator.page(1)
 
-    resou_movie_list = Onlineplay.objects.order_by('-v_views')[:7]
+    resou_movie_list = Onlineplay.objects.filter( v_vip = 0 ).order_by('-v_views')[:7]
 
     context = {
             'movie_list': movie_list,
@@ -32,6 +32,7 @@ def onlineplay_index(request):
             }
     return render(request, 'movie/index.html', context)
 
+
 @cache_page(60 * 15)
 def onlineplay_index_by_page(request, page_num):
     try:
@@ -40,7 +41,7 @@ def onlineplay_index_by_page(request, page_num):
         tmp = 1
     page_num = tmp
 
-    movie_list = Onlineplay.objects.all().order_by('-v_pub_date')
+    movie_list = Onlineplay.objects.filter(v_vip = 0).order_by('-v_pub_date')
     # 一页的数据数目
     per_page = 12
     # 生成 paginator 对象
@@ -52,7 +53,7 @@ def onlineplay_index_by_page(request, page_num):
     except EmptyPage:
         movie_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
-    resou_movie_list = Onlineplay.objects.order_by('-v_views')[:7]
+    resou_movie_list = Onlineplay.objects.filter( v_vip = 0 ).order_by('-v_views')[:7]
 
     context = {
             'movie_list': movie_list,
@@ -94,7 +95,7 @@ def onlineplay_detail(request, movie_id):
     except:
         index_video = ''
 
-    resou_movie_list = Onlineplay.objects.order_by('-v_views')[:7]
+    resou_movie_list = Onlineplay.objects.filter( v_vip = 0 ).order_by('-v_views')[:7]
     # 阅读量自增 1
     movie.increase_views()
 
@@ -117,3 +118,30 @@ def onlineplay_detail(request, movie_id):
             }
 
     return render(request, 'onlineplay/detail.html', context)
+
+
+def getVipByCode(request, vipCode):
+    """ 根据 v_vip 的字段获取同字段所有条目
+    """
+
+    movie_list = Onlineplay.objects.filter( v_vip = vipCode )
+
+    # 获取在线热搜榜
+    resou_movie_list = Onlineplay.objects.filter( v_vip = 0 ).order_by('-v_views')[:7]
+
+    # 是否展示支付宝 领红包 js代码
+    alipay_code = '0'
+    alipay_obj = get_object_or_404(Passwds, p_code=1002)
+    if alipay_obj:
+        alipay_code = alipay_obj.p_value
+
+    context = {
+            'movie_list': movie_list,
+            'resou_movie_list': resou_movie_list,
+            'movie_name': str( vipCode ),
+            'page_title': str( vipCode ) + ' 搜索结果',
+            'alipay_code': alipay_code,
+            'url_name': 'getVipByCode',
+            }
+    return render(request, 'movie/index.html', context)
+    # return HttpResponse('search page %s' % movie_name)

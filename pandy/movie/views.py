@@ -41,6 +41,7 @@ def index(request):
             }
     return render(request, 'movie/index.html', context)
 
+
 @cache_page(60 * 15)
 def index_by_page(request, page_num):
     try:
@@ -98,7 +99,7 @@ def movie_search_navbar(request):
 
     # 根据不同的搜索按钮 (onlineplay_search, movie_search)，搜索不同的数据
     if search_type == 'onlineplay_search':
-        movie_list = Onlineplay.objects.filter(v_name__icontains=movie_name)
+        movie_list = Onlineplay.objects.filter(v_name__icontains=movie_name, v_vip = 0 )
     else:
         movie_list = Movie.objects.filter(v_name__icontains=movie_name)
 
@@ -114,7 +115,7 @@ def movie_search_navbar(request):
     # 获取网盘热搜榜
     # resou_movie_list = Movie.objects.order_by('-v_views')[:7]
     # 获取在线热搜榜
-    resou_movie_list = Onlineplay.objects.order_by('-v_views')[:7]
+    resou_movie_list = Onlineplay.objects.filter( v_vip = 0 ).order_by('-v_views')[:7]
 
     # 是否展示支付宝 领红包 js代码
     alipay_code = '0'
@@ -134,11 +135,12 @@ def movie_search_navbar(request):
     return render(request, 'movie/index.html', context)
     # return HttpResponse('search page %s' % movie_name)
 
+
 # 热搜榜，根据访问量返回阅读量最高的20部电影
 @cache_page(60 * 15)
 def movie_resou(request):
     # movie_list = Movie.objects.order_by('-v_views')[:20]
-    movie_list = Onlineplay.objects.order_by('-v_views')[:20]
+    movie_list = Onlineplay.objects.filter( v_vip = 0 ).order_by('-v_views')[:20]
     # 热搜页 一页的 电影数量
     per_page = 20
     paginator = Paginator(movie_list, per_page)
@@ -148,6 +150,7 @@ def movie_resou(request):
             'page_title': '近期热搜榜',
             }
     return render(request, 'movie/index.html', context)
+
 
 @cache_page(60 * 15)
 def movie_detail(request, movie_id):
@@ -170,12 +173,14 @@ def movie_detail(request, movie_id):
 
     return render(request, 'movie/detail.html', context)
 
+
 def confirm_invalid(request, movie_id, urlstate):
     context = {
             'movie_id': movie_id,
             'urlstate': urlstate,
             }
     return render(request, 'movie/confirm_invalid.html', context)
+
 
 def invalid_url_report(request, movie_id, urlstate):
     info=''
@@ -209,6 +214,7 @@ def invalid_url_report(request, movie_id, urlstate):
 
     return render(request, 'movie/invalid_url_report.html', {'urlstate': urlstate,'info': info})
 
+
 def reset_form(request, movie_id):
     msg = '修改 %s 网盘状态' %movie_id
     context = {
@@ -217,6 +223,7 @@ def reset_form(request, movie_id):
             'movie_id': movie_id,
             }
     return  render(request, 'movie/reset_valid.html', context)
+
 
 def reset_valid(request):
     movie_id = request.GET['movie_id']
@@ -244,6 +251,7 @@ def reset_valid(request):
             'movie_id': movie_id,
             }
     return render(request, 'movie/reset_valid.html', context)
+
 
 def spiderlog(request):
     # log_list
@@ -303,6 +311,7 @@ def spiderlog(request):
     context['log_list_err'] = log_list_err
     context['log_list_update'] = log_list_update
     return render(request, 'movie/spiderlog.html', context)
+
 
 def clean_spiderlog(requste):
     msg = ''
