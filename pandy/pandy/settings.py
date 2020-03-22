@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bdpan',
         'USER': 'root',
-        'PASSWORD': 'cqmygpython2',
+        'PASSWORD': 'xqksj',
         'HOST': 'localhost',
         'PORT': '3306',
     }
