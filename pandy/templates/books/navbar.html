@@ -1,0 +1,68 @@
+<!-- 功能导航栏 -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- 使导航栏居中 -->
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'book_index' %}" style="font-family: Georgia;">好书分享君</a>
+
+                <div align="center" style="width: 100%;">
+                    <br />
+                    <br />
+                    <br />
+                    <p style="font-family: Georgia;font-size: 3rem;">没有精神思想消遣的闲暇就是死亡，它就像要把人活生生地埋葬</p>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <ul class="nav navbar-nav">
+                <li><a  href="{% url 'book_index' %}">首页</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=小说文学">小说文学</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=人文社科">人文社科</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=励志成功">励志成功</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=历史传记">历史传记</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=学习教育">学习教育</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=生活时尚">生活时尚</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=经济管理">经济管理</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=编程开发">编程开发</a></li>
+                <li><a  href="{% url 'book_category' %}?book_category=英文原版">英文原版</a></li>
+            </ul>
+
+            <!-- 当且仅当屏幕大小大于手机屏幕大小时显示 -->
+            <!-- 搜索功能 -->
+            <form class="navbar-form navbar-right visible-sm visible-md visible-lg" action="{% url 'book_search_navbar' %}" method="get">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="输入书籍名字" name="book_name" required="required">
+                </div>
+                <button type="submit" class="btn btn-default" name="book_search" value="book_search" >搜索</button>
+            </form>
+            <!-- 搜索功能 End -->
+
+            <!-- 当前登录用户模块 -->
+            <!--
+            <div class="navbar-form navbar-right">
+                    <li class="btn btn-info"><a href="{% url 'user_center' %}" style="color:white;">充值中心 / 个人中心</a></li>
+                    <li class="btn btn-success"><a href="{% url 'login' %}">登录</a></li>
+                    <li class="btn btn-success"><a href="{% url 'register' %}">注册</a></li>
+            </div>
+            -->
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- 功能导航栏 End -->

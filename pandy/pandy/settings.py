@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'books.apps.BooksConfig',
     'movie.apps.MovieConfig',
     'onlineplay.apps.OnlineplayConfig',
     'spidermonitor.apps.SpidermonitorConfig',

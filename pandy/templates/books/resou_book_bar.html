@@ -1,0 +1,14 @@
+<!-- 热搜榜 -->
+<br /><br />
+    <div class="visible-sm visible-md visible-lg col-sm-13 col-md-13 col-lg-13">
+        <h4><span class="label label-info">近期热搜榜</span></h4>
+        <div class="list-group">
+            {% for resou in resou_book_list %}
+
+                    <a href="{% url 'book_detail' resou.id %}" class="list-group-item">
+                        <span class="badge"><span class="glyphicon glyphicon-thumbs-up" aria-hiden="true" style="color: white;"></span> {{ resou.book_views }}</span>{{ resou.book_title }}</a>
+
+            {% endfor %}
+        </div>
+    </div>
+<!-- 热搜榜 End -->

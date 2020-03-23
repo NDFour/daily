@@ -1,0 +1,95 @@
+<html>
+ <head>
+     <title>《{{ book.book_title }}》免费kindle电子书网盘资源分享</title>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ book.book_title }}免费分享高清kindle电子书百度网盘资源。">
+<meta name="keywords" content="{{ book.book_title }} 电子书 kindle 百度网盘 资源 推送 免费 高清">
+<meta property="og:description" content="{{ book_book_title }}免费分享高清kindle电子书百度网盘资源。">
+     {% load staticfiles %}
+     <!-- Bootstrap -->
+    <!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <style type="text/css">
+         p{
+             text-indent: 1em;
+         }
+         .magnet_url{
+             font-size: 15px;
+         }
+
+         .pubdate_views{
+             font-size: 14px;
+             color:grey;
+             padding-bottom: 6px;
+         }
+         .jumbotron{
+             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+         }
+     </style>
+
+      <!-- 10s 弹窗提醒用户帮忙点广告 -->
+      <!--
+     <script type="text/javascript">
+        var i=0;
+        setTimeout(function(){
+            alert('亲爱的，每次看文章时帮我点一下公众号发的小说呗，点一下我就有2毛钱呢，一天点一次就可以了哦 😊\n\n谢谢你啦！ε٩(๑> ₃ <)۶з');
+        },20000);
+    </script>
+-->
+</head>
+
+<body>
+    <div align="center">
+        <!-- 导航栏 -->
+        {% include 'books/navbar.html' %}
+    </div>
+    <!-- align="center" End -->
+
+    <!-- 公众号推广图文 -->
+    <!--
+    <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    -->
+    <!-- 公众号推广图文 End -->
+
+    <div class="container" style="width: 93%;">
+        <div class="row">
+
+            <!-- 电影信息区域 -->
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                {% include 'books/book_info_jumbotron.html' %}
+            </div>
+
+            <!-- 1/3 窗口 -->
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <!-- 判断是否需要展示 热搜榜 -->
+                {% if resou_book_list %}
+                    {% include 'books/resou_book_bar.html' %}
+                {% endif %}
+
+                <!-- 支付宝/微信 赞助 -->
+
+                <!-- 微信公众号吸粉广告 -->
+                {#% include 'index/wechat_ad.html' %#}
+
+                <!-- 赞赏支持 -->
+                {% include 'index/red_pocket.html' %}
+            </div>
+
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+    {% include 'index/alipay.html' %}
+
+    
+    <div align="center">
+        {% include 'index/footer.html' %}
+    </div>
+
+</body>
+</html>

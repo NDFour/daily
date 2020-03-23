@@ -1,0 +1,20 @@
+<!-- 当且仅当页面为手机屏幕大小时才显示 -->
+<!-- 影片搜索栏 -->
+<div class="container visible-xs" align="center">
+    <div class=search_tools>
+        <form action="{% url 'movie_search_navbar' %}" method="get">
+            <div class="row">
+                <div class="col col-sm-4 col-md-4 col-lg-4">
+                    <input type="text" class="form-control btn-lg" placeholder="输入电影名搜索资源" name="movie_name" required="required">
+                </div>
+                <div class="col col-sm-1 col-md-1 col-lg-1">
+                <br />
+                    <button type="submit" class="btn btn-primary btn-lg" name="onlineplay_search" value="onlineplay_search">搜在线播放</button>
+                    <button type="submit" class="btn btn-primary btn-lg" name="movie_search" value="movie_search">搜&nbsp&nbsp网&nbsp&nbsp盘</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br />
+</div>
+<!-- 影片搜索栏 End -->

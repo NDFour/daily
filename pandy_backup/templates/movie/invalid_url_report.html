@@ -1,0 +1,39 @@
+<html>
+<head>
+     <title>网盘链接失效报告</title>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     {% load staticfiles %}
+     <!-- Bootstrap -->
+    <!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <div align="center">
+        <!-- 功能导航栏 -->
+        {% include 'index/navbar.html' %}
+        <!-- 功能导航栏 End -->
+    </div>
+    <!-- class="center" End -->
+
+    <!-- 反馈页主体内容 -->
+    <div class="feedback_result" align="center">
+        <!-- 微信推广图文 -->
+        <!--
+        <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+        -->
+            <p>已经将资源网盘链接失效信息报告给管理员，谢谢您的反馈。<br /> {{ info }}</p>
+
+        <br />
+    </div>
+
+    <!-- 页脚 -->
+    <div align="center">
+        {% include 'index/footer.html' %}
+    </div>
+
+</body>
+</html>

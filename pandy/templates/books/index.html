@@ -1,0 +1,108 @@
+<html lang="zh-CN">
+
+<head>
+    <title>{% if page_title %}{{ page_title }} {% else %}好书分享君-专注kindle免费电子书网盘资源分享{% endif %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="免费分享高清正版kindle电子书网盘资源">
+<meta name="keywords" content="电子书 图书 kindle 百度网盘 资源 高清 推送">
+<meta property="og:description" content="免费分享高清正版kindle电子书网盘资源">
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+        p {
+            text-align: center;
+        }
+
+        .book_section{
+            padding: 0px;
+        }
+        .pub_date {
+            font-size: 12px;
+            color: #9999CC;
+        }
+
+        .belong_to_title{
+            display: inline-block;
+            background-color:#f76c3d;
+            padding:0.1rem 0.2rem;
+            font-size:1.1rem;
+            color:#fff;
+            position: absolute;
+            top:1rem;
+            left:0.5rem;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <div align="center">
+        <!-- 导航栏 -->
+        {% include 'books/navbar.html' %}
+    </div>
+    <!-- align="center" End -->
+
+    <!-- 当屏幕为手机屏幕大小时，展示手机端搜索框 -->
+    {% include 'books/search_box_for_mobile.html' %}
+
+    <div class="container" style="width: 93%;">
+        <div class="row">
+
+            <!-- 2/3 窗口 -->
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                <!-- 电影列表 -->
+                {% include 'books/book_list.html' %}
+            </div>
+
+            <!-- 1/3 窗口 -->
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <!-- 判断是否需要展示 热搜榜 -->
+                {% if resou_book_list %}
+                    {% include 'books/resou_book_bar.html' %}
+                {% endif %}
+
+                <!-- 支付宝/微信 赞助 -->
+
+                <!-- 微信公众号吸粉广告 -->
+                {#% include 'index/wechat_ad.html' %#}
+
+                <!-- 赞赏支持 -->
+                {% include 'index/red_pocket.html' %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 页码 -->
+    <!-- 根据不同的函数 展示不同的分页文件，因为不同函数对应结果列表的url不同 -->
+    <!-- search 使用 -->
+    {% if url_name == "book_search_navbar" %}
+        {% include 'paginator/paginator_for_search.html' %}
+
+    {% elif url_name == "book_category" %}
+        {% include 'paginator/paginator_for_search.html' %}
+
+    <!-- index 和 index_by_page 使用 -->
+    <!-- 图书 分页 -->
+    {% elif url_name == "book_index" %}
+        {% include 'paginator/paginator_for_book_index.html' %}
+    {% elif url_name == 'book_index_by_page' %}
+        {% include 'paginator/paginator_for_book_index.html' %}
+
+    {% endif %}
+
+
+    <!-- 页脚 -->
+    {% include 'index/footer.html' %}
+
+
+</body>
+
+</html>

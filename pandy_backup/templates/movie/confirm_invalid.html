@@ -1,0 +1,73 @@
+<html>
+<head>
+     <title>网盘链接失效报告</title>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     {% load staticfiles %}
+     <!-- Bootstrap -->
+    <!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <style type="text/css">
+        h3{
+            color:#298A08;
+        }
+        span{
+            font-size:13px;
+            color:gray;
+        }
+        p{
+            font-weight: bold;
+        }
+        #movie_name{
+            border:1px dashed green;
+        }
+        #yes_button{
+            font-size: 22px;
+            text-align: center;
+        }
+     </style>
+</head>
+
+<body>
+    <div align="center">
+        <!-- 功能导航栏 -->
+        {% include 'index/navbar.html' %}
+        <!-- 功能导航栏 End -->
+
+        <!-- 反馈页面主要内容 -->
+        <div class="feedback">
+            <h3>资源网盘链接失效反馈页面</h3>
+            <br />
+            <p>您确认该资源的网盘链接已经失效了吗？</p>
+            <span><em>点击<b>”已失效”</b>将通知管理员更新网盘链接</em></span>
+            <!-- 反馈按钮 -->
+            <!--
+            <p id="yes_button"><a href="http://tnt1024.com/movie/invalid_url_report/{{ movie_id }}/{{ urlstate }}">确定</a></p>
+            -->
+            <br />
+            <br />
+            <br />
+            <button class="btn btn-warning"><a href="{% url 'invalid_url_report' movie_id urlstate %}">已失效</a></button>
+            &nbsp &nbsp
+            <button class="btn btn-success"><a href="{% url 'movie_detail' movie_id %}">未失效</a></button>
+            <br /> <br />
+        </div>
+
+    </div>
+    <!-- class="center" End -->
+
+
+    <!-- 微信推广图文 -->
+    <!--
+    <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
+    -- >
+
+    <!-- 页脚 -->
+    <div align="center">
+        {% include 'index/footer.html' %}
+    </div>
+
+</body>
+</html>

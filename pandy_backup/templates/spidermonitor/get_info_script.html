@@ -1,0 +1,110 @@
+    <script type="text/javascript">
+        var maxid=0;
+        function addinfo(id, url, info, status, time){
+            /* 向消息列表中添加一个消息 */
+            var node = '<a href="detail/'+id+'" class="list-group-item" target="_blank">';
+            node += '<h4 class="list-group-item-heading">'+url+'<span style="float:right">'+time+'</span></h4>';
+            node += '<p class="list-group-item-text">';
+            if(status=='0'){
+                node += '<span class="label label-success"> </span>&nbsp;';
+            }
+            else if(status=='1'){
+                node += '<span class="label label-warning"> </span>&nbsp;';
+            }
+            else{
+                node += '<span class="label label-danger"> </span>&nbsp;';
+            }
+            node += info+'</p></a>';
+            //选择向哪个列表添加
+            if(status=='0'){
+                previous = $("#goodhead")
+            }else{
+                previous = $("#badhead")
+            }
+            previous.after(node);
+        }
+        function setspiderinfo(spider){
+            /* 设置爬虫信息 */
+            //设置爬虫名字
+            $("#name").text(spider.name)
+            //设置状态信息
+            if(spider.status=='0'){
+                $("#status").text("未开始");
+            }else if(spider.status=='1'){
+                $("#status").text("运行中");
+            }else if(spider.status=='2'){
+                $("#status").text("暂停中");
+            }else if(spider.status=='3'){
+                $("#status").text("已完成");
+            }else{
+                $("#status").text("未知状态");
+            }
+            //设置数量信息
+            var menupage_total = spider.menupage_total;
+            var movie_total = spider.movie_total;
+            var menupage_success = spider.menupage_success;
+            var movie_success = spider.movie_success;
+            var menupage_fail = spider.menupage_fail;
+            var movie_fail = spider.movie_fail;
+
+            if(menupage_total=='0'){
+                $("#menupage_totalbutton").hide();
+                $("#progress-div").hide();
+            }
+            else{
+                $("#menupage_totalbutton").show();
+                $("#progress-div").show();
+                $("#menupage_total").text(menupage_total);
+                //设置进度条
+                var menupage_progress = ( parseInt(menupage_success)+parseInt(menupage_fail) )*100 / parseInt(menupage_total);
+                $("#menupage_progress").css("width", menupage_progress+"%");
+                $("#menupage_percent").text(menupage_progress + " %");
+            }
+            if(movie_total=='0'){
+                $("#movie_totalbutton").hide();
+            }
+            else{
+                $("#movie_totalbutton").show();
+                $("#movie_total").text(movie_total);
+                //设置进度条
+                var movie_progress = ( parseInt(movie_success)+parseInt(movie_fail) )*100 / parseInt(movie_total);
+                $("#movie_progress").css("width", movie_progress+"%");
+                $("#movie_percent").text(movie_progress + " %");
+            }
+
+            $("#menupage_success").text(menupage_success);
+            $("#movie_success").text(movie_success);
+            $("#menupage_fail").text(menupage_fail);
+            $("#movie_fail").text(movie_fail);
+        }
+        function useinfos(infos){
+            /* 将消息添加到列表中 */
+            for(var i=infos.length-1;i>=0;i--){
+                var id = infos[i].id;
+                if(parseInt(id)>maxid){
+                    maxid=id;
+                };
+                addinfo(id, infos[i].url, infos[i].info, infos[i].stat, infos[i].time);
+            }
+        }
+        function sethtml(data){
+            /* 解析处理异步获取的新数据 */
+	        var obj = JSON.parse(data);
+	        setspiderinfo(obj.spider);
+	        useinfos(obj.infos);
+        }
+        function getnewinfo(){
+            /* 用Ajax异步获取新数据 */
+            $.ajax({
+                type: 'GET',
+                url: 'get/'+maxid,
+                success: function(data){
+                  sethtml(data);
+                }
+            })
+        }
+        $(document).ready(function(){
+            getnewinfo();
+            window.setInterval(getnewinfo,1000);
+        });
+    </script>

@@ -23,8 +23,9 @@ from robot import robot
 
 urlpatterns = [
     # path('', views.index, name='index'),
-    path('', include('onlineplay.urls')),
+    path('', include('books.urls')),
     path('lynnn/', admin.site.urls),
+    path('books/', include('books.urls')),
     path('movie/', include('movie.urls')),
     path('onlineplay/', include('onlineplay.urls')),
     path('spidermonitor/', include('spidermonitor.urls')),
