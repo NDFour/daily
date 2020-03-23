@@ -1,1 +1,0 @@
-uwsgi --socket pandy.sock --module pandy.wsgi --chmod-socket=666
