@@ -3,7 +3,7 @@
     {% if book_list %}
             <div class="row">
             {% for book in book_list %}
-                <div class="visible-sm visible-md visible-lg col-sm-3 col-md-3 col-lg-3 book_section">
+                <div class="visible-sm visible-md visible-lg col-sm-4 col-md-3 col-lg-3 book_section">
                     <!-- 图书信息块 -->
                     <div class="thumbnail" style="width: 85%;">
                             <a href="{% url 'book_detail' book.id %}">
@@ -50,6 +50,7 @@
                                 <p class="belong_to_title">{{ book.book_category }}</p>
 
                         </div>
+                      <br />
                     </div> <!-- 手机屏幕浏览时展示样式 END -->
 
             {% endfor %}
