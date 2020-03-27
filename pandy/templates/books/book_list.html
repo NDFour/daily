@@ -7,7 +7,7 @@
                     <!-- 图书信息块 -->
                     <div class="thumbnail" style="width: 85%;">
                             <a href="{% url 'book_detail' book.id %}">
-                                <img src="{{ book.book_pic }}" alt="{{ book.book_title }}电子书免费下载" style="width:100%;height:270px;">
+                                <img src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}电子书免费下载" style="width:100%;height:270px;">
                             </a>
                             <p class="belong_to_title">{{ book.book_category }}</p>
                             <div class="caption">
@@ -25,7 +25,7 @@
                         <div class="media">
                                 <div class="media-left">
                                     <a href="{% url 'book_detail' book.id %}">
-                                        <img class="media-object" src="{{ book.book_pic }}" alt="{{ book.book_title }}电子书免费下载" height="145" width="100" />
+                                        <img class="media-object" src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}电子书免费下载" height="145" width="100" />
                                     </a>
                                 </div>
                                 <div class="media-body">
@@ -52,7 +52,6 @@
                         </div>
                       <br />
                     </div> <!-- 手机屏幕浏览时展示样式 END -->
-                <br />
 
             {% endfor %}
             <!-- 电影列表 End -->
