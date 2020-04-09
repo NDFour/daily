@@ -1,61 +1,71 @@
+{% if book_list %}
+  <div class="row">
+    <!-- 开始遍历显示 图书信息 -->
+    {% for book in book_list %}
 
-    {% if book_list %}
-            <div class="row">
-            {% for book in book_list %}
-                <div class="visible-sm visible-md visible-lg col-sm-4 col-md-3 col-lg-3 book_section">
-                    <!-- 图书信息块 -->
-                    <!-- <div class="thumbnail" style="width: 85%;"> -->
-                    <div class="thumbnail">
-                            <a href="{% url 'book_detail' book.id %}">
-                                <img src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}电子书免费下载" style="width:100%;height:270px;">
-                            </a>
-                            <p class="belong_to_title">{{ book.book_category }}</p>
-                            <div class="caption">
-                                <b><p class="media-heading" style="color: black; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a style="color: black;" href="{% url 'book_detail' book.id %}">{{ book.book_title }}</a></p></b>
+      <!-- 非 手机屏幕 展示样式 -->
+      <div class="visible-sm visible-md visible-lg col-sm-4 col-md-3 col-lg-3 book_section">
 
-                                <p style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">作者：{{ book.book_author }}</p>
+        <div class="thumbnail">
 
-                            </div>
+          <a href="{% url 'book_detail' book.id %}"><img src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}电子书免费下载" style="width:100%;height:270px;"></a>
+          <p class="belong_to_title">{{ book.book_category }}</p>
 
-                    </div> <!-- 电影信息块 END -->
-                </div>
+          <div class="caption">
 
-                    <!-- 手机屏幕浏览时展示样式 -->
-                    <div class="visible-xs col-xs-12 book_section">
-                        <div class="media">
-                                <div class="media-left">
-                                    <a href="{% url 'book_detail' book.id %}">
-                                        <img class="media-object" src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}电子书免费下载" height="145" width="100" />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="{% url 'book_detail' book.id %}" style="color: black;">{{ book.book_title }}</a></h4>
+            <b><p class="media-heading" style="color: black; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a style="color: black;" href="{% url 'book_detail' book.id %}">{{ book.book_title }}</a></p></b>
+            <p style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">作者：{{ book.book_author }}</p>
 
-                                    {% if book.book_author %}
-                                    <span>作者：</span><span>{{ book.book_author }}</span>
-                                    {% endif %}
-                                    <br />
+          </div> <!-- caption -->
 
-                                    {% if book.book_rating %}
-                                    <span>豆瓣评分：</span><span>{{ book.book_rating }}</span>
-                                    </div>
-                                    {% endif %}
+        </div> <!-- thumbnail -->
 
-                                </div>
-                                <p class="belong_to_title">{{ book.book_category }}</p>
+      </div> <!-- book_section -->
 
-                        </div>
-                      <br />
-                    </div> <!-- 手机屏幕浏览时展示样式 END -->
 
-            {% endfor %}
-            <!-- 电影列表 End -->
-            </div>
+      <!-- 手机屏幕展示样式 -->
+      <div class="visible-xs col-xs-12 book_section">
 
-    {% else %}
-    <br />
-    <br />
-    <p>暂时还没有<b><span>《{{ book_name }}》</span></b>的网盘资源，请等待管理员更新.</p>
-    {% endif %}
-<!-- 最新电影列表 End -->
+        <div class="media">
 
+          <div class="media-left">
+
+              <a href="{% url 'book_detail' book.id %}"><img class="media-object" src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}电子书免费下载" height="145" width="100" /></a>
+
+          </div> <!-- media-left -->
+
+          <div class="media-body">
+
+            <h4 class="media-heading"><a href="{% url 'book_detail' book.id %}" style="color: black;">{{ book.book_title }}</a></h4>
+
+            {% if book.book_author %}
+              <span>作者：</span><span>{{ book.book_author }}</span>
+            {% endif %}
+
+            <br />
+
+            {% if book.book_rating %}
+              <span>豆瓣评分：</span><span>{{ book.book_rating }}</span>
+            {% endif %}
+
+          </div> <!-- media-body -->
+
+          <p class="belong_to_title">{{ book.book_category }}</p>
+
+        </div> <!-- media -->
+
+        <br />
+        
+      </div> <!-- book_section MOBILE -->
+
+    {% endfor %} <!-- 遍历显示 图书信息 END -->
+
+  </div> <!-- row -->
+
+{% else %}
+
+  <br />
+  <br />
+  <p>暂时还没有<b><span>《{{ book_name }}》</span></b>的网盘资源，请等待管理员更新.</p>
+
+{% endif %}
