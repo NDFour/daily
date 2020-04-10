@@ -1,5 +1,8 @@
 {% if book_list %}
   <div class="row">
+
+    <p class="alert alert-info">{% if page_title %}【{{ page_title }}】{% else %}最近更新{% endif %}：</p>
+
     <!-- 开始遍历显示 图书信息 -->
     {% for book in book_list %}
 
