@@ -65,35 +65,53 @@
 
 
     <!-- 页码 -->
-    <!-- 根据不同的函数 展示不同的分页文件，因为不同函数对应结果列表的url不同 -->
-    <!-- search 使用 -->
-    {% if url_name == "book_search_navbar" %}
-    {% include 'paginator/paginator_for_search.html' %}
+    <div class="col-sm-12">
+      <!-- 根据不同的函数 展示不同的分页文件，因为不同函数对应结果列表的url不同 -->
+      <!-- search 使用 -->
+      {% if url_name == "book_search_navbar" %}
+      {% include 'paginator/paginator_for_search.html' %}
 
-    {% elif url_name == "book_category" %}
-    {% include 'paginator/paginator_for_search.html' %}
+      {% elif url_name == "book_category" %}
+      {% include 'paginator/paginator_for_search.html' %}
 
-    <!-- index 和 index_by_page 使用 -->
-    <!-- 图书 分页 -->
-    {% elif url_name == "book_index" %}
-    {% include 'paginator/paginator_for_book_index.html' %}
-    {% elif url_name == 'book_index_by_page' %}
-    {% include 'paginator/paginator_for_book_index.html' %}
+      <!-- index 和 index_by_page 使用 -->
+      <!-- 图书 分页 -->
+      {% elif url_name == "book_index" %}
+      {% include 'paginator/paginator_for_book_index.html' %}
+      {% elif url_name == 'book_index_by_page' %}
+      {% include 'paginator/paginator_for_book_index.html' %}
 
-    {% endif %}
-
+      {% endif %}
+    </div>
     <!-- 页码 End -->
 
 
   </div> <!-- row -->
 
+
+  <!-- 未找到搜索图书 -->
 {% else %}
 
-  <br />
-  <br />
-  <div class="alert alert-warning">抱歉，暂时还没有收录<b><span>《{{ book_name }}》</span></b>，请耐心等待或者给管理员发邮件催他抓紧更新哦！ ndfour@foxmail.com</div>
-  <br />
-  <br />
+
+  <div class="jumbotron">
+    <div class="alert alert-danger">
+      <div align="center"><h4>抱歉，暂时还没有收录《{{ book_name }}》</h4></div>
+      <br />
+      <br />
+
+      <div><h4>您可以选择：</h4></div>
+
+      &nbsp &nbsp 1. 请耐心等待管理员更新
+      <br />
+      &nbsp &nbsp &nbsp &nbsp 或者
+      <br />
+      &nbsp &nbsp 2. 使用下方<strong>【八百里加急催】</strong>催管理员抓紧更新！
+    </div>
+
+    <br />
+    
+      {% include 'books/search_not_found.html' %}
+  </div> <!-- jumbotron -->
 
 {% endif %}
 

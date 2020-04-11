@@ -10,6 +10,9 @@ from django.views.decorators.cache import cache_page
 # 分页
 from django.core.paginator import Paginator, EmptyPage
 
+import time
+import csv
+
 # Create your views here.
 @cache_page(60 * 15)
 def book_index(request):
@@ -139,11 +142,13 @@ def book_detail(request, book_id):
             'pan_url_1': pan_url_list[0],
             'pan_url_2': pan_url_list[1],
             'pan_url_3': pan_url_list[2],
+            'url_name': 'book_detail',
             }
 
     return render(request, 'books/detail.html', context)
 
 
+# 获取某一分类的所有图书 分页展示
 @cache_page(60 * 15)
 def book_category(request):
     # 尝试获取 book_category
@@ -182,6 +187,69 @@ def book_category(request):
             'book_category': book_category,
             }
     return render(request, 'books/index.html', context)
+
+
+# 八百里加急立即催
+# <!-- 图书未搜索到  表单提交 -->
+# <!-- 或 -->
+# <!-- 图书网盘链接失效  表单提交 -->
+def babaili_jiaji(request):
+    # msg = '已收到您的八百里加急，除特殊情况外，管理员最迟 48h 内给您消息。\n\n注：管理员有自己的正常生活，非全职，如回复过慢请谅解。谢谢您的理解'
+    msg = ''
+
+    # 尝试获取 book_name
+    book_name = ''
+    try:
+        book_name = request.GET['book_name']
+    except:
+        msg = '没有收到您提交的消息哦'
+
+    # 尝试获取 author
+    author = ''
+    try:
+        author = request.GET['author']
+    except:
+        pass
+
+    # 尝试获取 contact_method
+    contact_method = ''
+    try:
+        contact_method = request.GET['contact_method']
+    except:
+        pass
+
+    # 尝试获取 other_info
+    other_info = ''
+    try:
+        other_info = request.GET['other_info']
+    except:
+        pass
+
+    # 尝试获取 babaili_jiaji_type
+    babaili_jiaji_type = ''
+    try:
+        babaili_jiaji_type = request.GET['babaili_jiaji_type']
+    except:
+        msg += ' - 获取 babaili_jiaji_type 失败！'
+
+    # 判断 八百里加急 的 type
+    # 写入 babaili_jiaji.csv
+    # 如果 msg 内容不为空，说明前面已有错误发生，无需写入 csv
+    if not msg:
+        csv_status = babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type )
+        # -1: failed     0: success
+        if csv_status:
+            msg += ' - 写入 csv 失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
+
+    context = {
+        'book_name': book_name,
+        'author': author,
+        'contact_method': contact_method,
+        'other_info': other_info,
+        'msg': msg,
+    }
+
+    return render(request, 'books/babaili_jiaji_success.html', context)
 
 
 
@@ -227,4 +295,32 @@ def get_pan_list(book):
         pan_url_list.append(pan_url)
 
     return pan_url_list
+
+
+# 工具函数
+# 写入数据到 babaili_jiaji.csv 文件
+def babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type ):
+    try:
+        jiaji_item = {
+            'book_name': book_name,
+            'author': author,
+            'contact_method': contact_method,
+            'other_info': other_info,
+            'babaili_jiaji_type': babaili_jiaji_type,
+            'time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        }
+        # 写入 csv 文件 ; encoding 解决用 wps 打开后中文乱码
+        out_file_name = 'babaili_jiaji.csv'
+        # print("OUT:" + out_file_name)
+        with open(out_file_name, 'a', encoding = 'utf-8-sig') as csvfile:
+            fieldnames = ['book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'time']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            #注意header是个好东西
+            # writer.writeheader()
+            # for u_items in self.book_item_list:
+            #     writer.writerow(u_items)
+            writer.writerow( jiaji_item )
+        return 0
+    except Exception as e:
+        return -1
 
