@@ -65,7 +65,6 @@
 
 
     <!-- 页码 -->
-    <div class="col-sm-12">
       <!-- 根据不同的函数 展示不同的分页文件，因为不同函数对应结果列表的url不同 -->
       <!-- search 使用 -->
       {% if url_name == "book_search_navbar" %}
@@ -82,7 +81,6 @@
       {% include 'paginator/paginator_for_book_index.html' %}
 
       {% endif %}
-    </div>
     <!-- 页码 End -->
 
 
