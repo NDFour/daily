@@ -3,7 +3,7 @@
     <h3>{{ book.book_title }}</h3>
     <div class="pubdate_views">作者：{{ book.book_author }} &nbsp&nbsp&nbsp&nbsp 分类：{{ book.book_category }} &nbsp&nbsp&nbsp&nbsp {{ book.book_views }} 浏览过</div>
     <hr />
-    <img src="{{ book.book_pic }}" data-ke-src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt=""  title="" align="" width=30%  /><br /><br />
+    <img src="{{ book.book_pic }}" data-ke-src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}kindle电子书免费下载"  title="" align="" width=30% referrerpolicy ="never" /><br /><br />
 
     <!-- 图书信息 infos -->
     {% if book.book_infos %}
