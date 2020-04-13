@@ -74,6 +74,14 @@ def index_by_page(request, page_num):
 
 # 正常通过 navbar 中的 Form 搜索
 def book_search_navbar(request):
+    # 尝试获取 来源页 URL
+    origin_full_url = ''
+    try:
+        # 带参数 URL
+        origin_full_url = request.get_full_path()
+    except Exception as e:
+        pass
+
     book_name = ''
     try:
         book_name = request.GET['book_name']
@@ -105,6 +113,7 @@ def book_search_navbar(request):
             'book_name': book_name,
             'page_title': book_name+' 搜索结果',
             'url_name': 'book_search_navbar',
+            'origin_full_url': origin_full_url,
             }
     return render(request, 'books/index.html', context)
 
@@ -127,6 +136,14 @@ def book_resou(request):
 
 @cache_page(60 * 15)
 def book_detail(request, book_id):
+    # 尝试获取 来源页 URL
+    origin_full_url = ''
+    try:
+        # 带参数 URL
+        origin_full_url = request.get_full_path()
+    except Exception as e:
+        pass
+
     book = get_object_or_404(Books, id  = book_id)
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
@@ -143,6 +160,7 @@ def book_detail(request, book_id):
             'pan_url_2': pan_url_list[1],
             'pan_url_3': pan_url_list[2],
             'url_name': 'book_detail',
+            'origin_full_url': origin_full_url,
             }
 
     return render(request, 'books/detail.html', context)
@@ -194,6 +212,7 @@ def book_category(request):
 # <!-- 或 -->
 # <!-- 图书网盘链接失效  表单提交 -->
 def babaili_jiaji(request):
+
     # msg = '已收到您的八百里加急，除特殊情况外，管理员最迟 48h 内给您消息。\n\n注：管理员有自己的正常生活，非全职，如回复过慢请谅解。谢谢您的理解'
     msg = ''
 
@@ -204,24 +223,16 @@ def babaili_jiaji(request):
     except:
         msg = '没有收到您提交的消息哦'
 
-    # 尝试获取 author
+    # 尝试获取 author, contact_method, other_info, origin_full_url
     author = ''
+    contact_method = ''   
+    other_info = ''
+    origin_full_url = ''
     try:
         author = request.GET['author']
-    except:
-        pass
-
-    # 尝试获取 contact_method
-    contact_method = ''
-    try:
         contact_method = request.GET['contact_method']
-    except:
-        pass
-
-    # 尝试获取 other_info
-    other_info = ''
-    try:
         other_info = request.GET['other_info']
+        origin_full_url = request.GET['origin_full_url']
     except:
         pass
 
@@ -236,7 +247,7 @@ def babaili_jiaji(request):
     # 写入 babaili_jiaji.csv
     # 如果 msg 内容不为空，说明前面已有错误发生，无需写入 csv
     if not msg:
-        csv_status = babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type )
+        csv_status = babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type, origin_full_url )
         # -1: failed     0: success
         if csv_status:
             msg += ' - 写入 csv 失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
@@ -299,7 +310,7 @@ def get_pan_list(book):
 
 # 工具函数
 # 写入数据到 babaili_jiaji.csv 文件
-def babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type ):
+def babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type, origin_full_url ):
     try:
         jiaji_item = {
             'book_name': book_name,
@@ -307,13 +318,14 @@ def babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_j
             'contact_method': contact_method,
             'other_info': other_info,
             'babaili_jiaji_type': babaili_jiaji_type,
+            'origin_full_url': origin_full_url,
             'time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
         }
         # 写入 csv 文件 ; encoding 解决用 wps 打开后中文乱码
         out_file_name = 'babaili_jiaji.csv'
         # print("OUT:" + out_file_name)
         with open(out_file_name, 'a', encoding = 'utf-8-sig') as csvfile:
-            fieldnames = ['book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'time']
+            fieldnames = ['book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'time', 'origin_full_url']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             #注意header是个好东西
             # writer.writeheader()
