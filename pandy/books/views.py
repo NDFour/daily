@@ -13,6 +13,9 @@ from django.core.paginator import Paginator, EmptyPage
 import time
 import csv
 
+# 搜索结果 按 名字长度 排序
+from django.db.models.functions import Length
+
 # Create your views here.
 @cache_page(60 * 15)
 def book_index(request):
@@ -96,7 +99,8 @@ def book_search_navbar(request):
         # page_num = 1
         pass
 
-    book_list = Books.objects.filter(book_title__icontains=book_name).order_by('-id')
+    # book_list = Books.objects.filter(book_title__icontains=book_name).order_by('-id')
+    book_list = Books.objects.filter(book_title__icontains=book_name).order_by(Length("book_title").asc())
 
     per_page = 12
     # 生成 paginator 对象
