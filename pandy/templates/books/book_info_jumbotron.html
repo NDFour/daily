@@ -8,7 +8,7 @@
     <!-- 图书信息 infos -->
     {% if book.book_infos %}
         <h4>图书信息：</h4>
-        <p><span style="font-size:14px;">{{ book.book_infos }}</span></p>
+        <p><span style="font-size:14px;">{{ book.book_infos|linebreaksbr }}</span></p>
     {% endif %}
     <br />
     <!-- 图书信息 END -->
@@ -16,7 +16,7 @@
     <!-- 图书简介 description -->
     {% if book.book_description %}
         <h4>内容简介：</h4>
-        <p><span style="font-size:14px;">{{ book.book_description }}</span></p>
+        <p><span style="font-size:14px;">{{ book.book_description|linebreaksbr }}</span></p>
     {% endif %}
     <br />
     <!-- 图书简介 END -->   
