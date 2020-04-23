@@ -278,8 +278,13 @@ def get_pan_list(book):
 
     if len(pan_1):
         pan_url = {}
-        pan_url['name'] = pan_1[:4]
-        pan_url['url'] = pan_1[6:]
+        try:
+            tmp1 = pan_1.split('##')
+            pan_url['name'] = tmp1[0] + ' 下载'
+            pan_url['url'] = tmp1[1]
+        except Exception as e:
+            pan_url['name'] = '暂无'
+            pan_url['url'] = '#'           
         pan_url_list.append(pan_url)
     else:
         pan_url = {}
@@ -289,8 +294,13 @@ def get_pan_list(book):
 
     if len(pan_2):
         pan_url = {}
-        pan_url['name'] = pan_2[:4]
-        pan_url['url'] = pan_2[6:]
+        try:
+            tmp2 = pan_2.split('##')
+            pan_url['name'] = tmp2[0] + ' 下载'
+            pan_url['url'] = tmp2[1]
+        except Exception as e:
+            pan_url['name'] = '暂无'
+            pan_url['url'] = '#'
         pan_url_list.append(pan_url)
     else:
         pan_url = {}
@@ -300,8 +310,13 @@ def get_pan_list(book):
 
     if len(pan_3):
         pan_url = {}
-        pan_url['name'] = pan_3[:4]
-        pan_url['url'] = pan_3[6:]
+        try:
+            tmp3 = pan_3.split('##')
+            pan_url['name'] = tmp3[0] + ' 下载'
+            pan_url['url'] = tmp3[1]
+        except Exception as e:
+            pan_url['name'] = '暂无'
+            pan_url['url'] = '#'           
         pan_url_list.append(pan_url)
     else:
         pan_url = {}
