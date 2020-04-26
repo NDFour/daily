@@ -7,7 +7,7 @@
 
     <!-- 图书信息 infos -->
     {% if book.book_infos %}
-        <h4>图书信息：</h4>
+        <h4><strong>图书信息：</strong></h4>
         <p><span style="font-size:14px;">{{ book.book_infos|linebreaksbr }}</span></p>
     {% endif %}
     <br />
@@ -15,14 +15,14 @@
 
     <!-- 图书简介 description -->
     {% if book.book_description %}
-        <h4>内容简介：</h4>
+        <h4><strong>内容简介：</strong></h4>
         <p><span style="font-size:14px;">{{ book.book_description|linebreaksbr }}</span></p>
     {% endif %}
     <br />
     <!-- 图书简介 END -->   
 
     <!-- 网盘 -->
-    <h4>网盘链接：</h4>
+    <h4><strong>网盘链接：</strong></h4>
     <div class="btn-group btn-group-justified" role="group">
         <a class="btn btn-primary" target="_blank" href={{ pan_url_1.url }}>{{ pan_url_1.name }}</a>
         <a class="btn btn-info" target="_blank" href={{ pan_url_2.url }}>{{ pan_url_2.name }}</a>
@@ -31,7 +31,7 @@
     <br />
 
     {% if book.book_pan_pass %}
-    <h4>网盘提取码：</h4>
+    <h4><strong>网盘提取码：</strong></h4>
         <div class="alert alert-danger">{{ book.book_pan_pass }}</div>
     {% endif %}
     <!-- 网盘 END -->
