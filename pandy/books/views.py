@@ -106,7 +106,13 @@ def book_search_navbar(request):
     # 生成 paginator 对象
     paginator = Paginator(book_list, per_page)
     # 获取当前页码中的数据记录
-    book_list = paginator.page(page_num)
+    try:
+        book_list = paginator.page(page_num)
+    except EmptyPage:
+        book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
+
+
+
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -195,7 +201,13 @@ def book_category(request):
     # 生成 paginator 对象
     paginator = Paginator(book_list, per_page)
     # 获取当前页码中的数据记录
-    book_list = paginator.page(page_num)
+    try:
+        book_list = paginator.page(page_num)
+    except EmptyPage:
+        book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
+
+
+
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
