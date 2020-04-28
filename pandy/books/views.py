@@ -21,7 +21,7 @@ from django.db.models.functions import Length
 def book_index(request):
     book_list = Books.objects.all().order_by('-id')
     # 一页的数据数据
-    per_page = 12
+    per_page = 24
     # 生成 paginator 对象
     paginator = Paginator( book_list, per_page )
 
@@ -53,7 +53,7 @@ def index_by_page(request, page_num):
     page_num = tmp
 
     # 一页的数据数目
-    per_page = 12
+    per_page = 24
     book_list = Books.objects.all().order_by('-id')
     # 生成 paginator 对象
     paginator = Paginator( book_list, per_page )
@@ -102,7 +102,7 @@ def book_search_navbar(request):
     # book_list = Books.objects.filter(book_title__icontains=book_name).order_by('-id')
     book_list = Books.objects.filter(book_title__icontains=book_name).order_by(Length("book_title").asc())
 
-    per_page = 12
+    per_page = 24
     # 生成 paginator 对象
     paginator = Paginator(book_list, per_page)
     # 获取当前页码中的数据记录
@@ -191,7 +191,7 @@ def book_category(request):
     # book_list = Books.objects.filter(book_category__icontains = book_category)
     book_list = Books.objects.filter(book_category = book_category).order_by('-id')
 
-    per_page = 12
+    per_page = 24
     # 生成 paginator 对象
     paginator = Paginator(book_list, per_page)
     # 获取当前页码中的数据记录
