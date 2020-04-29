@@ -119,6 +119,7 @@ class ChenJin5_Spider():
                 # print(u_items)
                 writer.writerow(u_items)
 
+        time.sleep(5)
         return file_name
 
 
