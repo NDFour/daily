@@ -101,7 +101,7 @@ class ChenJin5_Spider():
     # 写入记录到 csv
     def toCsv(self, book_list):
         _path = self._path
-        file_name = str( time.strftime("%Y-%m-%d", time.localtime()) ) + '_Kindle电子书免费分享_群:' + self.group_num + '.csv'
+        file_name = str( time.strftime("%Y-%m-%d", time.localtime()) ) + '_Kindle电子书免费分享_群_' + self.group_num + '.csv'
         # 标记是否已 写入 header
         is_header = False
         # 写入 csv 文件 ; encoding 解决用 wps 打开后中文乱码
@@ -118,9 +118,9 @@ class ChenJin5_Spider():
             for u_items in book_list:
                 # print(u_items)
                 writer.writerow(u_items)
-
         time.sleep(5)
-        return file_name
+
+        return _path + file_name
 
 
     # 展示已爬取到的 book_item
@@ -152,6 +152,7 @@ def del_attachment(full_path_filename):
         print('sleep 10s...')
         time.sleep(10)
         del_cmd = 'rm ' + full_path_filename
+        print(del_cmd)
         os.system(del_cmd)
     else:
         print('No need to del')
@@ -163,7 +164,7 @@ def mailtestmsg(book_item_list, full_path_filename, file_name):
 
     # 发邮件代码
     _user = "lgang219@qq.com"
-    _pwd  = "xxxxxxxxxxxxxxxxx"
+    _pwd  = "eehrjkcueceqcaga"
     _to   = "ndfour@foxmail.com"
 
     mail_content = '今日更新:\n\n'
@@ -218,7 +219,7 @@ def mailtestmsg(book_item_list, full_path_filename, file_name):
 
 def main():
     # aibook
-    chenjin5 = ChenJin5_Spider('/root/rootcron_tasks/chenjin5_daily_crawler/', 'xxxxxxx')
+    chenjin5 = ChenJin5_Spider('/root/rootcron_tasks/chenjin5_daily_crawler/', '514979021')
     book_list = chenjin5.auto_update()
     full_path_filename = ''
     if len(book_list):
