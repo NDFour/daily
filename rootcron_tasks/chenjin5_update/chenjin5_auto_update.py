@@ -181,7 +181,7 @@ class AiBooks_Spider():
 
 # 判断该图书是否已存在于数据库中
 def is_crawled(origin_url):
-    conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xxxxxxxx', db='xxxxx', charset='utf8')
+    conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xqksj', db='bdpan', charset='utf8')
     cursor = conn.cursor()
 
     sql_cmd = 'select id from books_books where book_origin="' + origin_url + '";'
@@ -195,7 +195,7 @@ def is_crawled(origin_url):
 
 # 将爬取到的数据存储到数据库
 def save_2_db( sql_list ):
-    conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xxxxx', db='xxxxx', charset='utf8')
+    conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xqksj', db='bdpan', charset='utf8')
     cursor = conn.cursor()
 
     succ_cnt = 0
@@ -248,7 +248,7 @@ def mailtestmsg(book_item_list):
 
     # 发邮件代码
     _user = "lgang219@qq.com"
-    _pwd  = "xxxxxxxxxxxxxxxxxxxx"
+    _pwd  = "eehrjkcueceqcaga"
     _to   = "ndfour@foxmail.com"
 
     mail_content = '今日更新:\n\n'

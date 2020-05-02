@@ -1,3 +1,3 @@
 1 3 * * * /usr/bin/python3 /root/rootcron_tasks/babali_jiaji_monitor/babaili_jiaji_monitor.py
 2 3 * * * /usr/bin/python3 /root/rootcron_tasks/chenjin5_update/chenjin5_auto_update.py
-3 3 * * * /usr/bin/python3 /root/rootcron_tasks/chenjin5_daily_crawler/chenjin5_daily_crawler.py 
+3 4 * * * /usr/bin/python3 /root/rootcron_tasks/chenjin5_daily_crawler/chenjin5_daily_crawler.py 
