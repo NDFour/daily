@@ -14,7 +14,7 @@ def mail_babali_jiaji_csv():
 
     # 发邮件代码
     _user = "lgang219@qq.com"
-    _pwd  = "eehrjkcueceqcaga"
+    _pwd  = "xxxxxxxxxxxxxxxx"
     _to   = "ndfour@foxmail.com"
 
     try:
@@ -58,7 +58,7 @@ def delete_babaili_cui_csv():
 
 # 推送消息到微信
 def pushtestmsg(msg):
-    url = 'https://sc.ftqq.com/SCU52512T77e075b86690b62f884c8eeec4d6969f5cef37ed7855c.send'
+    url = 'https://sc.ftqq.com/SCUxxxxxxxxxxxxxxxxxxxxxxxxxxc.send'
     str_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     desp = 'pandy 八百里加急 monitor 报警信息'
     data = {

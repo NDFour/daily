@@ -164,7 +164,7 @@ def mailtestmsg(book_item_list, full_path_filename, file_name):
 
     # 发邮件代码
     _user = "lgang219@qq.com"
-    _pwd  = "eehrjkcueceqcaga"
+    _pwd  = "xxxxxxxxxxxxxxxxxxxxx"
     _to   = "ndfour@foxmail.com"
 
     mail_content = '今日更新:\n\n'
