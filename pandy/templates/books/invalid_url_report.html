@@ -1,8 +1,8 @@
-<!-- 用户使用 八百里加急 成功提交信息 后跳转到的页面 -->
+<!-- 用户使用 八百里加急 后跳转到 到信息提交 页面 -->
 
 <html>
 <head>
-    <title>八百里加急 成功，马儿正在火速赶往管理员爸爸的小山头</title>
+    <title>下载链接失效图书信息提交 —— 沉金书屋</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,28 +35,20 @@
     <div class="container">
         <div class="row">
 
-            <!-- 八百里加急 成功 信息显示区域 -->
+            <!-- 八百里加急 信息显示区域 -->
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
-
-                {% if msg %}
-                    <p class="alert alert-danger">{{ msg }}</p>
-                {% else %}
-                    <h4 class="alert alert-info"><strong>已收到您的八百里加急！</strong> 马儿正在火速赶往管理员爸爸的小山头 ~ ~ ~</h4>
-                    <h4 class="alert alert-info">除特殊情况外，管理员最迟 48h 内通过您留的联系方式给您回复消息。</h4>
+                 <!-- 巨幕区域 -->
+                <div class="jumbotron">
                     <div align="center">
-                        <p><strong>注：管理员非全职，有自己的正常生活，如回复过慢请谅解。谢谢您的理解</strong></p>
+                        <div class="alert alert-info">图书下载链接失效 图书信息提交</div>
                     </div>
+                    <hr />
+                    <br />
+                    {% include 'books/search_not_found.html' %}
 
                     <br />
                     <br />
-
-                    <img src="https://s1.ax1x.com/2020/04/11/GbLlIP.md.jpg" alt="八百里加急" width="100%" />
-
-                {% endif %}
-
-
-                <br />
-                <br />
+                </div>
 
             </div>
 

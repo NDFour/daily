@@ -59,7 +59,9 @@
             {% if url_name == 'book_search_navbar' %}
                 <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="notfound">立即催！！</button>
             {% elif url_name == 'book_detail' %}
-                <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="paninvalid">立即催！！</button>
+                <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="detail_paninvalid">立即催！！</button>
+            {% elif url_name == 'invalid_url_report' %}
+                <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="report_paninvalid">立即催！！</button>               
             {% else %}
                 <p>八百里加急 访问不合法！请访问网站主页</p>
             {% endif %}

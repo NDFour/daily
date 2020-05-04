@@ -223,6 +223,27 @@ def book_category(request):
     return render(request, 'books/index.html', context)
 
 
+# 八百里加急催 信息提交 页面
+def invalid_url_report(request):
+    # print(book_id)
+    # 尝试获取 book_id 以生成 origin_url
+    '''
+    book_id = 0
+    try:
+        book_id = request.GET['book_id']
+        print('找到 book_id' + str(book_id))
+    except:
+        print('没有找到 book_id')
+        book_id = -1
+    '''
+
+    context = {
+        # 'book_id': book_id,
+        'url_name': 'invalid_url_report',
+    }
+    return render(request, 'books/invalid_url_report.html', context)
+
+
 # 八百里加急立即催
 # <!-- 图书未搜索到  表单提交 -->
 # <!-- 或 -->

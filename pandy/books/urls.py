@@ -22,4 +22,5 @@ urlpatterns = [
     path('resou/', views.book_resou, name='book_resou'),
     # 八百里加急 立即催
     path('babaili_jiaji/', views.babaili_jiaji, name='babaili_jiaji'),
+    path('invalid_url_report/', views.invalid_url_report, name='invalid_url_report'),
 ]
