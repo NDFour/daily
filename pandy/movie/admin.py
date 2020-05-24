@@ -1,4 +1,6 @@
 from django.contrib import admin
+
+'''
 from .models import Movie, Passwds
 
 class MovieAdmin(admin.ModelAdmin):
@@ -20,3 +22,5 @@ class PasswdsAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(Passwds, PasswdsAdmin)
+
+'''

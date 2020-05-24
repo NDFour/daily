@@ -29,3 +29,16 @@ class Books(models.Model):
     def increase_views(self):
         self.book_views += 1
         self.save(update_fields=['book_views'])
+
+
+'''
+# 网站通知
+class Book_notify(models.Model):
+    noty_title = models.CharField('标题', max_length = 255, blank = False)
+    noty_author = models.CharField('发布人', max_length = 255, blank = False)
+    noty_content = models.TextField('内容', blank = False)
+    noty_date = models.DateTimeField('发布时间', default = timezone.now())
+
+    def __unicode__(self):
+        return self.noty_title
+'''

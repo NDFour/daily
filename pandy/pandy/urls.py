@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from . import views
 
 # werobot
 from werobot.contrib.django import make_view
@@ -30,9 +29,4 @@ urlpatterns = [
     # path('onlineplay/', include('onlineplay.urls')),
     # path('spidermonitor/', include('spidermonitor.urls')),
     path('robot/', make_view(robot)),
-    path('login/', views.login, name='login'),
-    path('logout/', views.logout, name='logout'),
-    path('register/', views.register, name='register'),
-    path('usercenter/', views.user_center, name='user_center'),
-    path('activate_vip/', views. activate_vip, name='activate_vip'),
 ]

@@ -37,11 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'books.apps.BooksConfig',
     'movie.apps.MovieConfig',
-    'onlineplay.apps.OnlineplayConfig',
-    'spidermonitor.apps.SpidermonitorConfig',
-    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -135,7 +133,7 @@ USE_I18N = False
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

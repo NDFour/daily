@@ -1,5 +1,4 @@
 from .models import Movie, Passwds
-from onlineplay.models import Onlineplay
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
