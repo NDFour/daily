@@ -1,5 +1,6 @@
 # Create your views here.
 from .models import Books
+from .models import Babaili_jiaji
 '''
 from .models import Book_notify
 '''
@@ -286,10 +287,27 @@ def babaili_jiaji(request):
     # 写入 babaili_jiaji.csv
     # 如果 msg 内容不为空，说明前面已有错误发生，无需写入 csv
     if not msg:
+        # 将信息写入文件 or 数据库
+        '''
         csv_status = babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type, origin_full_url )
         # -1: failed     0: success
         if csv_status:
             msg += ' - 写入 csv 失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
+        '''
+        try:
+            new_babaili_item = Babaili_jiaji()
+            new_babaili_item.book_name = book_name
+            new_babaili_item.author = author
+            new_babaili_item.contact_method = contact_method
+            new_babaili_item.other_info = other_info
+            new_babaili_item.babaili_jiaji_type = babaili_jiaji_type
+            new_babaili_item.origin_full_url = origin_full_url
+            new_babaili_item.is_solved = False
+            new_babaili_item.report_date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() )
+            new_babaili_item.save()
+        except Exception as e:
+            msg += ' - 写入记录失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
+            pass
 
     context = {
         'book_name': book_name,

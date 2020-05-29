@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Books
+from .models import Babaili_jiaji
 '''
 from .models import Book_notify
 '''
@@ -28,10 +29,17 @@ class Book_notify_Admin(admin.ModelAdmin):
 '''
 
 
+class Babaili_jiaji_Admin(admin.ModelAdmin):
+    list_display = ('book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'is_solved', 'report_date')
+    search_fields = ('book_name', 'author', 'contact_method', 'other_info')
+
+
 # Register your models here.
 admin.site.register(Books, BooksAdmin)
 
 '''
 admin.site.register(Book_notify, Book_notify_Admin)
 '''
+
+admin.site.register(Babaili_jiaji, Babaili_jiaji_Admin)
 

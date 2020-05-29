@@ -32,6 +32,26 @@ class Books(models.Model):
 
 
 '''
+八百里加急 记录
+'''
+class Babaili_jiaji(models.Model):
+    book_name = models.TextField('书名', blank=False)
+    author = models.CharField('作者', max_length=255, blank=True)
+    contact_method = models.CharField('联系方式', max_length=255, blank=True)
+    other_info = models.TextField('备注信息', blank=True)
+    babaili_jiaji_type = models.CharField('类型', max_length=255, blank=True)
+    origin_full_url = models.CharField('来源', max_length=255, blank=True)
+
+    is_solved = models.BooleanField('是否已处理', default = False, blank = True)
+
+    report_date = models.DateTimeField('时间', default=timezone.now())
+
+    def __unicode__(self):
+        return self.book_name
+
+
+
+'''
 # 网站通知
 class Book_notify(models.Model):
     noty_title = models.CharField('标题', max_length = 255, blank = False)
