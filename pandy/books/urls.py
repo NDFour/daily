@@ -19,7 +19,7 @@ urlpatterns = [
     # navbar 中的 Form 搜索
     path('search/', views.book_search_navbar, name='book_search_navbar'),
     # 热搜榜
-    path('resou/', views.book_resou, name='book_resou'),
+    # path('resou/', views.book_resou, name='book_resou'),
     # 八百里加急 立即催
     path('babaili_jiaji/', views.babaili_jiaji, name='babaili_jiaji'),
     path('invalid_url_report/', views.invalid_url_report, name='invalid_url_report'),

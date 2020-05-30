@@ -1,0 +1,54 @@
+{% if article_list %}
+<div class="row">
+
+	<!-- 开始遍历显示 图书信息 -->
+	{% for article in article_list %}
+
+	<!-- 非 手机屏幕 展示样式 -->
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="well well-sm">
+			<a href="{% url 'article_detail' article.id %}"><h3 style="color: black; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ article.title }}</h3></a>
+			<br />
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+					<span class="label label-info">{{ article.article_type }}</span>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+					<span><strong> &nbsp &nbsp By：</strong>{{ article.author }}</span>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<span><strong> &nbsp &nbsp At：</strong>{{ article.article_pub_date }}</span>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<span><strong> &nbsp &nbsp Read：</strong>{{ article.article_views }}</span>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div> <!-- book_section -->
+
+
+	{% endfor %} <!-- 遍历显示 图书信息 END -->
+
+
+</div> <!-- row -->
+
+
+<!-- 未找到搜索图书 -->
+{% else %}
+
+
+<div class="jumbotron">
+	<p>暂无新文章</p>
+	<br />
+</div> <!-- jumbotron -->
+
+{% endif %}
+
+

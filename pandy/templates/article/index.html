@@ -1,0 +1,91 @@
+<html lang="zh-CN">
+
+<head>
+    <title>所有文章 - 金书屋-kindle免费电子书网盘资源分享</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="沉金书屋免费分享高清正版kindle电子书网盘资源，电子书打包下载">
+    <meta name="keywords" content="电子书 沉金书屋 书屋 kindle mobi epub azw3 打包下载 资源">
+    <meta property="og:description" content="免费分享高清正版kindle电子书网盘资源打包下载">
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+        p {
+            text-align: center;
+        }
+
+        .pub_date {
+            font-size: 12px;
+            color: #9999CC;
+        }
+
+        .belong_to_title{
+            display: inline-block;
+            background-color:#f76c3d;
+            padding:0.1rem 0.2rem;
+            font-size:1.1rem;
+            color:#fff;
+            position: absolute;
+            top:1rem;
+            left:0.5rem;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <!-- 导航栏 -->
+        {% include 'books/navbar.html' %}
+    </div>
+    <!-- align="center" End -->
+
+    <!-- 当屏幕为手机屏幕大小时，展示手机端搜索框 -->
+    {% include 'books/search_box_for_mobile.html' %}
+
+    <div class="container" >
+        <div class="row">
+
+
+            <!-- 2/3 窗口 -->
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                <!-- 文章列表 -->
+                {% include 'article/article_list.html' %}
+            </div>
+
+            <!-- 1/3 窗口 -->
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+        		<!-- 网站通知 -->
+    	        {% include 'books/notification.html' %}
+
+                <!-- 微信公众号吸粉广告 -->
+                {% include 'index/wechat_ad.html' %}
+
+                <!-- 判断是否需要展示 热搜榜 -->
+                {% if resou_book_list %}
+                    {% include 'books/resou_book_bar.html' %}
+                {% endif %}
+
+                <!-- 支付宝/微信 赞助 -->
+
+                <!-- 赞赏支持 -->
+                {% include 'index/red_pocket.html' %}
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- 页脚 -->
+    {% include 'index/footer.html' %}
+
+
+</body>
+
+</html>

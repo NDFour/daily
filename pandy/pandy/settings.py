@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'books.apps.BooksConfig',
     'movie.apps.MovieConfig',
+    'article.apps.ArticleConfig',
 ]
 
 MIDDLEWARE = [

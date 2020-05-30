@@ -1,0 +1,11 @@
+<!-- 巨幕区域 -->
+<div class="jumbotron">
+	<h3 style="color: black; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ article.title }}</h3>
+	<div class="pubdate_views">作者：{{ article.author }} &nbsp&nbsp&nbsp&nbsp 类型：{{ article.article_type }} &nbsp&nbsp&nbsp&nbsp {{ article.article_views }} 浏览过</div>
+	<hr />
+
+	<!-- <p><span style="font-size:14px;">{{ article.body|linebreaksbr }}</span></p> -->
+	<p><span style="font-size:14px;">{{ article.body|safe }}</span></p>
+
+</div>
+<!-- 巨幕区域 End -->

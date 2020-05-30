@@ -3,33 +3,24 @@
   <!-- 通知 1-->
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">通知：</h3>
+      <h3 class="panel-title"><a href="{% url 'article_index' %}">通知中心：</a></h3>
     </div>
     <div class="panel-body">
-     本站刚刚更换新的域名 <a href="https://www.chenjin5.com">chenjin5.com</a> <br /> 请重新保存浏览器书签以防旧域名失效 (o^^o) <br /><br />
-     另外对于前段时间帮忙给网站取名的各位再次表示感谢！
+      {% if notifications %}
 
+      {% for n in notifications %}
+
+      <label style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label>
+      <br />
+
+      {% endfor %}
+
+      {% else %}
+
+      暂无消息
+
+      {% endif %}
     </div>
   </div>
-
-
-  <!-- 通知 2-->
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title">豆瓣Top250图书打包下载</h3>
-    </div>
-    <div class="panel-body">
-     <a target="_blank" href="https://pan.baidu.com/s/1pBOrd1UyNAsupJ-HHxTPlA"><strong>1. mobi格式打包 提取码：y357</strong></a>
-     <br />
-     <a target="_blank" href="https://pan.baidu.com/s/1BqpwaVReDs4likQ4NpM48Q"><strong>2. epub格式打包 提取码：gnt4</strong></a>
-     <br />
-     <br />
-     若以上两个链接失效可以加微信：ndfour001，加好友时务必备注来意，否则不予通过。
-    </div>
-  </div>
-
-
-
-
 
 </div>

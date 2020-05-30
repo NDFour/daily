@@ -1,0 +1,96 @@
+<html>
+<head>
+	<title>文章详情 - mobi epub azw3 网盘下载 - 沉金书屋</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="{{ article.title }} mobi epub azw3 kindle电子书百度网盘下载。">
+	<meta name="keywords" content="{{ article.title }} 电子书 沉金书屋 书屋 kindle mobi epub azw3 资源 免费 高清">
+	<meta property="og:description" content="{{ article.title }}免费分享高清kindle电子书百度网盘资源。">
+	{% load staticfiles %}
+	<!-- Bootstrap -->
+	<!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style type="text/css">
+		p{
+			text-indent: 1em;
+		}
+		.magnet_url{
+			font-size: 15px;
+		}
+
+		.pubdate_views{
+			font-size: 14px;
+			color:grey;
+			padding-bottom: 6px;
+		}
+		.jumbotron{
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		}
+
+		/** 所有图片 **/
+		/** 为了让 amrkdown 图片在手机上 不 超过屏幕 **/
+		img{
+			max-width: 90%;
+			height: auto;
+		}
+
+		/** 由于设置 markdown 图片在手机上不超过屏幕 会影响其他图片，用 full_img 即可 取消对其影响 **/
+		.full_img{
+			max-width: 100%;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<div>
+		<!-- 导航栏 -->
+		{% include 'books/navbar.html' %}
+	</div>
+	<!-- align="center" End -->
+
+	<div class="container">
+		<div class="row">
+
+			<!-- 电影信息区域 -->
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+				{% include 'article/article_info_jumbotron.html' %}
+			</div>
+
+			<!-- 1/3 窗口 -->
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+				<!-- 网站通知 -->
+				{% include 'books/notification.html' %}
+
+				<!-- 微信公众号吸粉广告 -->
+				{% include 'index/wechat_ad.html' %}
+
+				<!-- 判断是否需要展示 热搜榜 -->
+				{% if resou_book_list %}
+				{% include 'books/resou_book_bar.html' %}
+				{% endif %}
+
+				<!-- 支付宝/微信 赞助 -->
+
+				<!-- 赞赏支持 -->
+				{% include 'index/red_pocket.html' %}
+			</div>
+
+		</div>
+	</div>
+
+</div>
+</div>
+
+{#% include 'index/alipay.html' %#}
+
+
+<div align="center">
+	{% include 'index/footer.html' %}
+</div>
+
+</body>
+</html>

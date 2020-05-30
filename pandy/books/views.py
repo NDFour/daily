@@ -1,6 +1,9 @@
 # Create your views here.
 from .models import Books
 from .models import Babaili_jiaji
+
+from article.models import Article
+
 '''
 from .models import Book_notify
 '''
@@ -23,6 +26,7 @@ from django.db.models.functions import Length
 @cache_page(60 * 15)
 def book_index(request):
     book_list = Books.objects.all().order_by('-id')
+
     # 一页的数据数据
     per_page = 24
     # 生成 paginator 对象
@@ -35,11 +39,15 @@ def book_index(request):
         # book_list = paginator.page(1)
         book_list = []
 
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
+
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     context = {
             'book_list': book_list,
             'resou_book_list': resou_book_list,
+            'notifications': article_list,
             'page_title': '',
             'url_name': 'book_index', # 传递给模板，用以区别显示 页码 链接
             }
@@ -67,11 +75,15 @@ def index_by_page(request, page_num):
     except EmptyPage:
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
+
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     context = {
             'book_list': book_list,
             'resou_book_list': resou_book_list,
+            'notifications': article_list,
             'page_title': '',
             'url_name': 'book_index_by_page',
             }
@@ -114,8 +126,8 @@ def book_search_navbar(request):
     except EmptyPage:
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
-
-
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -123,6 +135,7 @@ def book_search_navbar(request):
     context = {
             'book_list': book_list,
             'resou_book_list': resou_book_list,
+            'notifications': article_list,
             'book_name': book_name,
             'page_title': book_name+' 搜索结果',
             'url_name': 'book_search_navbar',
@@ -158,6 +171,10 @@ def book_detail(request, book_id):
         pass
 
     book = get_object_or_404(Books, id  = book_id)
+
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
+
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     # 提取 网盘链接 并构造字典列表 传入 template
@@ -169,6 +186,7 @@ def book_detail(request, book_id):
     context = {
             'book': book,
             'resou_book_list': resou_book_list,
+            'notifications': article_list,
             'pan_url_1': pan_url_list[0],
             'pan_url_2': pan_url_list[1],
             'pan_url_3': pan_url_list[2],
@@ -209,14 +227,15 @@ def book_category(request):
     except EmptyPage:
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
-
-
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     context = {
             'book_list': book_list,
+            'notifications': article_list,
             'resou_book_list': resou_book_list,
             'book_name': book_category,
             'page_title': book_category +' 免费图书网盘资源下载',
@@ -240,9 +259,17 @@ def invalid_url_report(request):
         book_id = -1
     '''
 
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
+
+    # 获取图书热搜榜
+    resou_book_list = Books.objects.order_by('-book_views')[:10]
+
     context = {
         # 'book_id': book_id,
         'url_name': 'invalid_url_report',
+        'notifications': article_list,
+        'resou_book_list': resou_book_list,
     }
     return render(request, 'books/invalid_url_report.html', context)
 
@@ -309,12 +336,21 @@ def babaili_jiaji(request):
             msg += ' - 写入记录失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
             pass
 
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
+
+    # 获取图书热搜榜
+    resou_book_list = Books.objects.order_by('-book_views')[:10]
+
     context = {
         'book_name': book_name,
         'author': author,
         'contact_method': contact_method,
         'other_info': other_info,
         'msg': msg,
+
+        'notifications': article_list,
+        'resou_book_list': resou_book_list,
     }
 
     return render(request, 'books/babaili_jiaji_success.html', context)
