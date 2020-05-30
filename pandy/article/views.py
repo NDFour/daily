@@ -12,7 +12,7 @@ import markdown
 
 # Create your views here.
 
-@cache_page(60 * 15)
+@cache_page(60 * 2)
 def index(request):
     article_list = Article.objects.filter( display = True ).order_by('-prior')
     # article_list = Article.objects.filter( display = True ).order_by('-article_modefy_date')
@@ -28,7 +28,7 @@ def index(request):
     return render(request, 'article/index.html', context)
 
 
-@cache_page(60 * 15)
+@cache_page(60 * 2)
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id  = article_id)
     
