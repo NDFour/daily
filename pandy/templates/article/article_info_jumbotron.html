@@ -1,6 +1,7 @@
 <!-- 巨幕区域 -->
 <div class="jumbotron">
-	<h3 style="color: black; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ article.title }}</h3>
+	<!--<h3 style="color: black; white-space: normal; overflow: hidden; text-overflow: ellipsis;">{{ article.title }}</h3>-->
+	<h3 style="word-break:break-word;">{{ article.title }}</h3>
 	<div class="pubdate_views">作者：{{ article.author }} &nbsp&nbsp&nbsp&nbsp 类型：{{ article.article_type }} &nbsp&nbsp&nbsp&nbsp {{ article.article_views }} 浏览过</div>
 	<hr />
 

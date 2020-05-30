@@ -3,15 +3,14 @@
   <!-- 通知 1-->
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"><a href="{% url 'article_index' %}">通知中心：</a></h3>
+      <h4 class="panel-title"><a href="{% url 'article_index' %}">通知中心：</a></h4>
     </div>
     <div class="panel-body">
       {% if notifications %}
 
       {% for n in notifications %}
 
-      <label style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label>
-      <br />
+      <li><label style="word-break:break-word;"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label></li>
 
       {% endfor %}
 
