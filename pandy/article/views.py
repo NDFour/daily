@@ -14,7 +14,7 @@ import markdown
 
 @cache_page(60 * 2)
 def index(request):
-    article_list = Article.objects.filter( display = True ).order_by('-prior')
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
     # article_list = Article.objects.filter( display = True ).order_by('-article_modefy_date')
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -32,7 +32,7 @@ def index(request):
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id  = article_id)
     
-    article_list = Article.objects.filter( display = True ).order_by('-prior')
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
