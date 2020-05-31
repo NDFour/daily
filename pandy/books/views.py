@@ -160,7 +160,7 @@ def book_resou(request):
     return render(request, 'book/index.html', context)
 
 
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_detail(request, book_id):
     # 尝试获取 来源页 URL
     origin_full_url = ''

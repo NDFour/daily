@@ -28,7 +28,7 @@ def index(request):
     return render(request, 'article/index.html', context)
 
 
-@cache_page(60 * 2)
+# @cache_page(60 * 2)
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id  = article_id)
     
