@@ -102,7 +102,7 @@ def book_search_navbar(request):
 
     book_name = ''
     try:
-        book_name = request.GET['book_name']
+        book_name = request.GET['book_name'].replace('《','').replace('》', '').strip()
     except:
         pass
 

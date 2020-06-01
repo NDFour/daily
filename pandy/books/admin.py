@@ -30,7 +30,7 @@ class Book_notify_Admin(admin.ModelAdmin):
 
 
 class Babaili_jiaji_Admin(admin.ModelAdmin):
-    list_display = ('book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'is_solved', 'report_date')
+    list_display = ('book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'is_solved', 'is_contacted', 'is_sended', 'process_rel', 'report_date')
     search_fields = ('book_name', 'author', 'contact_method', 'other_info')
 
 

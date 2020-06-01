@@ -42,7 +42,11 @@ class Babaili_jiaji(models.Model):
     babaili_jiaji_type = models.CharField('类型', max_length=255, blank=True)
     origin_full_url = models.CharField('来源', max_length=255, blank=True)
 
-    is_solved = models.BooleanField('是否已处理', default = False, blank = True)
+    is_solved = models.BooleanField('处理失链', default = False, blank = True)
+    is_contacted = models.BooleanField('联系提交者', default = False, blank = True)
+    is_sended = models.BooleanField('发送更新', default = False, blank = True)
+    # 处理结果：补 或  删
+    process_rel = models.CharField('处理结果', max_length = 255, blank = True)
 
     report_date = models.DateTimeField('时间', default=timezone.now())
 
