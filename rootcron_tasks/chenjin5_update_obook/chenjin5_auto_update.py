@@ -39,7 +39,7 @@ class OBooks_Spider():
             'email': 'seend',
             'password': 'aa4d74090a61febb3465c13966148a86',
         }
-        self.s_session.post(' https://www.obook.cc/user-login.htm', data = form_data, timeout = 30)
+        self.s_session.post('https://www.obook.cc/user-login.htm', data = form_data, timeout = 30)
         # 验证是否登陆成功
         '''
         r = self.s_session.get('https://www.obook.cc/my.htm', timeout = 30)
@@ -193,6 +193,7 @@ class OBooks_Spider():
         title = ''
         try:
             title = book_content.div.div.h4.text.strip()
+            title = ' '.join(title.split())
             print(title)
         except Exception as e:
             print('爬取 title 失败')
