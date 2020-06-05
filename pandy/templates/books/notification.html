@@ -10,7 +10,11 @@
 
       {% for n in notifications %}
 
+      {% if n.prior > 1000 %}
+      <li><label style="word-break:break-word;"><a style="color:#FF7F50;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label></li>
+      {% else %}
       <li><label style="word-break:break-word;"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label></li>
+      {% endif %}
 
       {% endfor %}
 
