@@ -40,7 +40,7 @@ def book_index(request):
         book_list = []
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
@@ -76,7 +76,7 @@ def index_by_page(request, page_num):
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
@@ -127,7 +127,7 @@ def book_search_navbar(request):
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -173,7 +173,7 @@ def book_detail(request, book_id):
     book = get_object_or_404(Books, id  = book_id)
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
@@ -228,7 +228,7 @@ def book_category(request):
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -260,7 +260,7 @@ def invalid_url_report(request):
     '''
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -337,7 +337,7 @@ def babaili_jiaji(request):
             pass
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:8]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.order_by('-book_views')[:10]
