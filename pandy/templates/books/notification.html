@@ -5,15 +5,16 @@
     <div class="panel-heading">
       <h4 class="panel-title"><a href="{% url 'article_index' %}">通知中心：</a></h4>
     </div>
-    <div class="panel-body">
+    <!--<div class="panel-body">-->
+        <div class="list-group">
       {% if notifications %}
 
       {% for n in notifications %}
 
       {% if n.prior > 1000 %}
-      <li><label style="word-break:break-word;"><a style="color:#FF7F50;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label></li>
+      <li class="list-group-item"><a style="color:#FF7F50;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
       {% else %}
-      <li><label style="word-break:break-word;"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></label></li>
+      <li class="list-group-item"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
       {% endif %}
 
       {% endfor %}
@@ -23,7 +24,8 @@
       暂无消息
 
       {% endif %}
-    </div>
+        </div>
+    <!--</div> panel-body -->
   </div>
 
 </div>
