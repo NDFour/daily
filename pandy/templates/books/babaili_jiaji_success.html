@@ -29,68 +29,69 @@
     <!-- 公众号推广图文 -->
     <!--
     <a href="https://mp.weixin.qq.com/s/KaZfTNhmu8AM63QDfVjU2g" ><img src="https://upload-images.jianshu.io/upload_images/5649568-f878eff64c05fb95.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  width=100% /> </a> <br />
-    -->
-    <!-- 公众号推广图文 End -->
+-->
+<!-- 公众号推广图文 End -->
 
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
 
-            <!-- 八百里加急 成功 信息显示区域 -->
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+        <!-- 八百里加急 成功 信息显示区域 -->
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
 
-                {% if msg %}
-                    <p class="alert alert-danger">{{ msg }}</p>
-                {% else %}
-                    <h4 class="alert alert-info"><strong>已收到您的八百里加急！</strong> 马儿正在火速赶往管理员爸爸的小山头 ~ ~ ~</h4>
-                    <h4 class="alert alert-info">除特殊情况外，管理员最迟 48h 内通过您留的联系方式给您回复消息。</h4>
-                    <div align="center">
-                        <p><strong>注：管理员非全职，有自己的正常生活，如回复过慢请谅解。谢谢您的理解</strong></p>
-                    </div>
-
-                    <br />
-                    <br />
-
-                    <img src="https://s1.ax1x.com/2020/04/11/GbLlIP.md.jpg" alt="八百里加急" width="100%" />
-
-                {% endif %}
-
-
-                <br />
-                <br />
-
+            {% if msg %}
+            <p class="alert alert-danger">{{ msg }}</p>
+            {% else %}
+            <h4 class="alert alert-info"><strong>已收到您的八百里加急！</strong></h4>
+            <h4 class="alert alert-info">马儿正在火速赶往管理员爸爸的小山头 ~ ~ ~</h4>
+            <h4 class="alert alert-info">除特殊情况外，管理员最迟 48h 内通过您留的联系方式给您回复消息。</h4>
+            <div align="center">
+                <p><strong>注：管理员非全职，有自己的正常生活，如回复过慢请谅解。谢谢您的理解</strong></p>
             </div>
 
-            <!-- 1/3 窗口 -->
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+            <br />
+            <br />
+
+            <!--<img src="https://s1.ax1x.com/2020/04/11/GbLlIP.md.jpg" alt="八百里加急" width="100%" />-->
+
+            {% endif %}
+
+
+            <br />
+            <br />
+
+        </div>
+
+        <!-- 1/3 窗口 -->
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
             <!-- 网站通知 -->
             {% include 'books/notification.html' %}
 
-                <!-- 微信公众号吸粉广告 -->
-                {% include 'index/wechat_ad.html' %}
+            <!-- 微信公众号吸粉广告 -->
+            {% include 'index/wechat_ad.html' %}
 
-                <!-- 判断是否需要展示 热搜榜 -->
-                {% if resou_book_list %}
-                    {% include 'books/resou_book_bar.html' %}
-                {% endif %}
+            <!-- 判断是否需要展示 热搜榜 -->
+            {% if resou_book_list %}
+            {% include 'books/resou_book_bar.html' %}
+            {% endif %}
 
-                <!-- 支付宝/微信 赞助 -->
+            <!-- 支付宝/微信 赞助 -->
 
-                <!-- 赞赏支持 -->
-                {% include 'index/red_pocket.html' %}
-            </div>
-
+            <!-- 赞赏支持 -->
+            {% include 'index/red_pocket.html' %}
         </div>
-    </div>
 
-        </div>
     </div>
+</div>
 
-    {#% include 'index/alipay.html' %#}
+</div>
+</div>
 
-    
-    <div align="center">
-        {% include 'index/footer.html' %}
-    </div>
+{#% include 'index/alipay.html' %#}
+
+
+<div align="center">
+    {% include 'index/footer.html' %}
+</div>
 
 </body>
 </html>

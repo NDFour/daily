@@ -1,76 +1,118 @@
 <!-- 巨幕区域 -->
 <div class="jumbotron">
-    <h3>{{ book.book_title }}</h3>
-    <div class="pubdate_views">作者：{{ book.book_author }} &nbsp&nbsp&nbsp&nbsp 分类：{{ book.book_category }} &nbsp&nbsp&nbsp&nbsp {{ book.book_views }} 浏览过</div>
-    <hr />
-    <img src="{{ book.book_pic }}" data-ke-src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}kindle电子书免费下载"  title="" align="" width=30% referrerpolicy ="never" /><br /><br />
+  <h3>{{ book.book_title }}</h3>
+  <div class="pubdate_views">作者：{{ book.book_author }} &nbsp&nbsp&nbsp&nbsp 分类：{{ book.book_category }} &nbsp&nbsp&nbsp&nbsp {{ book.book_views }} 浏览过</div>
+  <hr />
+  <img src="{{ book.book_pic }}" data-ke-src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}kindle电子书免费下载"  title="" align="" width=30% referrerpolicy ="never" /><br /><br />
 
-    <!-- 图书信息 infos -->
-    {% if book.book_infos %}
-        <h4><strong>图书信息：</strong></h4>
-        <p><span style="font-size:14px;">{{ book.book_infos|linebreaksbr }}</span></p>
-    {% endif %}
-    <br />
-    <!-- 图书信息 END -->
+  <!-- 图书信息 infos -->
+  {% if book.book_infos %}
+  <h3><strong>图书信息：</strong></h3>
+  <p><span style="font-size:14px;">{{ book.book_infos|linebreaksbr }}</span></p>
+  {% endif %}
+  <br />
+  <!-- 图书信息 END -->
 
-    <!-- 图书简介 description -->
-    {% if book.book_description %}
-        <h4><strong>内容简介：</strong></h4>
-        <p><span style="font-size:14px;">{{ book.book_description|linebreaksbr }}</span></p>
-    {% endif %}
-    <br />
-    <!-- 图书简介 END -->   
+  <!-- 图书简介 description -->
+  {% if book.book_description %}
+  <h3><strong>内容简介：</strong></h3>
+  <p><span style="font-size:14px;">{{ book.book_description|linebreaksbr }}</span></p>
+  {% endif %}
+  <br />
+  <!-- 图书简介 END -->   
 
-    <!-- 网盘 -->
-    <h4><strong>网盘链接：</strong></h4>
-    <div class="btn-group btn-group-justified" role="group">
-        <a class="btn btn-primary" target="_blank" href={{ pan_url_1.url }}>{{ pan_url_1.name }}</a>
-        <a class="btn btn-info" target="_blank" href={{ pan_url_2.url }}>{{ pan_url_2.name }}</a>
-        <a class="btn btn-warning" target="_blank" href={{ pan_url_3.url }}>{{ pan_url_3.name }}</a>
+  <!-- 下载链接 -->
+  {% if show_downurl %}
+  <!-- 网盘 -->
+  <h3><strong>下载链接：</strong></h3>
+  <div class="btn-group btn-group-justified" role="group">
+    <a class="btn btn-primary" target="_blank" href={{ pan_url_1.url }}>{{ pan_url_1.name }}</a>
+    <a class="btn btn-info" target="_blank" href={{ pan_url_2.url }}>{{ pan_url_2.name }}</a>
+    <a class="btn btn-warning" target="_blank" href={{ pan_url_3.url }}>{{ pan_url_3.name }}</a>
+  </div>
+  <br />
+
+  {% if book.book_pan_pass %}
+  <h3><strong>网盘提取码：</strong></h3>
+  <div class="alert alert-danger">{{ book.book_pan_pass }}</div>
+  {% endif %}
+  <!-- 网盘 END -->
+
+
+  <hr />
+
+  <!-- 网盘失效 报告 折叠效果 -->
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" 
+          href="#collapseTwo">
+          <font color="red">网盘链接失效或者提取码错误？点我提交管理员</font>
+        </a>
+      </h4>
     </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        {% include 'books/search_not_found.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+
+
+{% else %}
+<h3><strong>下载链接：</strong></h3>
+
+<br />
+<p class="label label-warning"><strong>提示：</strong>当前未提交“暗号”，或”暗号“错误</p>
+<br />
+<br />
+
+<!-- 输入 验证码 ”暗号“ -->
+<div class="panel panel-info">
+  <div class="media"> 
+
+   <div class="media-left media-middle"> 
+    <img class="media-object" src="https://www.chenjin5.com/media/qrcode_wechat.jpg" alt="公众号二维码" width=150px />
+  </div> 
+
+  <div class="media-body"> 
+    <br />
+    <h4 class="media-heading">防和谐，网盘地址已隐藏，提交“暗号”即可查看！</h4>
     <br />
 
-    {% if book.book_pan_pass %}
-    <h4><strong>网盘提取码：</strong></h4>
-        <div class="alert alert-danger">{{ book.book_pan_pass }}</div>
-    {% endif %}
-    <!-- 网盘 END -->
+    <form action="{{ anhao_post_url }}" method="get">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="请输入暗号..." name="anhao" required="required">
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="submit">提交</button>
+        </span>
+      </div><!-- /input-group -->
+    </form>
 
-    <br />
+    微信扫一扫左侧二维码，关注后点击公众号底部菜单<font color="red"> “获取暗号”</font>即可获得！<font color="red">【暗号不定期更换】</font>
+  </div> 
 
-    <hr />
-
-    <br />
-
-
-    <!-- 网盘失效 报告 -->
-    <div class="panel panel-info">
-    <div class="media"> 
-
-     <div class="media-left media-middle"> 
-      <img class="media-object" src="https://www.chenjin5.com/media/qrcode_wechat.jpg" alt="公众号二维码" width=150px />
-     </div> 
-
-     <div class="media-body"> 
-      <br />
-      <h4 class="media-heading">注意：网盘链接失效处理方法</h4>
-      <br />
-      若图书网盘链接失效或提取码错误，请使用微信扫描左侧二维码，之后点击公众号底部【链接失效】进行反馈
-      <a target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzU0MzYxMzA4NA==&mid=100000072&idx=1&sn=011c2b23f7de5993f2ad9a3c296a774e&chksm=7b0988bb4c7e01ad9b8b04e7036b176b3e6e6a830bcb2b31c9e9928f791319244802fe051186#rd"><strong> &nbsp 不明白？点此查看教程</strong></a>
-     </div> 
-
-  </div> <!-- media -->
+</div> <!-- media -->
 </div><!-- panel -->
 
 
-    <br />
+{% endif %}
+<!-- 下载链接 END -->
+
+<br />
+
+<br />
 
     <!--
     <div class="alert alert-warning"><strong>注意：不代找书！</strong></div>
     <div class="alert alert-info"><strong>我也想尽可能地帮助大家，无奈找书太耗时间，一天找2、3本书就要花去近1小时，谢谢理解。</strong></div>
-    -->
+  -->
 
-    <br />
+  <br />
 
 </div>
 <!-- 巨幕区域 End -->

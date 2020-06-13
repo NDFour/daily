@@ -162,39 +162,93 @@ def book_resou(request):
 
 # @cache_page(60 * 15)
 def book_detail(request, book_id):
-    # 尝试获取 来源页 URL
-    origin_full_url = ''
+    # 获取 form 提交来的 “暗号”
+    anhao = ''
+    # 标记 “暗号” 是否合法
+    is_anhao = 0
     try:
-        # 带参数 URL
-        origin_full_url = request.get_full_path()
+        anhao = request.GET['anhao'].strip()
+        if anhao == '0614':
+            is_anhao = 1
     except Exception as e:
+        # print('获取 暗号 失败')
         pass
+    # print('暗号：' + str(anhao))
+ 
+    # 用于提交验证码，以显示网盘链接
+    if is_anhao:
+        # 尝试获取 来源页 URL
+        origin_full_url = ''
+        try:
+            # 带参数 URL
+            origin_full_url = request.get_full_path()
+        except Exception as e:
+            pass
 
-    book = get_object_or_404(Books, id  = book_id)
+        book = get_object_or_404(Books, id  = book_id)
 
-    # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+        # 通知消息 列表
+        article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
-    resou_book_list = Books.objects.order_by('-book_views')[:10]
+        resou_book_list = Books.objects.order_by('-book_views')[:10]
 
-    # 提取 网盘链接 并构造字典列表 传入 template
-    pan_url_list = get_pan_list(book)
+        # 提取 网盘链接 并构造字典列表 传入 template
+        pan_url_list = get_pan_list(book)
 
-    # 阅读量自增 1
-    book.increase_views()
+        # 阅读量自增 1
+        book.increase_views()
 
-    context = {
-            'book': book,
-            'resou_book_list': resou_book_list,
-            'notifications': article_list,
-            'pan_url_1': pan_url_list[0],
-            'pan_url_2': pan_url_list[1],
-            'pan_url_3': pan_url_list[2],
-            'url_name': 'book_detail',
-            'origin_full_url': origin_full_url,
-            }
+        context = {
+                'book': book,
+                'resou_book_list': resou_book_list,
+                'notifications': article_list,
+                'show_downurl': True,
+                'pan_url_1': pan_url_list[0],
+                'pan_url_2': pan_url_list[1],
+                'pan_url_3': pan_url_list[2],
+                'url_name': 'book_detail',
+                'origin_full_url': origin_full_url,
+                }
 
-    return render(request, 'books/detail.html', context)
+        return render(request, 'books/detail.html', context)
+
+    # 未提交验证码，不显示网盘链接
+    else:
+        # 尝试获取 来源页 URL
+        origin_full_url = ''
+        try:
+            # 带参数 URL
+            origin_full_url = request.get_full_path()
+        except Exception as e:
+            pass
+
+        book = get_object_or_404(Books, id  = book_id)
+
+        # 通知消息 列表
+        article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+
+        resou_book_list = Books.objects.order_by('-book_views')[:10]
+
+        # 提取 网盘链接 并构造字典列表 传入 template
+        pan_url_list = get_pan_list(book)
+
+        # 阅读量自增 1
+        book.increase_views()
+
+        context = {
+                'book': book,
+                'resou_book_list': resou_book_list,
+                'notifications': article_list,
+                'show_downurl': False,
+                'anhao_post_url': request.path,
+                # 'pan_url_1': pan_url_list[0],
+                # 'pan_url_2': pan_url_list[1],
+                # 'pan_url_3': pan_url_list[2],
+                'url_name': 'book_detail',
+                'origin_full_url': origin_full_url,
+                }
+
+        return render(request, 'books/detail.html', context)
 
 
 # 获取某一分类的所有图书 分页展示
