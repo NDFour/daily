@@ -23,8 +23,10 @@ import csv
 from django.db.models.functions import Length
 
 # Create your views here.
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_index(request):
+    return render(request, 'index/system_pause.html', {})
+
     book_list = Books.objects.all().order_by('-id')
 
     # 一页的数据数据
@@ -54,8 +56,11 @@ def book_index(request):
     return render(request, 'books/index.html', context)
 
 
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def index_by_page(request, page_num):
+    return render(request, 'index/system_pause.html', {})
+
+
     tmp = 1
     try:
         tmp = int(page_num)
@@ -92,6 +97,10 @@ def index_by_page(request, page_num):
 
 # 正常通过 navbar 中的 Form 搜索
 def book_search_navbar(request):
+    return render(request, 'index/system_pause.html', {})
+
+
+
     # 尝试获取 来源页 URL
     origin_full_url = ''
     try:
@@ -145,7 +154,7 @@ def book_search_navbar(request):
 
 
 # 热搜榜，根据访问量返回阅读量最高的20部电影
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_resou(request):
     # book_list = book.objects.order_by('-book_views')[:20]
     book_list = Books.objects.order_by('-book_views')[:20]
@@ -162,6 +171,9 @@ def book_resou(request):
 
 # @cache_page(60 * 15)
 def book_detail(request, book_id):
+    return render(request, 'index/system_pause.html', {})
+
+
     # 获取 form 提交来的 “暗号”
     anhao = ''
     # 标记 “暗号” 是否合法
@@ -252,8 +264,11 @@ def book_detail(request, book_id):
 
 
 # 获取某一分类的所有图书 分页展示
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_category(request):
+    return render(request, 'index/system_pause.html', {})
+
+
     # 尝试获取 book_category
     book_category = ''
     try:

@@ -14,6 +14,11 @@ import markdown
 
 @cache_page(60 * 2)
 def index(request):
+
+    return render(request, 'index/system_pause.html', {})
+
+
+
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
     # article_list = Article.objects.filter( display = True ).order_by('-article_modefy_date')
 
@@ -30,6 +35,11 @@ def index(request):
 
 # @cache_page(60 * 2)
 def article_detail(request, article_id):
+
+    return render(request, 'index/system_pause.html', {})
+    
+
+
     article = get_object_or_404(Article, id  = article_id)
     
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
