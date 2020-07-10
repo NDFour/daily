@@ -390,7 +390,8 @@ def babaili_jiaji(request):
             babaili_list = Babaili_jiaji.objects.filter(contact_method=contact_method, book_name=book_name)
             if len(babaili_list):
                 # msg += ' - 已有相同记录，无需再次写入'
-                print(' - 已有相同记录，无需再次写入')
+                # print(' - 已有相同记录，无需再次写入')
+                pass
             else:
                 new_babaili_item = Babaili_jiaji()
                 new_babaili_item.book_name = book_name
