@@ -25,7 +25,7 @@ from django.db.models.functions import Length
 # Create your views here.
 @cache_page(60 * 15)
 def book_index(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
     book_list = Books.objects.all().order_by('-id')
 
@@ -58,7 +58,7 @@ def book_index(request):
 
 @cache_page(60 * 15)
 def index_by_page(request, page_num):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     tmp = 1
@@ -97,7 +97,7 @@ def index_by_page(request, page_num):
 
 # 正常通过 navbar 中的 Form 搜索
 def book_search_navbar(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
 
@@ -171,7 +171,7 @@ def book_resou(request):
 
 # @cache_page(60 * 15)
 def book_detail(request, book_id):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     # 获取 form 提交来的 “暗号”
@@ -266,7 +266,7 @@ def book_detail(request, book_id):
 # 获取某一分类的所有图书 分页展示
 @cache_page(60 * 15)
 def book_category(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     # 尝试获取 book_category
@@ -384,23 +384,24 @@ def babaili_jiaji(request):
     # 如果 msg 内容不为空，说明前面已有错误发生，无需写入 csv
     if not msg:
         # 将信息写入文件 or 数据库
-        '''
-        csv_status = babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type, origin_full_url )
-        # -1: failed     0: success
-        if csv_status:
-            msg += ' - 写入 csv 失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
-        '''
         try:
-            new_babaili_item = Babaili_jiaji()
-            new_babaili_item.book_name = book_name
-            new_babaili_item.author = author
-            new_babaili_item.contact_method = contact_method
-            new_babaili_item.other_info = other_info
-            new_babaili_item.babaili_jiaji_type = babaili_jiaji_type
-            new_babaili_item.origin_full_url = origin_full_url
-            new_babaili_item.is_solved = False
-            new_babaili_item.report_date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() )
-            new_babaili_item.save()
+            # 判断改信息是否已经写入数据库
+            # 即：本次提交是否为上一次提交后的 刷新 导致
+            babaili_list = Babaili_jiaji.objects.filter(contact_method=contact_method, book_name=book_name)
+            if len(babaili_list):
+                # msg += ' - 已有相同记录，无需再次写入'
+                print(' - 已有相同记录，无需再次写入')
+            else:
+                new_babaili_item = Babaili_jiaji()
+                new_babaili_item.book_name = book_name
+                new_babaili_item.author = author
+                new_babaili_item.contact_method = contact_method
+                new_babaili_item.other_info = other_info
+                new_babaili_item.babaili_jiaji_type = babaili_jiaji_type
+                new_babaili_item.origin_full_url = origin_full_url
+                new_babaili_item.is_solved = False
+                new_babaili_item.report_date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime() )
+                new_babaili_item.save()
         except Exception as e:
             msg += ' - 写入记录失败！ 可联系管理员确认原因，微信:ndfour001  邮箱:ndfour@foxmail.com'
             pass
@@ -485,31 +486,4 @@ def get_pan_list(book):
     return pan_url_list
 
 
-# 工具函数
-# 写入数据到 babaili_jiaji.csv 文件
-def babali_jiaji_toCsv( book_name, author, contact_method, other_info, babaili_jiaji_type, origin_full_url ):
-    try:
-        jiaji_item = {
-            'book_name': book_name,
-            'author': author,
-            'contact_method': contact_method,
-            'other_info': other_info,
-            'babaili_jiaji_type': babaili_jiaji_type,
-            'origin_full_url': origin_full_url,
-            'time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-        }
-        # 写入 csv 文件 ; encoding 解决用 wps 打开后中文乱码
-        out_file_name = 'babaili_jiaji.csv'
-        # print("OUT:" + out_file_name)
-        with open(out_file_name, 'a', encoding = 'utf-8-sig') as csvfile:
-            fieldnames = ['book_name', 'author', 'contact_method', 'other_info', 'babaili_jiaji_type', 'time', 'origin_full_url']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            #注意header是个好东西
-            # writer.writeheader()
-            # for u_items in self.book_item_list:
-            #     writer.writerow(u_items)
-            writer.writerow( jiaji_item )
-        return 0
-    except Exception as e:
-        return -1
 
