@@ -25,7 +25,8 @@ def index(request):
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     context = {
-            'article_list': article_list,
+            # 'article_list': article_list,
+            'article_list': '',
             'resou_book_list': resou_book_list,
             'notifications': article_list,
             }
@@ -61,7 +62,8 @@ def article_detail(request, article_id):
     	pass
 
     context = {
-            'article': article,
+            # 'article': article,
+            'article': '',
             'resou_book_list': resou_book_list,
             'notifications': article_list,
             }
