@@ -13,7 +13,7 @@ urlpatterns = [
     path('', views.book_index, name='book_index'),
     path('pages/<str:page_num>/', views.index_by_page, name='book_index_by_page'),
     path('<int:book_id>/', views.book_detail, name='book_detail'),
-    path('category/', views.book_category, name='book_category'),
+    # path('category/', views.book_category, name='book_category'),
     # 通过构造 URL 实现搜索
     # path('search/<str:movie_name>', views.movie_search, name='movie_search'),
     # navbar 中的 Form 搜索
