@@ -73,7 +73,8 @@ def index_by_page(request, page_num):
 
     # 一页的数据数目
     per_page = 24
-    book_list = Books.objects.all().order_by('-id')
+    # book_list = Books.objects.all().order_by('-id')
+    book_list = ''
     # 生成 paginator 对象
     paginator = Paginator( book_list, per_page )
 
