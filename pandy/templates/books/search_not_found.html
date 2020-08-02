@@ -13,7 +13,7 @@
         <label for="book_name" class="col-sm-2 control-label">书&nbsp &nbsp &nbsp &nbsp名：</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" name="book_name" id="book_name" 
-                  placeholder="[必填]  请输入网盘链接失效的书的书名" aria-label="book_name" required="required">
+            placeholder="[必填]  请输入网盘链接失效的书的书名" aria-label="book_name" required="required">
         </div>
     </div>
 
@@ -21,50 +21,51 @@
         <label for="author" class="col-sm-2 control-label">作&nbsp &nbsp &nbsp &nbsp者：</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" name="author" id="author" 
-                   placeholder="[选填]  作者" aria-label="author">
+            placeholder="[选填]  作者" aria-label="author">
         </div>
     </div>
 
     <div class="form-group">
         <label for="contact_method" class="col-sm-2 control-label">微&nbsp &nbsp &nbsp &nbsp信：</label>
         <div class="col-sm-10">
-           <input type="text" class="form-control" name="contact_method" id="contact_method" 
-                   placeholder="[必填] 用于更新资源后发送通知 (没有填：无)" aria-label="contact_method" required="required">
-        </div>
+         <input type="text" class="form-control" name="contact_method" id="contact_method" 
+         placeholder="[必填] 用于更新资源后发送通知 (没有填：无)" aria-label="contact_method" required="required">
+         <font color="red">记得打开 “微信->我->设置->隐私->添加我的方式->微信号“ 不然我搜不到你 de ～</font>
+     </div>
+ </div>
+
+
+ <div class="form-group">
+    <label for="other_info" class="col-sm-2 control-label">备注信息：</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="other_info" id="other_info" 
+        placeholder="[选填]  我也不知道你其它会有啥需要填的。。。" aria-label="other_info">
     </div>
+</div>
 
-
-    <div class="form-group">
-        <label for="other_info" class="col-sm-2 control-label">备注信息：</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="other_info" id="other_info" 
-                   placeholder="[选填]  我也不知道你其它会有啥需要填的。。。" aria-label="other_info">
-        </div>
+<!-- 来源页 URL ： origin_full_url -->
+<div class="form-group">
+    <!-- <label for="origin_full_url" class="col-sm-2 control-label">origin url：</label> -->
+    <div class="col-sm-10">
+        <input type="hidden" class="form-control" name="origin_full_url" id="origin_full_url" 
+        placeholder="[网页自动填写] origin_full_url" aria-label="origin_full_url" value="{{ origin_full_url }}">
     </div>
+</div>
 
-    <!-- 来源页 URL ： origin_full_url -->
-    <div class="form-group">
-        <!-- <label for="origin_full_url" class="col-sm-2 control-label">origin url：</label> -->
-        <div class="col-sm-10">
-            <input type="hidden" class="form-control" name="origin_full_url" id="origin_full_url" 
-                   placeholder="[网页自动填写] origin_full_url" aria-label="origin_full_url" value="{{ origin_full_url }}">
-        </div>
+
+<br />
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <!-- 区分 是 未搜索到 图书的提交    OR    图书网盘 链接失效的提交 -->
+        {% if url_name == 'book_search_navbar' %}
+        <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="notfound">立即催！！</button>
+        {% elif url_name == 'book_detail' %}
+        <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="detail_paninvalid">立即催！！</button>
+        {% elif url_name == 'invalid_url_report' %}
+        <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="report_paninvalid">立即催！！</button>               
+        {% else %}
+        <p>八百里加急 访问不合法！请访问网站主页</p>
+        {% endif %}
     </div>
-
-
-    <br />
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <!-- 区分 是 未搜索到 图书的提交    OR    图书网盘 链接失效的提交 -->
-            {% if url_name == 'book_search_navbar' %}
-                <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="notfound">立即催！！</button>
-            {% elif url_name == 'book_detail' %}
-                <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="detail_paninvalid">立即催！！</button>
-            {% elif url_name == 'invalid_url_report' %}
-                <button type="submit" class="btn btn-primary" name="babaili_jiaji_type" value="report_paninvalid">立即催！！</button>               
-            {% else %}
-                <p>八百里加急 访问不合法！请访问网站主页</p>
-            {% endif %}
-        </div>
-    </div>
+</div>
 </form>
