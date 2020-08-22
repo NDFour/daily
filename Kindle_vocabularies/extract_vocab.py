@@ -14,7 +14,10 @@ def get_voca():
     i_cnt = 0
     for word in words_data:
         w = word[0]
-        s = word[1]
+        if word[0] == word[1]:
+            s = ''
+        else:
+            s = word[1]
         t = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime( word[2] ))
         print(str(i_cnt) + '.   ' + w)
         '''
@@ -40,8 +43,8 @@ def trans( word ):
     }
 
     proxies = {
-        'http': 'http://58.220.95.42:10174', 
-        'https': 'http://58.220.95.42:10174'
+        'http': 'http://122.226.57.70:8888', 
+        'https': 'http://122.226.57.70:8888'
     }
 
     '''
@@ -56,8 +59,8 @@ def trans( word ):
      
     url = "http://fanyi.youdao.com/translate"
     try:
-        # r = requests.get(url, params=data, proxies = proxies, timeout = 30)
-        r = requests.get(url, params=data, timeout = 30)
+        r = requests.get(url, params=data, proxies = proxies, timeout = 30)
+        # r = requests.get(url, params=data, timeout = 30)
         result = r.json()
 
         # 打印翻译结果
@@ -78,8 +81,9 @@ def final_2_file(w, i_cnt):
         f.write('------------------------ ' + str(i_cnt) + '\n')
         f.write('WORD: ' + w['word'])
         f.write('\n')
-        f.write('STEM: ' + w['stem'])
-        f.write('\n')
+        if w['stem']:
+            f.write('STEM: ' + w['stem'])
+            f.write('\n')
         f.write('TRAN: ' + w['translate'])
         # f.write('\n')
         # f.write(w['timestamp'])
@@ -92,10 +96,12 @@ if __name__ == '__main__':
     error_list = []
 
     # word_list = get_voca()[:5]
-    word_list = get_voca()[1427:]
+    word_list = get_voca()[1427:1501]
 
     i_cnt = 1427
     for word in word_list:
+        # 翻译重试次数
+        r_tran = 3
         # if i_cnt > 5:
         #     break
 
@@ -107,9 +113,19 @@ if __name__ == '__main__':
             # write to file
             final_2_file(word, i_cnt)
         else:
-            print('翻译 ' + word['word'] + '出错了')
-            word['translate'] = 'null'
-            error_list.append(word['word'])
+            # 重试
+            if r_tran:
+                r_tran -= 1
+                time.sleep(0.5)
+                rel = trans(word['word'])
+                if rel:
+                    word['translate'] = rel['simple_rel']
+                    # write to file
+                    final_2_file(word, i_cnt)
+            else:
+                print('翻译 ' + word['word'] + '出错了')
+                word['translate'] = 'null'
+                error_list.append(word['word'])
 
         i_cnt += 1
 
