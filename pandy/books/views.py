@@ -27,7 +27,6 @@ from django.db.models.functions import Length
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 
-    '''
     book_list = Books.objects.all().order_by('-id')
 
     # 一页的数据数据
@@ -41,22 +40,22 @@ def book_index(request):
     except:
         # book_list = paginator.page(1)
         book_list = []
-    '''
 
     # 通知消息 列表
-    # article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
-    # resou_book_list = Books.objects.order_by('-book_views')[:10]
+    resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     context = {
-            # 'book_list': book_list,
-            # 'resou_book_list': resou_book_list,
-            # 'notifications': article_list,
+            'book_list': book_list,
+            'resou_book_list': resou_book_list,
+            'notifications': article_list,
             'page_title': '',
             'url_name': 'book_index', # 传递给模板，用以区别显示 页码 链接
             'is_search_index': True, # 是否跳转到搜索主界面
             }
-    return render(request, 'books/index_for_search.html', context)
+    # return render(request, 'books/index_for_search.html', context)
+    return render(request, 'books/index.html', context)
 
 
 @cache_page(60 * 15)
@@ -70,6 +69,10 @@ def index_by_page(request, page_num):
     except:
         pass
     page_num = tmp
+
+    # 限制用户访问到的数据量
+    if page_num > 20:
+        page_num = 20
 
     # 一页的数据数目
     per_page = 24
@@ -126,6 +129,11 @@ def book_search_navbar(request):
     except:
         # page_num = 1
         pass
+
+    # 限制用户访问到的数据量
+    if page_num > 20:
+        page_num = 20
+
 
     # book_list = Books.objects.filter(book_title__icontains=book_name).order_by('-id')
     book_list = Books.objects.filter(book_title__icontains=book_name).order_by(Length("book_title").asc())
@@ -268,7 +276,7 @@ def book_detail(request, book_id):
 
 
 # 获取某一分类的所有图书 分页展示
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def book_category(request):
     # return render(request, 'index/system_pause.html', {})
 
@@ -287,6 +295,11 @@ def book_category(request):
     except:
         # page_num = 1
         pass
+
+        
+    # 限制用户访问到的数据量
+    if page_num > 20:
+        page_num = 20
 
     # book_list = Books.objects.filter(book_category__icontains = book_category)
     book_list = Books.objects.filter(book_category = book_category).order_by('-id')
