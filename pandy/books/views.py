@@ -71,13 +71,13 @@ def index_by_page(request, page_num):
     page_num = tmp
 
     # 限制用户访问到的数据量
-    if page_num > 20:
+    if int(page_num) > 20:
         page_num = 20
 
     # 一页的数据数目
     per_page = 24
-    # book_list = Books.objects.all().order_by('-id')
-    book_list = ''
+    book_list = Books.objects.all().order_by('-id')
+    # book_list = ''
     # 生成 paginator 对象
     paginator = Paginator( book_list, per_page )
 
@@ -131,7 +131,7 @@ def book_search_navbar(request):
         pass
 
     # 限制用户访问到的数据量
-    if page_num > 20:
+    if int(page_num) > 20:
         page_num = 20
 
 
@@ -298,7 +298,7 @@ def book_category(request):
 
         
     # 限制用户访问到的数据量
-    if page_num > 20:
+    if int(page_num) > 20:
         page_num = 20
 
     # book_list = Books.objects.filter(book_category__icontains = book_category)
