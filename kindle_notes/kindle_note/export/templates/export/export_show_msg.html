@@ -1,0 +1,56 @@
+
+{% extends 'export/export_base.html' %}
+
+{% block title %}文件上传结果{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+
+		<!-- 左半部分 -->
+		<div class="col-8">
+
+			<div class="jumbotron">
+				{% if status == 0 %}
+				<h4 class="display-5 text-success">{{ title }}</h4>
+				{% else %}
+				<h4 class="display-5 text-danger">{{ title }}</h4>
+				{% endif %}
+
+				<p>{{ msg }}</p>
+
+			</div>
+
+		</div>
+		<!-- 左半部分 结束 -->
+
+
+		<!-- 右半部分 -->
+		<div class="col-4">
+			<h4>留言：</h4>
+
+			<p>
+				以下是网友留言，
+				以下是网友留言，
+				以下是网友留言，
+				以下是网友留言，
+				以下是网友留言，
+				以下是网友留言，
+				以下是网友留言，
+				以下是网友留言，
+			</p>
+			
+		</div>
+		<!-- 右半部分 结束 -->
+		
+	</div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+

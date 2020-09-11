@@ -1,0 +1,76 @@
+<!-- 上传文件 表单 -->
+<form action="{% url 'export_views_index' %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+
+	{{ form }}
+
+	<br />
+	<br />
+
+	<!--
+	<div class="form-group">
+		<label for="kindle_db_file">上传Kindle生词本文件</label>
+		<input type="file" class="form-control-file" id="kindle_db_file" name="kindle_db_file">
+	</div>
+	-->
+
+	<!-- 复选框 -->
+	<!-- 同行 check_box -->
+	<!--
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_phonetic" value="option1">
+		<label class="form-check-label" for="checkbox_phonetic">音标</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_tran" value="option2">
+		<label class="form-check-label" for="checkbox_tran">中文释义</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_defi" value="option2">
+		<label class="form-check-label" for="checkbox_defi">英文释义</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_collins" value="option2">
+		<label class="form-check-label" for="checkbox_collins">Collins 柯林斯星级</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_oxford" value="option2">
+		<label class="form-check-label" for="checkbox_oxford">Oxford 是否牛津3000核心词</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_tag" value="option2">
+		<label class="form-check-label" for="checkbox_tag">Tag 标签（如：高考、四级、六级等）</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_bnc" value="option2">
+		<label class="form-check-label" for="checkbox_bnc">Bnc 英语国家语料库词频顺序</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_frq" value="option2">
+		<label class="form-check-label" for="checkbox_frq">Frq 当代语料库词频顺序</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_exchange" value="option2">
+		<label class="form-check-label" for="checkbox_exchange">时态及单复数变换</label>
+	</div>
+
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="checkbox" id="checkbox_comming" value="option3" disabled>
+		<label class="form-check-label" for="checkbox_comming">即将推出...</label>
+	</div>
+	-->
+
+	<br />
+	<button type="submit" class="btn btn-primary mb-2">上传</button>
+
+</form>
+
+
