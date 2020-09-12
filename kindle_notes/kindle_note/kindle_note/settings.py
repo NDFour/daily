@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -120,3 +120,39 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    'static',
+    ]
+
+# Celery 配置
+CELERY_BROKER_URL = 'redis://localhost'
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'redis://localhost'
+CELERY_TASK_SERIALIZER = 'json'
+
+
+# 发邮件配置信息
+'''
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'lgang219@qq.com' # 帐号
+EMAIL_HOST_PASSWORD = 'eehrjkcueceqcaga'  # 密码
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# 这样别人收到的邮件中就会有你设定的名称: Kindle生词本导出
+DEFAULT_FROM_EMAIL = 'Kindle生词本导出 <lgang219@qq.com>'
+'''
+
+
+
+
+
+
+
+
+
+
+

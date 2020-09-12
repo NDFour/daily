@@ -9,13 +9,13 @@
 	<div class="row">
 
 		<!-- 左半部分 -->
-		<div class="col-8">
+		<div class="col-9">
 
 			<div class="jumbotron">
 				{% if status == 0 %}
 				<h4 class="display-5 text-success">{{ title }}</h4>
 				{% else %}
-				<h4 class="display-5 text-danger">{{ title }}</h4>
+				<h4 class="display-5 text-danger">{{ title }} 状态码：{{ status }}</h4>
 				{% endif %}
 
 				<p>{{ msg }}</p>
@@ -27,19 +27,21 @@
 
 
 		<!-- 右半部分 -->
-		<div class="col-4">
-			<h4>留言：</h4>
+		<div class="col-3">
 
+			<!-- 广告 -->
+			<div>
+				{% include 'export/wechat_ad.html' %}
+			</div>
+
+			<br />
+			<h4>留言：</h4>
 			<p>
 				以下是网友留言，
 				以下是网友留言，
 				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
 			</p>
+
 			
 		</div>
 		<!-- 右半部分 结束 -->

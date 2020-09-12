@@ -1,24 +1,21 @@
 
+<!-- 载入静态文件 -->
+{% load static %}
+
 <div class="container">
 	<div class="row">
 
 		<!-- 左半部分 -->
-		<div class="col-8">
+		<div class="col-sm-9">
 
 			<div class="jumbotron">
-				<h4 class="display-5">Kindle 生词本导出教程</h4>
+				<h4 class="display-5">Kindle 生词本导出</h4>
 
-				<p><a href="#">查看导出文件样例</a></p>
+				<p><a href="{% static 'files/test.xls' %}" target="_blank">查看导出文件样例</a></p>
 
-				<p>通常我们会通过 USB 数据线将 Kindle 连接到了电脑上查看其中的文件（也就是将 Kindle 设备的磁盘挂载到我们所使用的操作系统中），那么数据库文件可以在 Kindle 磁盘的根目录中找到：</p>
+				<p>1. 点击“选择文件”上传 txt 文件</p>
 
-				<p>system/vocabulary/vocab.db</p>
-
-				<span>* 注意：一般情况下 Kindle 根目录中的 system 文件夹处于隐藏状态，你需要通过设置文件浏览器，让其显示隐藏文件。</span>
-
-				<br />
-				<br />
-				<p>注：<code>文件转换完成后，管理员会主动联系你。</code></p>
+				<p>2. 填写邮箱地址，词汇成功导出后将发送至该邮箱，预计 5 分钟以内</p>
 
 				<hr />
 
@@ -32,20 +29,21 @@
 
 
 		<!-- 右半部分 -->
-		<div class="col-4">
-			<h4>留言：</h4>
+		<div class="col-sm-3">
+			<!-- 广告 -->
+			<div>
+				{% include 'export/wechat_ad.html' %}
+			</div>
 
+			<br />
+			<h4>留言：</h4>
 			<p>
 				以下是网友留言，
 				以下是网友留言，
 				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
-				以下是网友留言，
 			</p>
-			
+
+
 		</div>
 		<!-- 右半部分 结束 -->
 		

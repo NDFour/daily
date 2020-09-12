@@ -4,11 +4,17 @@ from django.utils.translation import ugettext_lazy as _
 
  
 class UploadForm(forms.Form):
-    my_file = forms.FileField()
+    # 生词本文件 .db
+    my_file = forms.FileField( required = True)
+    # 用户接收邮箱
+    # mail_addr = forms.EmailField(required = True)
+    # 用户备注信息
+    # message = forms.CharField(widget=forms.Textarea)
+
 
     # 验证 my_file 合法性
     def clean_my_file(self):
-        CONTENT_TYPES = ['db']
+        CONTENT_TYPES = ['txt']
         # 2.5MB - 2621440
         # 5MB - 5242880
         # 10MB - 10485760
@@ -17,7 +23,7 @@ class UploadForm(forms.Form):
         # 100MB 104857600
         # 250MB - 214958080
         # 500MB - 429916160
-        MAX_UPLOAD_SIZE = 5242880
+        MAX_UPLOAD_SIZE = 10485760
 
         content = self.cleaned_data['my_file']
 

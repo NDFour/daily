@@ -1,0 +1,11 @@
+Celery:
+celery -A kindle_note worker -l info
+
+Redis:
+redis-server
+
+
+Django Admin Account:
+lynn
+xqksj_notes
+
