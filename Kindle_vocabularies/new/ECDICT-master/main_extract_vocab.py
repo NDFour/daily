@@ -1,7 +1,10 @@
 import sqlite3
 import time
 import os
+# stardict.py
 import stardict
+# convert_to_anki.py
+import convert_to_anki
 
 
 '''
@@ -17,6 +20,9 @@ def get_voca(do_check):
     conn = sqlite3.connect('kindle_db/vocab_2020_08_21.db')
     print('Open db succ')
 
+    # 已存储过的单词列表
+    repeted_list = []
+
     cursor = conn.cursor()
     words_data = cursor.execute('SELECT word FROM WORDS')
 
@@ -28,16 +34,21 @@ def get_voca(do_check):
         # 判断该词是否已存在于之前的生词本数据库中
         if do_check:
             if is_stored(w):
+                repeted_list.append(w)
                 continue
-            insert_to_base(w)
+            else:
+                insert_to_base(w)
 
-        print(str(i_cnt) + '.   ' + w)
+        # print(str(i_cnt) + '.   ' + w)
 
         word_list.append(w)
 
         i_cnt += 1
 
     conn.close()
+
+    print('共有 ' + str(len(repeted_list)) + ' 个重复的单词')
+
     return word_list
 
 '''
@@ -50,7 +61,7 @@ def is_stored(word):
     # 匹配数据库已有记录时 不区分大小写
     rel = cursor.execute("SELECT word from WORDS where word = '" + str(word) + "' COLLATE NOCASE").fetchall()
 
-    print(rel)
+    # print(rel)
 
     status = len(rel)
 
@@ -72,7 +83,7 @@ def insert_to_base(word):
 
     conn.commit()
 
-    print('插入单词' + str(word) + '到 基数据库 成功.')
+    # print('插入单词' + str(word) + '到 基数据库 成功.')
 
     conn.close()
 
@@ -131,6 +142,22 @@ def final_2_file(w, w_stem, i_cnt):
 
 if __name__ == '__main__':
     do_check = int(input('需要检测单词是否存在基础词库？ (0/1) : '))
+    if do_check:
+        print('检查')
+    else:
+        print('不 检查')
+
+    if_gen_txt = int(input('是否需要生成 Txt 文件？（0/1）：'))
+    if if_gen_txt:
+        print('输出 Txt')
+    else:
+        print('不 输出 Txt')
+
+    if_gen_anki = int(input('是否需要生成 Anki 文件？（0/1）：'))
+    if if_gen_anki:
+        print('输出 Anki')
+    else:
+        print('不 输出 Anki')
 
     '''
     while 1:
@@ -155,12 +182,16 @@ if __name__ == '__main__':
 
     # word_list = get_voca()[:5]
     word_list = get_voca(do_check)
+    print('len (word_list) = ' + str(len(word_list)))
+
+    # 存储翻译后的结果的单词列表
+    translated_word_list = []
 
     i_cnt = 0
     for word in word_list:
-        # if i_cnt > 100:
+        # if i_cnt > 10:
         #     break
-        print( str(i_cnt) + ' 翻译 ' + word)
+        # print( str(i_cnt) + ' 翻译 ' + word)
 
         rel = sd.query(word)
         if rel:
@@ -173,13 +204,29 @@ if __name__ == '__main__':
             '''
             # write to file
             # final_2_file(rel, w_stem, i_cnt)
-            final_2_file(rel, '', i_cnt)
+            if if_gen_txt:
+                final_2_file(rel, '', i_cnt)
+            if if_gen_anki:
+                translated_word_list.append(rel)
+            else:
+                pass
         else:
+            print('查询 ' + word + ' 失败')
             error_list.append(word)
         i_cnt += 1
 
-    for e in error_list:
-        print(e)
+    # for e in error_list:
+    #     print(e)
+
+    '''
+    print('translated_word_list:')
+    print(translated_word_list)
+    print()
+    '''
+
+    # 开始生成 Anki 文件
+    if if_gen_anki:
+        c_anki = convert_to_anki.gen_apgk(translated_word_list, 'output/output')
 
     print()
     print('失败: ' + str(len(error_list)) )
@@ -188,7 +235,9 @@ if __name__ == '__main__':
     print('Writting to file...')
     print('All completed!')
 
+    '''
     if len(error_list):
         for w in error_list:
             print(w)
+    '''
 
