@@ -5,7 +5,7 @@ robot.config['SESSION_STORAGE'] = False
 
 @robot.subscribe
 def subscribe(message):
-    return '谢谢关注！\n\n只要发送书籍📚的名字就可以了哦\n\n切记：可以名字不完整，但是一定不可以有错别字哦😯'
+    return '看...又有一个有趣的灵魂关注了我们...👻\n\n----------\n\n谢谢关注！\n\n只要发送书籍📚的名字就可以了哦\n\n切记：可以名字不完整，但是一定不可以有错别字哦😯'
 
 
 @robot.text
