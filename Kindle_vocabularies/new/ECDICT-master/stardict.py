@@ -1810,7 +1810,7 @@ def open_local(filename):
 # testing
 #----------------------------------------------------------------------
 if __name__ == '__main__':
-    db = os.path.join(os.path.dirname(__file__), 'test.db')
+    db = os.path.join(os.path.dirname(__file__), 'full_dic.db')
     my = {'host':'??', 'user':'skywind', 'passwd':'??', 'db':'skywind_t1'}
     def test1():
         t = time.time()
@@ -1828,15 +1828,21 @@ if __name__ == '__main__':
         print('')
         '''
         print(sd.count())
-        print(sd.query('kiSs'))
-        # print(sd.query('你'))
-        '''
-        print(sd.query(2))
-        print(sd.match('kis', 10))
-        print('')
-        print(sd.query_batch(['give', 2]))
-        print(sd.match('kisshere', 10, True))
-        '''
+        # print(sd.query('kiSs'))
+        while 1:
+            s_word = input('word:')
+            rel = sd.query(s_word)
+            # print(rel['definition'])
+            for defi in rel['definition'].split('\n'):
+                print(defi)
+            # print(sd.query('你'))
+            '''
+            print(sd.query(2))
+            print(sd.match('kis', 10))
+            print('')
+            print(sd.query_batch(['give', 2]))
+            print(sd.match('kisshere', 10, True))
+            '''
         return 0
     def test2():
         t = time.time()
@@ -1894,7 +1900,7 @@ if __name__ == '__main__':
         print(tools.validate_word('Hello World', False))
 
 
-    # test4()
+    test1()
     # convert_dict('full_dic.db', 'stardict.csv')
 
 

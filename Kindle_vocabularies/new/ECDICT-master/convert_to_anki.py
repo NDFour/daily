@@ -39,21 +39,34 @@ def gen_apgk(word_list, file_name):
 
         question_str += '<br ><br >'
 
-        if word['simple_phrase']:
-            # print(word + ' 有例句')
+        # question_str += '<p style="text-align: left;">' + word['definition'] + '</p>'
+        # 英文释义
+        if word['definition']:
+            for defi in word['definition'].split('\n'):
+                question_str += '<p style="text-align: left;">' + defi + '</p>'
 
-            question_str += '<b>例句：</b>'
+        answer_str = ''
+        answer_str += '<b>Bnc:</b>' + str(word['bnc']) + '   <b>Frq:</b>' + str(word['frq']) + '<br ><br >'
+        answer_str += word['translation'] + '<br >'
+
+        if word['tag']:
+            answer_str += '<br ><b>Tag:</b> ' + word['tag'] + '<br >'
+
+        # 原文例句
+        if word['simple_phrase']:
+            answer_str += '<br ><b>例句：</b>'
             for phrase in word['simple_phrase']:
-                question_str += '<br ><p style="text-align: left;">' + phrase + '</p><br >'
+                answer_str += '<p style="text-align: left;">' + phrase + '</p>'
         else:
             pass
 
-        answer_str = ''
-        # answer_str += word['phonetic'] + '<br >'
-        # answer_str += '\n' + word['collins'] + '<br />' + word['oxford']
-        answer_str += '<b>Bnc:</b>' + str(word['bnc']) + '   <b>Frq:</b>' + str(word['frq']) + '<br ><br >'
-        answer_str += word['translation'] + '<br ><br >'
-        answer_str += '<b>Tag:</b> ' + word['tag']
+        '''
+        with open('log.txt', 'a') as f:
+            f.write(question_str)
+            f.write('\n---\n')
+            f.write(answer_str)
+            f.write('\n\n##################\n\n')
+        '''
 
         '''
         print(word['word'])

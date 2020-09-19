@@ -69,7 +69,7 @@ def get_simple_phrase(word, db_name, base_db_name):
 
     if rel:
         for p in rel:
-            phrase_list.append(p[0])
+            phrase_list.append(p[0].strip())
         # 插入 到 base_db
         if db_name != base_db_name:
             insert_phrase_to_base(word[3:], phrase_list, base_db_name)
@@ -92,7 +92,7 @@ def insert_phrase_to_base(word, phrase_list, base_db_name):
     id_next = len( cursor.execute('SELECT ID FROM LOOKUPS').fetchall() ) + 1
 
     for phrase in phrase_list:
-        sql_cmd = 'INSERT INTO LOOKUPS (ID, WORD_KEY, USAGE) VALUES ("' + id_next + '", ' + '"' + word + '", ' + '"' + phrase + '")'
+        sql_cmd = 'INSERT INTO LOOKUPS (ID, WORD_KEY, USAGE) VALUES ("' + id_next + '", ' + '"' + word + '", ' + '"' + phrase.strip() + '")'
         cursor.execute(sql_cmd)
 
     conn.commit()
