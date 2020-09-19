@@ -30,12 +30,30 @@ def gen_apgk(word_list, file_name):
     for word in word_list:
         # print(word)
         # print()
+
+        question_str = ''
+        question_str += "<b>" + word['word'] + "</b>"
+        question_str += " <i>[" 
+        question_str += word['phonetic']
+        question_str += "]</i>"
+
+        question_str += '<br ><br >'
+
+        if word['simple_phrase']:
+            # print(word + ' 有例句')
+
+            question_str += '<b>例句：</b>'
+            for phrase in word['simple_phrase']:
+                question_str += '<br ><p style="text-align: left;">' + phrase + '</p><br >'
+        else:
+            pass
+
         answer_str = ''
         # answer_str += word['phonetic'] + '<br >'
         # answer_str += '\n' + word['collins'] + '<br />' + word['oxford']
-        answer_str += 'Bnc:' + str(word['bnc']) + '   Frq:' + str(word['frq']) + '<br ><br >'
+        answer_str += '<b>Bnc:</b>' + str(word['bnc']) + '   <b>Frq:</b>' + str(word['frq']) + '<br ><br >'
         answer_str += word['translation'] + '<br ><br >'
-        answer_str += 'Tag: ' + word['tag']
+        answer_str += '<b>Tag:</b> ' + word['tag']
 
         '''
         print(word['word'])
@@ -46,8 +64,8 @@ def gen_apgk(word_list, file_name):
         my_note = genanki.Note(
             model = my_model,
             fields = [
-                word['word'] + ' [' + word['phonetic'] + ']',
-                answer_str
+                question_str,
+                '<p style="text-align: left;">' + answer_str + '</p>'
                 ]
             )
 
@@ -67,7 +85,8 @@ if __name__ == '__main__':
         'bnc': 'bnc_1',
         'frq': 'frq_1',
         'translation': 'translation_1',
-        'tag': 'tag_1'
+        'tag': 'tag_1',
+        'simple_phrase': ['phrase_1111']
         })
 
     word_list.append({
@@ -76,7 +95,8 @@ if __name__ == '__main__':
         'bnc': 'bnc_2',
         'frq': 'frq_2',
         'translation': 'translation_2',
-        'tag': 'tag_2'
+        'tag': 'tag_2',
+        'simple_phrase': ['phrase_222']
         })
 
     gen_apgk(word_list, 'output/output')

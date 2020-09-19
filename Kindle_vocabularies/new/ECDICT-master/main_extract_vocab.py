@@ -15,9 +15,11 @@ import convert_to_anki
 
 param:
     do_check: 是否检测 该词 已存在之前的单词数据库
+    db_name: 需要读取的数据库 文件
+    base_db_name: 基底 数据库 文件 ，查询单词是否已存在时 使用
 '''
-def get_voca(do_check):
-    conn = sqlite3.connect('kindle_db/vocab_2020_08_21.db')
+def get_voca(do_check, db_name, base_db_name):
+    conn = sqlite3.connect(db_name)
     print('Open db succ')
 
     # 已存储过的单词列表
@@ -33,11 +35,11 @@ def get_voca(do_check):
 
         # 判断该词是否已存在于之前的生词本数据库中
         if do_check:
-            if is_stored(w):
+            if is_stored(w, base_db_name):
                 repeted_list.append(w)
                 continue
             else:
-                insert_to_base(w)
+                insert_to_base(w, base_db_name)
 
         # print(str(i_cnt) + '.   ' + w)
 
@@ -51,11 +53,64 @@ def get_voca(do_check):
 
     return word_list
 
+
+'''
+获取某一单词的例句
+'''
+def get_simple_phrase(word, db_name, base_db_name):
+    phrase_list = []
+
+    word = 'zh:' + word
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+
+    sql_cmd = 'SELECT USAGE FROM LOOKUPS WHERE WORD_KEY = "' + word + '" COLLATE NOCASE'
+    rel = cursor.execute(sql_cmd).fetchall()
+
+    if rel:
+        for p in rel:
+            phrase_list.append(p[0])
+        # 插入 到 base_db
+        if db_name != base_db_name:
+            insert_phrase_to_base(word[3:], phrase_list, base_db_name)
+    else:
+        pass
+
+    conn.close()
+
+    return phrase_list
+
+
+'''
+将 例句 插入 基数据库 文件
+'''
+def insert_phrase_to_base(word, phrase_list, base_db_name):
+    conn = sqlite3.connect(base_db_name)
+    cursor = conn.cursor()
+
+    word = 'zh:' + word
+    id_next = len( cursor.execute('SELECT ID FROM LOOKUPS').fetchall() ) + 1
+
+    for phrase in phrase_list:
+        sql_cmd = 'INSERT INTO LOOKUPS (ID, WORD_KEY, USAGE) VALUES ("' + id_next + '", ' + '"' + word + '", ' + '"' + phrase + '")'
+        cursor.execute(sql_cmd)
+
+    conn.commit()
+    
+    print('插入 例句 完成')
+
+    conn.close()
+
+
+
 '''
 判断该词是否已存在于之前的生词本数据库中
+
+param:
+    base_db_name: 基底 数据库 文件
 '''
-def is_stored(word):
-    conn = sqlite3.connect('kindle_db/vocab_2020_08_21.db')
+def is_stored(word, base_db_name):
+    conn = sqlite3.connect(base_db_name)
     cursor = conn.cursor()
 
     # 匹配数据库已有记录时 不区分大小写
@@ -73,8 +128,8 @@ def is_stored(word):
 '''
 将该词插入基数据库中
 '''
-def insert_to_base(word):
-    conn = sqlite3.connect('kindle_db/vocab_2020_08_21.db')
+def insert_to_base(word, base_db_name):
+    conn = sqlite3.connect(base_db_name)
     cursor = conn.cursor()
 
     id_next = len( cursor.execute('SELECT ID FROM WORDS').fetchall() ) + 1
@@ -141,6 +196,17 @@ def final_2_file(w, w_stem, i_cnt):
 
 
 if __name__ == '__main__':
+    print('###########################')
+    print()
+    print('     请注意修改 new_db_name / base_db_name')
+    print()
+    print('###########################')
+
+    # 需要读取的数据库 文件
+    new_db_name = 'kindle_db/vocab_2020_08_21.db'
+    # 基底 数据库 文件，查询单词是否已存在
+    base_db_name = 'kindle_db/vocab_2020_08_21.db'
+
     do_check = int(input('需要检测单词是否存在基础词库？ (0/1) : '))
     if do_check:
         print('检查')
@@ -159,18 +225,6 @@ if __name__ == '__main__':
     else:
         print('不 输出 Anki')
 
-    '''
-    while 1:
-        w_word = input('word:')
-        rel = is_stored(w_word)
-        if rel:
-            print('存在')
-        else:
-            print('不存在')
-            insert_to_base(w_word)
-        print()
-    '''
-
     # 调用 ECDICT
     sd = stardict.StarDict('full_dic.db', False)
     # 查询词干 用 
@@ -181,7 +235,7 @@ if __name__ == '__main__':
     error_list = []
 
     # word_list = get_voca()[:5]
-    word_list = get_voca(do_check)
+    word_list = get_voca(do_check, new_db_name, base_db_name)
     print('len (word_list) = ' + str(len(word_list)))
 
     # 存储翻译后的结果的单词列表
@@ -207,6 +261,13 @@ if __name__ == '__main__':
             if if_gen_txt:
                 final_2_file(rel, '', i_cnt)
             if if_gen_anki:
+                # 查询例句
+                s_phrase = get_simple_phrase(word, new_db_name, base_db_name)
+
+                # print(s_phrase)
+
+                rel['simple_phrase'] = s_phrase
+
                 translated_word_list.append(rel)
             else:
                 pass
