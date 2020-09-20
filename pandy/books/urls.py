@@ -20,6 +20,8 @@ urlpatterns = [
     path('search/', views.book_search_navbar, name='book_search_navbar'),
     # 热搜榜
     path('resou/', views.book_resou, name='book_resou'),
+    # 热搜榜 json format
+    path('resou_json/', views.book_resou_json, name='book_resou_json'),
     # 八百里加急 立即催
     path('babaili_jiaji/', views.babaili_jiaji, name='babaili_jiaji'),
     path('invalid_url_report/', views.invalid_url_report, name='invalid_url_report'),

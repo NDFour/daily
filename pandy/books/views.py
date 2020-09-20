@@ -22,6 +22,10 @@ import csv
 # 搜索结果 按 名字长度 排序
 from django.db.models.functions import Length
 
+from django.http.response import JsonResponse
+
+
+
 # Create your views here.
 @cache_page(60 * 15)
 def book_index(request):
@@ -178,7 +182,42 @@ def book_resou(request):
             'book_list': book_list,
             'page_title': '近期热搜榜',
             }
-    return render(request, 'book/index.html', context)
+    return render(request, 'books/index.html', context)
+
+
+# 热搜榜，根据访问量返回阅读量最高的20部电影 json
+# @cache_page(60 * 15)
+def book_resou_json(request):
+    data_num = 20
+    book_list = Books.objects.order_by('-book_views')[:data_num]
+
+    books = []
+    for book in book_list:
+        b = {}
+        b['id'] = book.id
+        b['title'] = book.book_title
+        b['author'] = book.book_author
+        b['category'] = book.book_category
+        b['rating'] = book.book_rating
+        b['views'] = book.book_views
+
+        books.append(b)
+
+    rel = {'data_num': data_num, 'books': books}
+
+    return JsonResponse(rel)
+
+    # 热搜页 一页的 电影数量
+    '''
+    per_page = 20
+    paginator = Paginator(book_list, per_page)
+    book_list = paginator.page(1)
+    context = {
+            'book_list': book_list,
+            'page_title': '近期热搜榜',
+            }
+    return render(request, 'books/index.html', context)
+    '''
 
 
 # @cache_page(60 * 15)
@@ -192,7 +231,7 @@ def book_detail(request, book_id):
     is_anhao = 0
     try:
         anhao = request.GET['anhao'].strip()
-        if anhao == '0614':
+        if anhao == '0829':
             is_anhao = 1
     except Exception as e:
         # print('获取 暗号 失败')
