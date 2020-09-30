@@ -231,7 +231,7 @@ def book_detail(request, book_id):
     is_anhao = 0
     try:
         anhao = request.GET['anhao'].strip()
-        if anhao == '0829':
+        if anhao == '0929':
             is_anhao = 1
     except Exception as e:
         # print('获取 暗号 失败')
