@@ -25,6 +25,12 @@
   {% if show_downurl %}
   <!-- 网盘 -->
   <h3><strong>下载链接：</strong></h3>
+  <div class="visible-xs">
+    <br />
+    <span class="label label-success" style="font-size:16px;"><strong>重要：</strong>微信内不支持下载电子书文件，点击下载会<b><span style="font-size:24px;">乱码</span></b>，请在浏览器内打开网页即可下载</span>
+    <br />
+  </div>
+
   <div class="btn-group btn-group-justified" role="group">
     <a class="btn btn-primary" target="_blank" href={{ pan_url_1.url }}>{{ pan_url_1.name }}</a>
     <a class="btn btn-info" target="_blank" href={{ pan_url_2.url }}>{{ pan_url_2.name }}</a>
