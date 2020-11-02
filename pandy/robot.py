@@ -39,11 +39,11 @@ def hello(message):
         # 该回复为 图书 ID
         str_input = int(str_input)
 
-        rel_note = '【⚠️ 注意】\n\n如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》' + '\n\n'
-        rel_note += '= = = = = = = = = = = = = = = =\n'
+        rel_note = '\n\n= = = = = = = = = = = = = = = =\n\n'
+        rel_note += '⚠️ 如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》'
 
         # 根据 ID 搜索 详情
-        msg = rel_note + get_by_id(str_input)
+        msg = get_by_id(str_input) + rel_note
     except Exception as e:
         # 该回复为 书名
         # 若 将用户发送消息 转为 int 失败，则表示 用户发送的是 书名，而不是 图书 ID
