@@ -124,7 +124,7 @@ def get_by_id(id):
         for url in rel[0][2:5]:
             if url:
                 url_sp = url.split('##')
-                msg += str(url_sp[0]) + ' 格式:\n'
+                msg += str(url_sp[0]) + ' 下载:\n'
                 msg += str(url_sp[-1]) + '\n\n'
             else:
                 pass
