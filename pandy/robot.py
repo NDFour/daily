@@ -33,14 +33,14 @@ def hello(message):
     2020.11.2
         关闭网站，仅保留公众号搜书，并返回下载链接
     '''
-    str_input = message.strip()
+    str_input = message.content.strip()
     msg = ''
     try:
         # 该回复为 图书 ID
         str_input = int(str_input)
 
-        rel_note = '【⚠️ 注意】\n    如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》' + '\n\n'
-        rel_note += '= = = = = = = = = = = = = = = = = =\n'
+        rel_note = '【⚠️ 注意】\n\n如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》' + '\n\n'
+        rel_note += '= = = = = = = = = = = = = = = =\n'
 
         # 根据 ID 搜索 详情
         msg = rel_note + get_by_id(str_input)
@@ -129,9 +129,9 @@ def get_by_id(id):
                 pass
         # 提取码
         if (len(rel[0][5])):
-            msg += '<a>' + str(rel[0][5]) + '</a>\n\n'
+            msg += str(rel[0][5]) + '\n\n'
 
-        msg += '\n= = = = = = = = = = = = = = = = = =\n'
+        msg += '\n= = = = = = = = = = = = = = = =\n'
         msg += '微信内不支持下载电子书文件，否则会<a>乱码</a>，请复制下载链接到浏览器内下载。'
 
     except Exception as e:
