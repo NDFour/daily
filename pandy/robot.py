@@ -86,7 +86,7 @@ def get_rel(name):
             msg = '发送书名前编码获得下载链接（无需带括号）。\n\n'
             msg += '搜索 《' + name + '》 的结果:\n- - - - - - - - - - - - - - - - - - \n\n'
             for m in rel:
-                msg += '[ ' + str(m[0]) + ' ]' + m[1] + '\n'
+                msg += '[ ' + str(m[0]) + ' ] ' + str(m[1]).strip() + '\n\n'
             msg += '\n- - - - - - - - - - - - - - - - - - \n\n'
             msg += '⚠️ 名字可以不完整，但是一定不要有错别字哦 ~'
 
@@ -116,7 +116,7 @@ def get_by_id(id):
         cursor.execute(sql)
         rel = cursor.fetchall()
 
-        msg = 'ID: ' + str(rel[0][0]) + '\n'
+        msg = 'ID: ' + str(rel[0][0]) + '\n\n'
         msg += '书名： ' + str(rel[0][1]) + '\n\n'
         msg += '下载链接：\n'
         msg += '- - - - - - - - - - - - - - - - - - \n'
