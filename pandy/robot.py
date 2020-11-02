@@ -84,7 +84,7 @@ def get_rel(name):
 
         if len(rel):
             msg = '发送书名前编码获得下载链接（无需带括号）。\n\n'
-            msg += '搜索 《' + name + '》 的结果，\n\n- - - - - - - - - - - - - - - - - - \n\n'
+            msg += '搜索 《' + name + '》 的结果:\n- - - - - - - - - - - - - - - - - - \n\n'
             for m in rel:
                 msg += '[ ' + str(m[0]) + ' ]' + m[1] + '\n'
             msg += '\n- - - - - - - - - - - - - - - - - - \n\n'
@@ -138,7 +138,7 @@ def get_by_id(id):
     except Exception as e:
         # print(e)
         # traceback.print_exe()
-        msg = '你好，没有找到 ID 为 ' + str(id) + ' 的图书，请检查你的输入 ~\n\n'
+        msg = '\n\n你好，没有找到 ID 为 ' + str(id) + ' 的图书，请检查你的输入 ~\n\n'
         # msg += '⚠️ 如果果片名为纯数字，在发送书名的时候请加上书名号，如《1984》，其中 1984 为书名，否则会搜索不出结果'
     finally:
         # print('get_by_id finally 执行了')
