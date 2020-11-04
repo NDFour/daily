@@ -13,6 +13,10 @@ def subscribe(message):
 @robot.text
 def hello(message):
     # 常量
+    is_system_pause = 0
+    # 网页图书详情页 暗号
+    an_hao = '1104'
+
     # 管理员微信
     admin_wechat = 'ndfour001'
 
@@ -20,19 +24,21 @@ def hello(message):
     # str_msg = '公众号搜索功能暂时下线了，正在调整中。敬请期待😊\n\n添加微信:\n' + admin_wechat + '，加入读书群。'
     # return str_msg
     
-    '''
-    if message.content.strip() == '获取暗号':
-        return '0929'
-    rel_info_text = '📚你好，这个是自动回复\n\n[玫瑰]书籍名字可以不完整\n[凋谢]但绝不可以有错别字哦，会搜不到的 ！\n\n'
-    rel_info_a = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
-    return rel_info_text + rel_info_a
-    '''
+    if is_system_pause:
+        return reply_single(message)
+    else:
+        if message.content.strip() == '获取暗号':
+            return an_hao
+        rel_info_text = '📚你好，这个是自动回复\n\n[玫瑰]书籍名字可以不完整\n[凋谢]但绝不可以有错别字哦，会搜不到的 ！\n\n'
+        rel_info_a = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
+        return rel_info_text + rel_info_a
 
 
-    '''
-    2020.11.2
-        关闭网站，仅保留公众号搜书，并返回下载链接
-    '''
+'''
+2020.11.2
+关闭网站，仅保留公众号搜书，并返回下载链接
+'''
+def reply_single(message):
     str_input = message.content.strip()
     msg = ''
     try:

@@ -29,7 +29,7 @@ from django.http.response import JsonResponse
 # Create your views here.
 @cache_page(60 * 15)
 def book_index(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
     book_list = Books.objects.all().order_by('-id')
 
@@ -64,7 +64,7 @@ def book_index(request):
 
 @cache_page(60 * 15)
 def index_by_page(request, page_num):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     tmp = 1
@@ -108,7 +108,7 @@ def index_by_page(request, page_num):
 
 # 正常通过 navbar 中的 Form 搜索
 def book_search_navbar(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
 
@@ -222,7 +222,7 @@ def book_resou_json(request):
 
 # @cache_page(60 * 15)
 def book_detail(request, book_id):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     # 获取 form 提交来的 “暗号”
@@ -231,7 +231,7 @@ def book_detail(request, book_id):
     is_anhao = 0
     try:
         anhao = request.GET['anhao'].strip()
-        if anhao == '0929':
+        if anhao == '1104':
             is_anhao = 1
     except Exception as e:
         # print('获取 暗号 失败')
@@ -317,7 +317,7 @@ def book_detail(request, book_id):
 # 获取某一分类的所有图书 分页展示
 @cache_page(60 * 15)
 def book_category(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     # 尝试获取 book_category
