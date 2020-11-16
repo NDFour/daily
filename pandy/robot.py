@@ -7,13 +7,13 @@ robot.config['SESSION_STORAGE'] = False
 
 @robot.subscribe
 def subscribe(message):
-    return '看...又有一个有趣的灵魂关注了我们...👻\n\n----------\n\n谢谢关注！\n\n只要发送书籍📚的名字就可以了哦\n\n切记：可以名字不完整，但是一定不可以有错别字哦😯'
+    return '看...又有一个有趣的灵魂关注了我们...👻\n\n----------\n\n发送书籍📚的名字有惊喜哦😯'
 
 
 @robot.text
 def hello(message):
     # 常量
-    is_system_pause = 0
+    is_system_pause = 1
     # 网页图书详情页 暗号
     an_hao = '1104'
 
@@ -59,6 +59,19 @@ def reply_single(message):
         # print(msg)
         # print()
 
+    msg = format_rel_msg(msg)
+
+    return msg
+
+'''
+对返回的消息规格化，删除或替换某些字符
+'''
+def format_rel_msg(msg):
+    msg = msg.replace('/epub+mobi+azw3', '')
+    msg = msg.replace('epub+mobi+azw3', '')
+    msg = msg.replace('mobi+epub+azw3', '')
+    msg = msg.replace('mobi+epub', '')
+    msg = msg.replace('epub+mobi', '')
 
     return msg
 
@@ -70,7 +83,7 @@ def get_rel(name):
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xqksj', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql = "SELECT id, book_title FROM books_books WHERE book_title" + " LIKE '%" + name + "%' ORDER BY LENGTH(book_title) LIMIT 15"
+        sql = "SELECT id, book_title FROM books_books WHERE book_title" + " LIKE '%" + name + "%' ORDER BY LENGTH(book_title) LIMIT 30"
 
         # print(sql)
         cursor.execute(sql)
@@ -91,7 +104,7 @@ def get_rel(name):
 
         if len(rel):
             msg = '发送书名前编码获得下载链接（无需带括号）。\n\n'
-            msg += '搜索 《' + name + '》 的结果:\n- - - - - - - - - - - - - - - - - - \n\n'
+            msg += '搜索 《' + name + '》 的结果: '+ str( len(rel) ) + '条\n- - - - - - - - - - - - - - - - - - \n\n'
             for m in rel:
                 msg += '[ ' + str(m[0]) + ' ] ' + str(m[1]).strip() + '\n\n'
             msg += '\n- - - - - - - - - - - - - - - - - - \n\n'
