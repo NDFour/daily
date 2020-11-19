@@ -83,7 +83,7 @@ def get_rel(name):
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xqksj', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql = "SELECT id, book_title FROM books_books WHERE book_title" + " LIKE '%" + name + "%' ORDER BY LENGTH(book_title) LIMIT 30"
+        sql = "SELECT id, book_title FROM books_books WHERE book_title" + " LIKE '%" + name + "%' ORDER BY LENGTH(book_title) LIMIT 25"
 
         # print(sql)
         cursor.execute(sql)
