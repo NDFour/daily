@@ -67,13 +67,11 @@ def reply_single(message):
 对返回的消息规格化，删除或替换某些字符
 '''
 def format_rel_msg(msg):
-    '''
     msg = msg.replace('/epub+mobi+azw3', '')
     msg = msg.replace('epub+mobi+azw3', '')
     msg = msg.replace('mobi+epub+azw3', '')
     msg = msg.replace('mobi+epub', '')
     msg = msg.replace('epub+mobi', '')
-    '''
 
     msg = msg.replace('《', '')
     msg = msg.replace('》', '')
