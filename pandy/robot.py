@@ -67,11 +67,16 @@ def reply_single(message):
 对返回的消息规格化，删除或替换某些字符
 '''
 def format_rel_msg(msg):
+    '''
     msg = msg.replace('/epub+mobi+azw3', '')
     msg = msg.replace('epub+mobi+azw3', '')
     msg = msg.replace('mobi+epub+azw3', '')
     msg = msg.replace('mobi+epub', '')
     msg = msg.replace('epub+mobi', '')
+    '''
+
+    msg = msg.replace('《', '')
+    msg = msg.replace('》', '')
 
     return msg
 
@@ -83,7 +88,7 @@ def get_rel(name):
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xqksj', db='bdpan', charset='utf8')
         cursor = conn.cursor()
 
-        sql = "SELECT id, book_title FROM books_books WHERE book_title" + " LIKE '%" + name + "%' ORDER BY LENGTH(book_title) LIMIT 25"
+        sql = "SELECT id, book_title, book_author FROM books_books WHERE book_title" + " LIKE '%" + name + "%' ORDER BY LENGTH(book_title) LIMIT 25"
 
         # print(sql)
         cursor.execute(sql)
@@ -106,7 +111,11 @@ def get_rel(name):
             msg = '发送书名前编码获得下载链接（无需带括号）。\n\n'
             msg += '搜索 《' + name + '》 的结果: '+ str( len(rel) ) + '条\n- - - - - - - - - - - - - - - - - - \n\n'
             for m in rel:
-                msg += '[ ' + str(m[0]) + ' ] ' + str(m[1]).strip() + '\n\n'
+                author = str(m[2]).strip().replace('请参考图书详情','').replace('暂无','')
+                if author:
+                    msg += '[ ' + str(m[0]) + ' ] ' + str(m[1]).strip() + '-' + author + '\n\n'
+                else:
+                    msg += '[ ' + str(m[0]) + ' ] ' + str(m[1]).strip() + '\n\n'
             msg += '\n- - - - - - - - - - - - - - - - - - \n\n'
             msg += '⚠️ 名字可以不完整，但是一定不要有错别字哦 ~'
 
