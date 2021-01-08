@@ -9,7 +9,7 @@ import traceback
 
 
 robot_beautiful_lu = WeRoBot(token='beautiful_lu')
-robot.config['SESSION_STORAGE'] = False
+robot_beautiful_lu.config['SESSION_STORAGE'] = False
 
 
 # 显示帮助菜单
@@ -26,12 +26,12 @@ def show_help():
     return rel
 
 
-@robot.subscribe
+@robot_beautiful_lu.subscribe
 def subscribe(message):
     return '是卢大漂亮来了么？[奸笑][奸笑]'
 
 
-@robot.text
+@robot_beautiful_lu.text
 def hello(message):
     db_name = 'gaoqing_fm_2021_1_8.sqlite3'
 
