@@ -3,8 +3,6 @@
 <head>
 	<title>卢大漂亮和李小胖</title>
 	<meta charset="utf-8">
-	<!-- baidu -->
-	<meta name="baidu-site-verification" content="ZwkzHDqdLu" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% load staticfiles %}
@@ -37,18 +35,26 @@
 						<br />
 						<h3 class="text-left">剧情简介：</h3>
 						<br />
-						<p class="text-left">{{ content }}</p>
+						<span class="text-left">{{ content }}</span>
 
+						<br />
 						<br />
 						<h3 class="text-left">磁力链接：</h3>
 						<br />
-						<div class="text-left">
-							{% for magnet in magnet_list %}
-							<a href="{{ magnet.url }}" target="_blank"><button type="button" class="btn btn-info btn-xs">{{ magnet.size }}</button> {{ magnet.title }} <button type="button" class="btn btn-primary btn-xs">{{ magnet.definition }}</button> </a>
-							<br />
-							<br />
-							{% endfor %}
+
+						{% for magnet in magnet_list %}
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="panel-title"><a href="{{ magnet.url }}" target="_blank">{{ magnet.title }}</a></h4>
+							</div>
+
+							<div class="panel-body">
+								{{ magnet.url }}
+							</div>
+
+							<div class="panel-footer">{{ magnet.size }} - {{ magnet.definition }}</div>
 						</div>
+						{% endfor %}
 						{% else %}
 						<p class="lable label-danger" style="color: white">{{ msg }}</p>
 						{% endif %}

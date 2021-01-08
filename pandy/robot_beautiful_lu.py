@@ -53,18 +53,19 @@ def hello(message):
                 m_name = cmds[1].strip().replace('《', '').replace('》', '')
                 # msg = get_rel(m_name, db_name)
                 msg = '<a href="https://chenjin5.com/article/search/' + m_name + '">点我查看《' + m_name + '》的搜索结果</a>'
-            # 获得电影下载链接
-            '''
-            elif cmds[0] == 'get':
-                # 根据 ID 搜索 详情
-                msg = get_by_id(int(cmds[1].strip()), db_name)
-            '''
             # 添加体重记录
             elif cmds[0] == 'aw':
                 msg = '添加体重记录 （功能建设中。。。）'
 
             else:
                 msg = '快检查一下是不是命令用错啦！识别不鸟🐦 ～\n\n发送 help 查看命令用法'
+
+            # 获得电影下载链接
+            '''
+            elif cmds[0] == 'get':
+                # 根据 ID 搜索 详情
+                msg = get_by_id(int(cmds[1].strip()), db_name)
+            '''               
         except Exception as e:
             traceback.print_exc()
             msg = str(e)
