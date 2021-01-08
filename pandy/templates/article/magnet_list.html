@@ -1,0 +1,82 @@
+<html>
+
+<head>
+	<title>卢大漂亮和李小胖</title>
+	<meta charset="utf-8">
+	<!-- baidu -->
+	<meta name="baidu-site-verification" content="ZwkzHDqdLu" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load staticfiles %}
+	<!-- Bootstrap -->
+	<!-- <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+
+			<!-- 2/3 窗口 -->
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+
+				<div class="jumbotron">
+
+					<div align="center">
+
+						<h2>搜索 {{ movie_name }}</h2>
+						<p class="bg-primary">共 {{ len }} 条结果</p>
+						<br />
+
+						<div>
+							<div class="text-left">
+								<ul class="media-list">
+									{% for movie in movie_list %}
+									<hr />
+									<li class="media">
+										<div class="media-left">
+											<a href="{% url 'magnet_by_id' movie.id %}" target="_blank">
+												<img class="media-object" src="{{ movie.pic }}" alt="{{ movie.name }}" width="150px">
+											</a>
+										</div>
+										<div class="media-body">
+											<h4 class="media-heading"><a href="{% url 'magnet_by_id' movie.id %}" target="_blank">{{ movie.name }}</a></h4>
+											<br />
+											{{ movie.content }}
+										</div>
+									</li>
+
+									{% empty %}
+									<p class="lable label-danger" style="color: white">{{ msg }}</p>
+									{% endfor %}
+								</ul>
+							</div>
+
+						</div>
+
+					</div>
+					<!-- align="center"  End -->
+
+				</div> <!-- jumbotron -->
+
+			</div>
+
+			<!-- 1/3 窗口 -->
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+			</div>
+
+
+		</div> <!-- row -->
+	</div> <!-- container -->
+
+</body>
+
+</html
+
+
+
+
+
+

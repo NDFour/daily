@@ -18,7 +18,7 @@ def show_help():
     rel += '- - - - - - - - - - - - - - - - - -\n\n'
     rel += 'help —显示帮助菜单\n\n'
     rel += 'cx xxoo —查询名为 "xxoo" 的影片\n\n'
-    rel += 'get 1234 —获得 ID 为 1234 的影片的下载链接\n\n'
+    # rel += 'get 1234 —获得 ID 为 1234 的影片的下载链接\n\n'
 
     rel += 'aw 100.01 —添加体重记录 100.01(斤）\n\n'
     rel += 'cw —查询体重记录'
@@ -51,11 +51,14 @@ def hello(message):
             # 查询电影
             if cmds[0] == 'cx':
                 m_name = cmds[1].strip().replace('《', '').replace('》', '')
-                msg = get_rel(m_name, db_name)
+                # msg = get_rel(m_name, db_name)
+                msg = '<a href="https://chenjin5.com/article/search/' + m_name + '">点我查看《' + m_name + '》的搜索结果</a>'
             # 获得电影下载链接
+            '''
             elif cmds[0] == 'get':
                 # 根据 ID 搜索 详情
                 msg = get_by_id(int(cmds[1].strip()), db_name)
+            '''
             # 添加体重记录
             elif cmds[0] == 'aw':
                 msg = '添加体重记录 （功能建设中。。。）'

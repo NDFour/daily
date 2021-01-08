@@ -13,4 +13,6 @@ urlpatterns = [
     path('', views.index, name='article_index'),
     # path('pages/<str:page_num>/', views.index_by_page, name='book_index_by_page'),
     path('<int:article_id>/', views.article_detail, name='article_detail'),
+    path('film/<int:movie_id>/', views.magnet_by_id, name='magnet_by_id'),
+    path('search/<str:movie_name>/', views.search_magnet, name='search_magnet'),
 ]
