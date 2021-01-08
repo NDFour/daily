@@ -18,7 +18,10 @@ from django.urls import path,include
 
 # werobot
 from werobot.contrib.django import make_view
+# 古德毛宁李
 from robot import robot
+# 卢大漂亮和李小胖
+from robot_beautiful_lu import robot_beautiful_lu
 
 urlpatterns = [
     # path('', views.index, name='index'),
@@ -30,4 +33,5 @@ urlpatterns = [
     # path('onlineplay/', include('onlineplay.urls')),
     # path('spidermonitor/', include('spidermonitor.urls')),
     path('robot/', make_view(robot)),
+    path('robot_beautiful_lu/', make_view(robot_beautiful_lu)),
 ]
