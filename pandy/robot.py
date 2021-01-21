@@ -13,9 +13,9 @@ def subscribe(message):
 @robot.text
 def hello(message):
     # 常量
-    is_system_pause = 1
+    is_system_pause = 0
     # 网页图书详情页 暗号
-    an_hao = '1104'
+    an_hao = '0121'
 
     # 管理员微信
     admin_wechat = 'ndfour001'
