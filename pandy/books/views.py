@@ -220,7 +220,7 @@ def book_resou_json(request):
     '''
 
 
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def book_detail(request, book_id):
     # return render(request, 'index/system_pause.html', {})
 
@@ -238,6 +238,7 @@ def book_detail(request, book_id):
         pass
     # print('暗号：' + str(anhao))
  
+    context = {}
     # 用于提交验证码，以显示网盘链接
     if is_anhao:
         # 尝试获取 来源页 URL
@@ -249,22 +250,13 @@ def book_detail(request, book_id):
             pass
 
         book = get_object_or_404(Books, id  = book_id)
-
-        # 通知消息 列表
-        article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
-
-        resou_book_list = Books.objects.order_by('-book_views')[:20]
-
         # 提取 网盘链接 并构造字典列表 传入 template
         pan_url_list = get_pan_list(book)
-
         # 阅读量自增 1
         book.increase_views()
 
         context = {
                 'book': book,
-                'resou_book_list': resou_book_list,
-                'notifications': article_list,
                 'show_downurl': True,
                 'pan_url_1': pan_url_list[0],
                 'pan_url_2': pan_url_list[1],
@@ -272,8 +264,6 @@ def book_detail(request, book_id):
                 'url_name': 'book_detail',
                 'origin_full_url': origin_full_url,
                 }
-
-        return render(request, 'books/detail.html', context)
 
     # 未提交验证码，不显示网盘链接
     else:
@@ -286,32 +276,30 @@ def book_detail(request, book_id):
             pass
 
         book = get_object_or_404(Books, id  = book_id)
-
-        # 通知消息 列表
-        article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
-
-        resou_book_list = Books.objects.order_by('-book_views')[:20]
-
         # 提取 网盘链接 并构造字典列表 传入 template
         pan_url_list = get_pan_list(book)
-
         # 阅读量自增 1
         book.increase_views()
 
         context = {
                 'book': book,
-                'resou_book_list': resou_book_list,
-                'notifications': article_list,
                 'show_downurl': False,
                 'anhao_post_url': request.path,
-                # 'pan_url_1': pan_url_list[0],
-                # 'pan_url_2': pan_url_list[1],
-                # 'pan_url_3': pan_url_list[2],
                 'url_name': 'book_detail',
                 'origin_full_url': origin_full_url,
                 }
 
-        return render(request, 'books/detail.html', context)
+    # 通知消息 列表
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    resou_book_list = Books.objects.order_by('-book_views')[:15]
+    # 随机推荐
+    random_books = Books.objects.order_by('?')[:20]
+
+    context['notifications'] = article_list
+    context['resou_book_list'] = resou_book_list
+    context['random_books'] = random_books
+
+    return render(request, 'books/detail.html', context)
 
 
 # 获取某一分类的所有图书 分页展示

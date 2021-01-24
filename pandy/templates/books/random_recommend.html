@@ -1,0 +1,12 @@
+<!--  随机推荐 -->
+    <div class="visible-xs visible-sm visible-md visible-lg col-sm-13 col-md-13 col-lg-13">
+        <h4><span class="label label-success">随机推荐</span></h4>
+        <div class="list-group">
+            {% for book in random_books %}
+
+                    <span class="text-success"><a href="{% url 'book_detail' book.id %}" target="_blank">{{ book.book_title }}</a></span>
+
+            {% endfor %}
+        </div>
+    </div>
+<!-- 随机推荐 End -->
