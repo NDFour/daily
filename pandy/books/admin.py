@@ -6,7 +6,7 @@ from .models import Book_notify
 '''
 
 class BooksAdmin(admin.ModelAdmin):
-    list_display = ('id', 'book_title', 'book_author', 'book_category', 'book_rating', 'book_pub_date')
+    list_display = ('id', 'book_title', 'book_author', 'book_category', 'book_valid', 'book_rating', 'book_pub_date')
 
     # 后台点击后修改信息页展示的字段
     '''
