@@ -305,7 +305,7 @@ def book_detail(request, book_id):
 # 获取某一分类的所有图书 分页展示
 @cache_page(60 * 15)
 def book_category(request):
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
     # 尝试获取 book_category
@@ -325,8 +325,8 @@ def book_category(request):
 
         
     # 限制用户访问到的数据量
-    if int(page_num) > 20:
-        page_num = 20
+    # if int(page_num) > 20:
+    #     page_num = 20
 
     # book_list = Books.objects.filter(book_category__icontains = book_category)
     book_list = Books.objects.filter(book_category = book_category).order_by('-id')
