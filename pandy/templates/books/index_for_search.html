@@ -48,7 +48,7 @@
 			<!-- 搜索功能 -->
 			<form class="" action="{% url 'book_search_navbar' %}" method="get">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for..." name="book_name" required="required">
+					<input type="text" class="form-control" placeholder="输入书名..." name="book_name" required="required">
 					<span class="input-group-btn">
 						<button class="btn btn-danger" type="submit">搜索</button>
 					</span>
@@ -56,7 +56,17 @@
 			</form>
 			<!-- 搜索功能 End -->
 
-			<br />
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<!-- 随机推荐 -->
+					{% include 'books/random_recommend.html' %}
+				</div>
+			</div>
+
+
+
+
 
 			<!-- 推广信息 1 -->
 			<div align="center">
@@ -75,6 +85,8 @@
 			</div> -->
 			<!-- 推广信息 2 END -->
 
+
+
 		</div><!-- /.col-lg-6 -->
 		<!-- 中间 区域 END -->
 
@@ -89,10 +101,10 @@
 	</div><!-- /.row -->
 
 
-    <!-- 网站访问量统计代码 -->
-    <p align="center">
-<script type="text/javascript" src="https://s19.cnzz.com/z_stat.php?id=1274275806&web_id=1274275806"></script>
-    </p>
+	<!-- 网站访问量统计代码 -->
+	<p align="center">
+		<script type="text/javascript" src="https://s19.cnzz.com/z_stat.php?id=1274275806&web_id=1274275806"></script>
+	</p>
 
 
 

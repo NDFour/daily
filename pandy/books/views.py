@@ -27,7 +27,7 @@ from django.http.response import JsonResponse
 
 
 # Create your views here.
-# @cache_page(60 * 15)
+@cache_page(60 * 1)
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 
@@ -50,10 +50,14 @@ def book_index(request):
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
+    # 随机推荐
+    random_books = Books.objects.order_by('?')[:6]
+
     context = {
             'book_list': book_list,
             'resou_book_list': resou_book_list,
             'notifications': article_list,
+            'random_books': random_books,
             'page_title': '',
             'url_name': 'book_index', # 传递给模板，用以区别显示 页码 链接
             'is_search_index': True, # 是否跳转到搜索主界面
@@ -105,6 +109,7 @@ def index_by_page(request, page_num):
             }
 
     return render(request, 'books/index.html', context)
+
 
 # 正常通过 navbar 中的 Form 搜索
 def book_search_navbar(request):
