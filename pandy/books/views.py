@@ -238,10 +238,19 @@ def book_detail(request, book_id):
         anhao = request.GET['anhao'].strip()
         if anhao == '0121':
             is_anhao = 1
+            # 设置 session
+            request.session['is_anhao'] = True
+            # 60 分钟后失效
+            request.session.set_expiry(3600)
     except Exception as e:
         # print('获取 暗号 失败')
         pass
     # print('暗号：' + str(anhao))
+
+    # 如果没有提交暗号，查看 session 里是否已保存暗号记录
+    if request.session.get('is_anhao', False):
+        # print('-> 之前输入过暗号')
+        is_anhao = 1
  
     context = {}
     # 用于提交验证码，以显示网盘链接
