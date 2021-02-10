@@ -31,7 +31,7 @@ from django.http.response import JsonResponse
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 
-    book_list = Books.objects.all().order_by('-id')
+    book_list = Books.objects.all().filter( book_valid__gt = 0 ).order_by('-id')
 
     # 一页的数据数据
     per_page = 24
@@ -48,10 +48,10 @@ def book_index(request):
     # 通知消息 列表
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
-    resou_book_list = Books.objects.order_by('-book_views')[:10]
+    resou_book_list = Books.objects.filter( book_valid__gt = 0 ).order_by('-book_views')[:10]
 
     # 随机推荐
-    random_books = Books.objects.order_by('?')[:6]
+    random_books = Books.objects.filter(book_valid__gt = 0 ).order_by('?')[:6]
 
     context = {
             'book_list': book_list,
@@ -84,7 +84,7 @@ def index_by_page(request, page_num):
 
     # 一页的数据数目
     per_page = 24
-    book_list = Books.objects.all().order_by('-id')
+    book_list = Books.objects.filter(book_valid__gt = 0).order_by('-id')
     # book_list = ''
     # 生成 paginator 对象
     paginator = Paginator( book_list, per_page )
@@ -98,7 +98,7 @@ def index_by_page(request, page_num):
     # 通知消息 列表
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
-    resou_book_list = Books.objects.order_by('-book_views')[:20]
+    resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
 
     context = {
             'book_list': book_list,
@@ -144,8 +144,7 @@ def book_search_navbar(request):
         page_num = 20
 
 
-    # book_list = Books.objects.filter(book_title__icontains=book_name).order_by('-id')
-    book_list = Books.objects.filter(book_title__icontains=book_name).order_by(Length("book_title").asc())
+    book_list = Books.objects.filter(book_title__icontains=book_name).filter(book_valid__gt = 0).order_by(Length("book_title").asc())
 
     per_page = 24
     # 生成 paginator 对象
@@ -160,7 +159,7 @@ def book_search_navbar(request):
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
-    resou_book_list = Books.objects.order_by('-book_views')[:20]
+    resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
 
     context = {
             'book_list': book_list,
@@ -178,7 +177,7 @@ def book_search_navbar(request):
 @cache_page(60 * 15)
 def book_resou(request):
     # book_list = book.objects.order_by('-book_views')[:20]
-    book_list = Books.objects.order_by('-book_views')[:20]
+    book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
     # 热搜页 一页的 电影数量
     per_page = 20
     paginator = Paginator(book_list, per_page)
@@ -194,7 +193,7 @@ def book_resou(request):
 # @cache_page(60 * 15)
 def book_resou_json(request):
     data_num = 20
-    book_list = Books.objects.order_by('-book_views')[:data_num]
+    book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:data_num]
 
     books = []
     for book in book_list:
@@ -305,9 +304,9 @@ def book_detail(request, book_id):
 
     # 通知消息 列表
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
-    resou_book_list = Books.objects.order_by('-book_views')[:15]
+    resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:15]
     # 随机推荐
-    random_books = Books.objects.order_by('?')[:20]
+    random_books = Books.objects.filter(book_valid__gt = 0).order_by('?')[:20]
 
     context['notifications'] = article_list
     context['resou_book_list'] = resou_book_list
@@ -343,7 +342,7 @@ def book_category(request):
     #     page_num = 20
 
     # book_list = Books.objects.filter(book_category__icontains = book_category)
-    book_list = Books.objects.filter(book_category = book_category).order_by('-id')
+    book_list = Books.objects.filter(book_category = book_category).filter(book_valid__gt = 0).order_by('-id')
 
     per_page = 24
     # 生成 paginator 对象
@@ -358,7 +357,7 @@ def book_category(request):
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
-    resou_book_list = Books.objects.order_by('-book_views')[:10]
+    resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:10]
 
     context = {
             'book_list': book_list,
@@ -390,7 +389,7 @@ def invalid_url_report(request):
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
-    resou_book_list = Books.objects.order_by('-book_views')[:10]
+    resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:10]
 
     context = {
         # 'book_id': book_id,
@@ -469,7 +468,7 @@ def babaili_jiaji(request):
     article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
 
     # 获取图书热搜榜
-    resou_book_list = Books.objects.order_by('-book_views')[:10]
+    resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:10]
 
     context = {
         'book_name': book_name,
