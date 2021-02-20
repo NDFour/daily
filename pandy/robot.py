@@ -15,7 +15,7 @@ def hello(message):
     # 常量
     is_system_pause = 0
     # 网页图书详情页 暗号
-    an_hao = '0121'
+    an_hao = '本期暗号：0121\n\n把暗号输入到网页上的输入框提交即可 😁'
 
     # 管理员微信
     admin_wechat = 'ndfour001'
@@ -31,7 +31,7 @@ def hello(message):
             return an_hao
         rel_info_text = '📚你好，这个是自动回复\n\n[玫瑰]书籍名字可以不完整\n[凋谢]但绝不可以有错别字哦，会搜不到的 ！\n\n'
         rel_info_a = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
-        rel_an_hao = '\n\n==================\n\n本期暗号: ' + an_hao
+        rel_an_hao = '\n\n==================\n\n' + an_hao
         return rel_info_text + rel_info_a + rel_an_hao
 
 
