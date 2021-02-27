@@ -63,6 +63,9 @@
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
         		<!-- 网站通知 -->
     	        {#% include 'books/notification.html' %#}
+                
+                <!-- k2every 广告 -->
+                {% include 'index/k2every_ad.html' %}
 
                 <!-- 微信公众号吸粉广告 -->
                 {#% include 'index/wechat_ad.html' %#}
@@ -76,6 +79,10 @@
 
                 <!-- 赞赏支持 -->
                 {#% include 'index/red_pocket.html' %#}
+
+                <!-- 随机推荐 -->
+                {% include 'books/random_recommend.html' %}
+
             </div>
 
         </div>

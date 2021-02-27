@@ -64,14 +64,40 @@
 				</div>
 			</div>
 
+			<!-- 网站通知 -->
+			{#% include 'books/notification.html' %#}				
+
+			<!-- 网站通知 -->
+			<div class="list-group">
+				{% if notifications %}
+
+				{% for n in notifications %}
+
+				{% if n.prior > 1000 %}
+				<li class="list-group-item"><a style="color:#FF7F50;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
+				{% else %}
+				<li class="list-group-item"><a style="color: black;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
+				{% endif %}
+
+				{% endfor %}
+
+				{% else %}
+
+				暂无消息
+
+				{% endif %}
+			</div>
+			<!-- 网站通知 -->
 
 
 
-
+			<br />
 			<!-- 推广信息 1 -->
+			<!--
 			<div align="center">
 				<p style="font-size: 1.5rem;"><strong>微信：ndfour001 &nbsp | &nbsp 公众号：古德猫宁李 (chenjinshu5)</strong></p>
 			</div>
+		-->
 			<!-- 推广信息 1 END -->
 
 			<!-- 推广信息 2 -->
@@ -94,20 +120,23 @@
 
 		<!-- 右侧 区域 -->
 		<div class="col-xs-1 col-sm-3 col-md-3 col-lg-3">
-			
+
 		</div>
 		<!-- 右侧 区域 END -->
 
+
 	</div><!-- /.row -->
+
+
+	<div align="center">
+		{% include 'index/footer.html' %}
+	</div>
 
 
 	<!-- 网站访问量统计代码 -->
 	<p align="center">
 		<script type="text/javascript" src="https://s19.cnzz.com/z_stat.php?id=1274275806&web_id=1274275806"></script>
 	</p>
-
-
-
 
 </body>
 

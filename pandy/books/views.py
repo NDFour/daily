@@ -27,7 +27,7 @@ from django.http.response import JsonResponse
 
 
 # Create your views here.
-@cache_page(60 * 1)
+# @cache_page(60 * 1)
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 
@@ -46,7 +46,7 @@ def book_index(request):
         book_list = []
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')[:5]
 
     resou_book_list = Books.objects.filter( book_valid__gt = 0 ).order_by('-book_views')[:10]
 

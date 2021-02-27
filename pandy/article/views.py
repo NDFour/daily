@@ -14,10 +14,10 @@ import traceback
 
 # Create your views here.
 
-@cache_page(60 * 2)
+# @cache_page(60 * 2)
 def index(request):
 
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
 
 
 
@@ -27,11 +27,15 @@ def index(request):
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
     context = {
-            # 'article_list': article_list,
-            'article_list': '',
+            'article_list': article_list,
             'resou_book_list': resou_book_list,
             'notifications': article_list,
             }
+
+
+    # 随机推荐
+    random_books = Books.objects.filter(book_valid__gt = 0).order_by('?')[:20]
+    context['random_books'] = random_books
 
     return render(request, 'article/index.html', context)
 
@@ -39,7 +43,7 @@ def index(request):
 # @cache_page(60 * 2)
 def article_detail(request, article_id):
 
-    return render(request, 'index/system_pause.html', {})
+    # return render(request, 'index/system_pause.html', {})
     
 
 
@@ -69,6 +73,11 @@ def article_detail(request, article_id):
             'resou_book_list': resou_book_list,
             'notifications': article_list,
             }
+
+    # 随机推荐
+    random_books = Books.objects.filter(book_valid__gt = 0).order_by('?')[:20]
+    context['random_books'] = random_books
+
 
     return render(request, 'article/detail.html', context)
 
