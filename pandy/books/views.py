@@ -27,7 +27,7 @@ from django.http.response import JsonResponse
 
 
 # Create your views here.
-# @cache_page(60 * 1)
+@cache_page(60 * 1)
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 

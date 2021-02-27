@@ -14,7 +14,7 @@ import traceback
 
 # Create your views here.
 
-# @cache_page(60 * 2)
+@cache_page(60 * 2)
 def index(request):
 
     # return render(request, 'index/system_pause.html', {})
@@ -40,7 +40,7 @@ def index(request):
     return render(request, 'article/index.html', context)
 
 
-# @cache_page(60 * 2)
+@cache_page(60 * 2)
 def article_detail(request, article_id):
 
     # return render(request, 'index/system_pause.html', {})
@@ -68,8 +68,7 @@ def article_detail(request, article_id):
         pass
 
     context = {
-            # 'article': article,
-            'article': '',
+            'article': article,
             'resou_book_list': resou_book_list,
             'notifications': article_list,
             }
