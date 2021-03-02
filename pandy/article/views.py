@@ -21,7 +21,7 @@ def index(request):
 
 
 
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior')
     # article_list = Article.objects.filter( display = True ).order_by('-article_modefy_date')
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
@@ -29,7 +29,7 @@ def index(request):
     context = {
             'article_list': article_list,
             'resou_book_list': resou_book_list,
-            'notifications': article_list,
+            'notifications': article_list[:6],
             }
 
 
