@@ -21,7 +21,7 @@ def index(request):
 
 
 
-    article_list = Article.objects.filter( display = True ).order_by('-prior')
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')
     # article_list = Article.objects.filter( display = True ).order_by('-article_modefy_date')
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
