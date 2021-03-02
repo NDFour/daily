@@ -27,7 +27,7 @@ from django.http.response import JsonResponse
 
 
 # Create your views here.
-# @cache_page(60 * 1)
+@cache_page(60 * 1)
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 
@@ -46,7 +46,7 @@ def book_index(request):
         book_list = []
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:5]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:5]
 
     resou_book_list = Books.objects.filter( book_valid__gt = 0 ).order_by('-book_views')[:10]
 
@@ -66,7 +66,7 @@ def book_index(request):
     # return render(request, 'books/index.html', context)
 
 
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def index_by_page(request, page_num):
     # return render(request, 'index/system_pause.html', {})
 
@@ -96,7 +96,7 @@ def index_by_page(request, page_num):
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
 
     resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
 
@@ -156,7 +156,7 @@ def book_search_navbar(request):
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
@@ -174,7 +174,7 @@ def book_search_navbar(request):
 
 
 # 热搜榜，根据访问量返回阅读量最高的20部电影
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def book_resou(request):
     # book_list = book.objects.order_by('-book_views')[:20]
     book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
@@ -190,7 +190,7 @@ def book_resou(request):
 
 
 # 热搜榜，根据访问量返回阅读量最高的20部电影 json
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def book_resou_json(request):
     data_num = 20
     book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:data_num]
@@ -224,7 +224,7 @@ def book_resou_json(request):
     '''
 
 
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def book_detail(request, book_id):
     # return render(request, 'index/system_pause.html', {})
 
@@ -303,7 +303,7 @@ def book_detail(request, book_id):
                 }
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
     resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:15]
     # 随机推荐
     random_books = Books.objects.filter(book_valid__gt = 0).order_by('?')[:20]
@@ -316,7 +316,7 @@ def book_detail(request, book_id):
 
 
 # 获取某一分类的所有图书 分页展示
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def book_category(request):
     # return render(request, 'index/system_pause.html', {})
 
@@ -354,7 +354,7 @@ def book_category(request):
         book_list = paginator.page(paginator.num_pages) # 如果用户输入的页数不在生成的范围内，显示最后一页
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:10]
@@ -386,7 +386,7 @@ def invalid_url_report(request):
     '''
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:10]
@@ -465,7 +465,7 @@ def babaili_jiaji(request):
             pass
 
     # 通知消息 列表
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
 
     # 获取图书热搜榜
     resou_book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:10]

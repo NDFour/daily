@@ -14,7 +14,7 @@ import traceback
 
 # Create your views here.
 
-# @cache_page(60 * 2)
+@cache_page(60 * 2)
 def index(request):
 
     # return render(request, 'index/system_pause.html', {})
@@ -40,7 +40,7 @@ def index(request):
     return render(request, 'article/index.html', context)
 
 
-# @cache_page(60 * 2)
+@cache_page(60 * 2)
 def article_detail(request, article_id):
 
     # return render(request, 'index/system_pause.html', {})
@@ -49,7 +49,7 @@ def article_detail(request, article_id):
 
     article = get_object_or_404(Article, id  = article_id)
     
-    article_list = Article.objects.filter( display = True ).order_by('-prior')[:6]
+    article_list = Article.objects.filter( display = True ).order_by('-prior', '-article_modefy_date')[:6]
 
     resou_book_list = Books.objects.order_by('-book_views')[:10]
 
