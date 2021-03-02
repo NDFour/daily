@@ -6,26 +6,28 @@
       <h4 class="panel-title"><a href="{% url 'article_index' %}">通知中心：</a></h4>
     </div>
     <!--<div class="panel-body">-->
-        <div class="list-group">
-      {% if notifications %}
+      <div class="list-group">
+        {% if notifications %}
 
-      {% for n in notifications %}
+        {% for n in notifications %}
 
-      {% if n.prior > 1000 %}
-      <li class="list-group-item"><a style="color:#FF7F50;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
-      {% else %}
-      <li class="list-group-item"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
-      {% endif %}
+        {% if n.prior > 1000 %}
+        <li class="list-group-item"><a style="color:#FF7F50;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
+        {% else %}
+        <li class="list-group-item"><a href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
+        {% endif %}
 
-      {% endfor %}
+        {% endfor %}
 
-      {% else %}
+        <li class="list-group-item"><a href="{% url 'article_index' %}" target="_blank"><b>> 查看更多文章...</b></a></li>
 
-      暂无消息
+        {% else %}
 
-      {% endif %}
-        </div>
-    <!--</div> panel-body -->
+        暂无消息
+
+        {% endif %}
+      </div>
+      <!--</div> panel-body -->
+    </div>
+
   </div>
-
-</div>

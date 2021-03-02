@@ -48,13 +48,15 @@
 			<!-- 搜索功能 -->
 			<form class="" action="{% url 'book_search_navbar' %}" method="get">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="输入书名..." name="book_name" required="required">
+					<input type="text" class="form-control input-lg" placeholder="输入书名..." name="book_name" required="required">
 					<span class="input-group-btn">
-						<button class="btn btn-danger" type="submit">搜索</button>
+						<button class="btn btn-danger btn-lg" type="submit">搜索</button>
 					</span>
 				</div><!-- /input-group -->
 			</form>
 			<!-- 搜索功能 End -->
+
+			<br />
 
 
 			<div class="row">
@@ -81,9 +83,11 @@
 
 				{% endfor %}
 
+				<li class="list-group-item"><a href="{% url 'article_index' %}" target="_blank">> 查看更多文章...</a></li>
+
 				{% else %}
 
-				暂无消息
+				暂无文章
 
 				{% endif %}
 			</div>

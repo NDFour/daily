@@ -27,7 +27,7 @@ from django.http.response import JsonResponse
 
 
 # Create your views here.
-@cache_page(60 * 1)
+# @cache_page(60 * 1)
 def book_index(request):
     # return render(request, 'index/system_pause.html', {})
 
@@ -66,7 +66,7 @@ def book_index(request):
     # return render(request, 'books/index.html', context)
 
 
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def index_by_page(request, page_num):
     # return render(request, 'index/system_pause.html', {})
 
@@ -174,7 +174,7 @@ def book_search_navbar(request):
 
 
 # 热搜榜，根据访问量返回阅读量最高的20部电影
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_resou(request):
     # book_list = book.objects.order_by('-book_views')[:20]
     book_list = Books.objects.filter(book_valid__gt = 0).order_by('-book_views')[:20]
@@ -224,7 +224,7 @@ def book_resou_json(request):
     '''
 
 
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_detail(request, book_id):
     # return render(request, 'index/system_pause.html', {})
 
@@ -316,7 +316,7 @@ def book_detail(request, book_id):
 
 
 # 获取某一分类的所有图书 分页展示
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def book_category(request):
     # return render(request, 'index/system_pause.html', {})
 
