@@ -224,7 +224,6 @@ def book_resou_json(request):
     '''
 
 
-# @cache_page(60 * 15)
 def book_detail(request, book_id):
     # return render(request, 'index/system_pause.html', {})
 
