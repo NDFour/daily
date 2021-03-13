@@ -77,7 +77,7 @@
 				{% for n in notifications %}
 
 				{% if n.prior > 1000 %}
-				<li class="list-group-item"><a style="color:#E77471;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
+				<li class="list-group-item"><a style="color:#E77471;" href="{% url 'article_detail' n.id %}" target="_blank"><b>{{ n.title }}</b></a></li>
 				{% else %}
 				<li class="list-group-item"><a style="color: black;" href="{% url 'article_detail' n.id %}" target="_blank">{{ n.title }}</a></li>
 				{% endif %}
