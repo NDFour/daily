@@ -234,7 +234,7 @@ def book_detail(request, book_id):
     is_anhao = 0
     try:
         anhao = request.GET['anhao'].strip()
-        if anhao == '0226':
+        if anhao == '7130':
             is_anhao = 1
             # 设置 session
             request.session['is_anhao'] = True

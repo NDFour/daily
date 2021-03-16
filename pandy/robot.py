@@ -2,20 +2,51 @@ from werobot import WeRoBot
 import pymysql
 import traceback
 
+import re
+import time
+
 robot=WeRoBot(token='wxweapilynn')
-robot.config['SESSION_STORAGE'] = False
+# robot.config['SESSION_STORAGE'] = False
 
 @robot.subscribe
-def subscribe(message):
-    return '看...又有一个有趣的灵魂关注了我们...👻\n\n----------\n\n发送书籍📚的名字有惊喜哦😯'
+def subscribe(message, session):
+    return ('看...又有一个有趣的灵魂关注了我们...👻\n\n注意：\n[%s] 取关后再次关注将无法获取暗号\n如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+
+
+@robot.unsubscribe
+def unsubscribe(message, session):
+    tmp_cnt = session.get('unsubscribe_cnt', 0) + 1
+    session['unsubscribe_cnt'] = tmp_cnt
+    # return ('取关次数 %s' %(tmp_cnt) )
 
 
 @robot.text
-def hello(message):
+def hello(message, session):
     # 常量
     is_system_pause = 0
+
+    # 重置用户取关次数
+    if re.compile(r"^reset \d{10,}$").match(message.content.strip()):
+        user_time = int( message.content.split(' ')[1] )
+        now_time = int(time.time())
+        # 10 分钟内有效
+        cmp_rel = now_time - (user_time - 5432112345)
+        if (cmp_rel > 0) and (cmp_rel < 600):
+            session['unsubscribe_cnt'] = 0
+            return '重置用户取关次数成功！'
+        else:
+            try:
+                # debug_msg = ( "%s = %s - %s - %s" %(str(cmp_rel), str(user_time), '5432112345', str(now_time) ) )
+                return ('超时，请在获取激活码后 10分钟之内完成激活操作。\n')
+            except Exception as e:
+                return str(e)
+    
     # 网页图书详情页 暗号
-    an_hao = '本期暗号：0226\n\n把暗号输入到网页上的输入框提交即可 😁'
+    an_hao = ''
+    if session.get('unsubscribe_cnt', 0) > 0:
+        an_hao = ('[%s] 取关后再次关注将无法获取暗号，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+    else:
+        an_hao = '本期暗号：7130\n\n把暗号输入到网页上的输入框提交即可 😁'
 
     # 管理员微信
     admin_wechat = 'ndfour001'
@@ -29,10 +60,13 @@ def hello(message):
     else:
         if message.content.strip() == '获取暗号':
             return an_hao
-        rel_info_text = '📚你好，这个是自动回复\n\n[玫瑰]书籍名字可以不完整\n[凋谢]但绝不可以有错别字哦，会搜不到的 ！\n\n'
-        rel_info_a = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
-        rel_an_hao = '\n\n==================\n\n' + an_hao
-        return rel_info_text + rel_info_a + rel_an_hao
+        elif message.content == 'gettime':
+            return 'reset ' + str( int(time.time()) + 5432112345)
+        else:
+            rel_info_text = '📚你好，这个是自动回复\n\n[玫瑰]书籍名字可以不完整\n[凋谢]但绝不可以有错别字哦，会搜不到的 ！\n\n'
+            rel_info_a = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
+            rel_an_hao = '\n\n==================\n\n' + an_hao
+            return rel_info_text + rel_info_a + rel_an_hao
 
 
 '''
