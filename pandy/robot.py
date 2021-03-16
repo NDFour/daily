@@ -10,7 +10,7 @@ robot=WeRoBot(token='wxweapilynn')
 
 @robot.subscribe
 def subscribe(message, session):
-    return ('看...又有一个有趣的灵魂关注了我们...👻\n\n注意：\n[%s] 取关后再次关注将无法获取暗号\n如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+    return ('看...又有一个有趣的灵魂关注了我们...👻\n\n⚠️ 注意：\n[%s] 取关后再次关注将无法获取暗号\n如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
 
 
 @robot.unsubscribe
@@ -44,7 +44,7 @@ def hello(message, session):
     # 网页图书详情页 暗号
     an_hao = ''
     if session.get('unsubscribe_cnt', 0) > 0:
-        an_hao = ('[%s] 取关后再次关注将无法获取暗号，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+        an_hao = ('[%s]⚠️  取关后再次关注将无法获取暗号，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
     else:
         an_hao = '本期暗号：7130\n\n把暗号输入到网页上的输入框提交即可 😁'
 
