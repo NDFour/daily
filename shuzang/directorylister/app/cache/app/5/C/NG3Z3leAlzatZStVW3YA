@@ -1,0 +1,59 @@
+0
+markdown-5f0fce9cfb3ce3251f6ecb9404f743b5e762fa18
+s:4305:"<p align="center">
+    <img src="directory-lister.svg" alt="Directory Lister" width="66%"></p>
+<p align="center">
+    <a href="https://github.com/DirectoryLister/DirectoryLister/discussions"><img src="https://img.shields.io/badge/Join_the-Community-7b16ff.svg?style=for-the-badge" alt="Join our Community"></a>
+    <a href="https://github.com/users/PHLAK/sponsorship"><img src="https://img.shields.io/badge/Become_a-Sponsor-cc4195.svg?style=for-the-badge" alt="Become a Sponsor"></a>
+    <a href="https://paypal.me/ChrisKankiewicz"><img src="https://img.shields.io/badge/Make_a-Donation-006bb6.svg?style=for-the-badge" alt="One-time Donation"></a>
+    <br><a href="https://github.com/DirectoryLister/DirectoryLister/blob/master/LICENSE"><img src="https://img.shields.io/github/license/DirectoryLister/DirectoryLister?style=flat-square" alt="License"></a>
+    <a href="https://travis-ci.com/DirectoryLister/DirectoryLister"><img src="https://img.shields.io/travis/com/DirectoryLister/DirectoryLister/master?style=flat-square" alt="Build Status"></a>
+    <a href="https://styleci.io/repos/1375774"><img src="https://styleci.io/repos/1375774/shield?branch=master" alt="StyleCI"></a>
+</p>
+<hr />
+<p>Directory Lister is the easiest way to expose the contents of any web-accessible
+folder for browsing and sharing. With a zero configuration, drag-and-drop
+installation you'll be up and running in less than a minute.</p>
+<p>Directory Lister is created and maintained by
+<a href="https://www.chriskankiewicz.com">Chris Kankiewicz</a>
+(<a href="https://twitter.com/PHLAK">@PHLAK</a>) with help from
+<a href="https://github.com/DirectoryLister/DirectoryLister/graphs/contributors">community contributions</a>.</p>
+<h2>Features</h2>
+<ul>
+<li><strong>Simple installation</strong> allows you to be up and running in less than a minute.</li>
+<li><strong>Light and dark themes</strong> to suit your professional needs or personal style.</li>
+<li><strong>Custom sort ordering</strong> gives you control of the ordering of your files/folders.</li>
+<li><strong>File search</strong> helps you locate the files you need quickly and efficiently.</li>
+<li><strong>File hashes</strong> instill confidence when downloading files through verification.</li>
+<li><strong>Readme rendering</strong> allows exposing the contents of READMEs directly on the page.</li>
+<li><strong>Zip downloads</strong> for fetching an entire directory of files in a single action.</li>
+<li><strong>Multi-lingual support</strong> brings Directory Lister to the language of your choice.</li>
+</ul>
+<h2>Requirements</h2>
+<ul>
+<li>Directory Lister requires <a href="https://www.php.net/">PHP</a> &gt;= 7.2
+<ul>
+<li>The <a href="https://www.php.net/manual/en/book.zip.php">Zip</a> extension is required for zip downloads</li>
+<li>The <a href="https://www.php.net/en/dom">DOM</a> and <a href="https://www.php.net/manual/en/book.fileinfo.php">Fileinfo</a> extensions are required for README rendering</li>
+</ul></li>
+</ul>
+<h2>Installation</h2>
+<ol>
+<li><a href="https://www.directorylister.com">Download Directory Lister</a></li>
+<li>Extract the zip/tar archive</li>
+<li>Copy extracted files/folders to your web server</li>
+</ol>
+<h2>Configuration</h2>
+<ol>
+<li>Copy <code>.env.example</code> to <code>.env</code></li>
+<li>Edit the configuration values in <code>.env</code></li>
+</ol>
+<p>See the <a href="https://docs.directorylister.com/configuration">Configuration Documentation</a> for more information.</p>
+<h2>Changelog</h2>
+<p>A list of changes can be found on the <a href="https://github.com/DirectoryLister/DirectoryLister/releases">GitHub Releases</a> page.</p>
+<h2>Troubleshooting</h2>
+<p>See the <a href="https://docs.directorylister.com/help-and-support">Help &amp; Support</a> section of the documentation for troubleshooting instructions.</p>
+<p>For general help and support join our <a href="https://github.com/DirectoryLister/DirectoryLister/discussions">GitHub Discussion</a> or reach out on <a href="https://twitter.com/DirectoryLister">Twitter</a>.</p>
+<p>Please report bugs to the <a href="https://github.com/DirectoryLister/DirectoryLister/issues">GitHub Issue Tracker</a>.</p>
+<h2>Copyright</h2>
+<p>This project is licensed under the <a href="https://github.com/DirectoryLister/DirectoryLister/blob/master/LICENSE">MIT License</a>.</p>";
