@@ -19,7 +19,7 @@ return [
      *
      * Default value: 0 (indefinitely)
      */
-    'cache_lifetime' => DI\env('CACHE_LIFETIME', 0),
+    'cache_lifetime' => DI\env('CACHE_LIFETIME', 3600),
 
     /**
      * Path to the view cache directory. Set to 'false' to disable
