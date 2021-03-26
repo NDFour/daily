@@ -28,7 +28,7 @@ SECRET_KEY = '#!kta!9e0)24d@9#<*=ra$r!0k0+p8@w+a%7g1bbof0+ad@4_('
 
 # 自由选择需要开启的功能
 # 是否开始[在线工具]应用
-TOOL_FLAG = True
+TOOL_FLAG = False
 # 是否开启[API]应用
 API_FLAG = False
 # DEBUG模式是否开始的选择
