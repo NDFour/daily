@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block head_title %}关于网站，网站及博主介绍{% endblock %}
+{% block metas %}
+<meta name="description"
+      content="学习、记录、分享、提高">
+<meta name="keywords" content="网站About页面,关于网站,关于博主,关于站长">
+{% endblock %}
+
+
+{% block base_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8" style="line-height:2">
+            <div class="card rounded-0 border-0 p-3 f-16">
+                <h2 class="font-weight-bold">关于网站</h2>
+                <hr style="margin: .1rem;dashed #333;"/>
+                <ul class="pl-4 ml-2">
+                    <li>博主 Github 地址：<a href="https://github.com/NDFour"
+                                        target="_blank">https://github.com/NDFour</a></li>
+                </ul>
+                <h2 class="mt-2 font-weight-bold">关于博主</h2>
+                <hr style="margin: .1rem;dashed #333;"/>
+                <ul class="pl-4 ml-2">
+                    <li>人生苦短，我用 Python！</li>
+                </ul>
+                <h2 class="mt-2 font-weight-bold">功能介绍</h2>
+                <hr style="margin: .1rem;dashed #333;"/>
+                <ul class="pl-4 ml-2">
+                    <li>sth...</li>
+                </ul>
+                <h2 class="mt-2 font-weight-bold">网站支持</h2>
+                <hr style="margin: .1rem;dashed #333;"/>
+                <ul class="pl-4 ml-2">
+                    <li>前端使用 Bootstrap4 + jQuery 支持响应式；图标使用 Font Awesome</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            {% include 'blog/tags/base_right.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
