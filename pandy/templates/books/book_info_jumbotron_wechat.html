@@ -1,0 +1,71 @@
+<!-- 下载链接 部分不在网页上展示下载链接，而是到公众号输入【序列号】进行下载-->
+
+
+<!-- 巨幕区域 -->
+<div class="jumbotron">
+  <h3>{{ book.book_title }}</h3>
+  <div class="pubdate_views">作者：{{ book.book_author }} &nbsp&nbsp&nbsp&nbsp 分类：{{ book.book_category }} &nbsp&nbsp&nbsp&nbsp {{ book.book_views }} 浏览过</div>
+  <hr />
+  <img src="{{ book.book_pic }}" data-ke-src="{{ book.book_pic }}" onerror=src="https://s1.ax1x.com/2020/03/27/GPWsIO.jpg" alt="{{ book.book_title }}kindle电子书免费下载"  title="" align="" width=30% referrerpolicy ="never" /><br /><br />
+
+  <!-- 图书信息 infos -->
+  {% if book.book_infos %}
+  <h3><strong>图书信息：</strong></h3>
+  <p><span style="font-size:14px;">{{ book.book_infos|linebreaksbr }}</span></p>
+  {% endif %}
+  <br />
+  <!-- 图书信息 END -->
+
+  <!-- 图书简介 description -->
+  {% if book.book_description %}
+  <h3><strong>内容简介：</strong></h3>
+  <p><span style="font-size:14px;">{{ book.book_description|linebreaksbr }}</span></p>
+  {% endif %}
+  <br />
+  <!-- 图书简介 END -->   
+
+  <!-- 下载链接 -->
+
+<h3><strong>下载链接：</strong></h3>
+
+<p><b>由于某些不可抗力因素（安全第一），需要本书电子版的朋友关注微信公众号:古德猫宁李(账号:chenjinshu5)，公众号回复数字：<font color="red">{{ book.id }}</font>， 自动弹出下载地址。</b></p>
+<br />
+
+<!-- 输入 验证码 ”暗号“ -->
+<div class="panel panel-info">
+  <div class="media"> 
+
+   <div class="media-left media-bottom"> 
+    <!-- 大屏设备 -->
+    <img class="media-object visible-sm visible-md visible-lg" src="https://www.chenjin5.com/media/qrcode_wechat.jpg" alt="公众号二维码" width=150px />
+
+    <!-- 小屏设备 -->
+    <img class="media-object visible-xs" src="https://www.chenjin5.com/media/qrcode_wechat.jpg" alt="公众号二维码" width=110px />
+  </div> 
+
+  <div class="media-body"> 
+    <br />
+    <h4 class="media-heading">公众号回复数字<font color="red">{{ book.id }}</font>，自动弹出下载地址</h4>
+    <br />
+    微信扫一扫左侧二维码，或直接搜索公众号【古德猫宁李】
+  </div> 
+
+</div> <!-- media -->
+</div><!-- panel -->
+
+
+<!-- 下载链接 END -->
+
+<br />
+
+<br />
+
+    <!--
+    <div class="alert alert-warning"><strong>注意：不代找书！</strong></div>
+    <div class="alert alert-info"><strong>我也想尽可能地帮助大家，无奈找书太耗时间，一天找2、3本书就要花去近1小时，谢谢理解。</strong></div>
+  -->
+
+  <br />
+
+</div>
+<!-- 巨幕区域 End -->

@@ -10,7 +10,8 @@ robot=WeRoBot(token='wxweapilynn')
 
 @robot.subscribe
 def subscribe(message, session):
-    return ('看...又有一个有趣的灵魂关注了我们...👻\n\n----------\n\n⚠️ 注意：\n[%s]如果您取关公众号，以后即便再次关注也无法获取暗号哦\n\n如有需要，联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+    # return ('看...又有一个有趣的灵魂关注了我们...👻\n\n----------\n\n⚠️ 注意：\n[%s]如果您取关公众号，以后即便再次关注也无法获取暗号哦\n\n如有需要，联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+    return ('看...又有一个有趣的灵魂关注了我们...👻\n')
 
 
 @robot.unsubscribe
@@ -23,7 +24,7 @@ def unsubscribe(message, session):
 @robot.text
 def hello(message, session):
     # 常量
-    is_system_pause = 0
+    is_system_pause = 1
 
     # 重置用户取关次数
     if re.compile(r"^reset \d{10,}$").match(message.content.strip()):
@@ -86,12 +87,15 @@ def reply_single(message):
         # 根据 ID 搜索 详情
         msg = get_by_id(str_input) + rel_note
     except Exception as e:
+        '''
         # 该回复为 书名
         # 若 将用户发送消息 转为 int 失败，则表示 用户发送的是 书名，而不是 图书 ID
         str_input = str_input.replace('《', '').replace('》', '').replace('<', '').replace('>', '').strip()
         msg = get_rel(str_input)
         # print(msg)
         # print()
+        '''
+        msg = '1. 查看电子书下载链接请输入网页上提供的【序列号】\n\n2. 搜索电子书请点<a href="https://www.chenjin5.com"> 搜索</a>'
 
     msg = format_rel_msg(msg)
 
@@ -194,7 +198,7 @@ def get_by_id(id):
             msg += str(rel[0][5]) + '\n\n'
 
         msg += '\n= = = = = = = = = = = = = = = =\n\n'
-        msg += '⚠️ 微信内不支持下载电子书文件，否则会<a>乱码</a>，请复制下载链接到浏览器内下载。'
+        # msg += '⚠️ 微信内不支持下载电子书文件，否则会<a>乱码</a>，请复制下载链接到浏览器内下载。'
 
     except Exception as e:
         # print(e)
