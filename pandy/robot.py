@@ -95,7 +95,7 @@ def reply_single(message):
         # print(msg)
         # print()
         '''
-        msg = '1. 查看电子书下载链接请输入网页上提供的【序列号】\n\n2. 搜索电子书请点<a href="https://www.chenjin5.com"> 搜索</a>'
+        msg = '1. 查看电子书下载链接请输入网页上提供的【下载码】\n\n2. 搜索电子书请点<a href="https://www.chenjin5.com"> 搜索</a>'
 
     msg = format_rel_msg(msg)
 
