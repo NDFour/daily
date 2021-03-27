@@ -81,8 +81,9 @@ def reply_single(message):
         # 该回复为 图书 ID
         str_input = int(str_input)
 
-        rel_note = '\n\n= = = = = = = = = = = = = = = =\n\n'
-        rel_note += '⚠️ 如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》'
+        rel_note = ''
+        # rel_note = '\n\n= = = = = = = = = = = = = = = =\n\n'
+        # rel_note += '⚠️ 如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》'
 
         # 根据 ID 搜索 详情
         msg = get_by_id(str_input) + rel_note
@@ -95,7 +96,7 @@ def reply_single(message):
         # print(msg)
         # print()
         '''
-        msg = '1. 查看电子书下载链接请输入网页上提供的【下载码】\n\n2. 搜索电子书请点<a href="https://www.chenjin5.com"> 搜索</a>'
+        msg = '1. 查看电子书下载链接请输入网页上提供的【下载码】，下载码为纯数字\n\n2. 搜索电子书请点 <a href="https://www.chenjin5.com"> 搜索</a>'
 
     msg = format_rel_msg(msg)
 
