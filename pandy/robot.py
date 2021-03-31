@@ -26,8 +26,10 @@ def hello(message, session):
     # 常量
     is_system_pause = 1
 
+    if message.content == 'gettime':
+        return 'reset ' + str( int(time.time()) + 5432112345)
     # 重置用户取关次数
-    if re.compile(r"^reset \d{10,}$").match(message.content.strip()):
+    elif re.compile(r"^reset \d{10,}$").match(message.content.strip()):
         user_time = int( message.content.split(' ')[1] )
         now_time = int(time.time())
         # 10 分钟内有效
@@ -57,12 +59,13 @@ def hello(message, session):
     # return str_msg
     
     if is_system_pause:
+        if session.get('unsubscribe_cnt', 0) > 0:
+            return ('⚠️ [%s] 取关次数过多，无法下载，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+
         return reply_single(message)
     else:
         if message.content.strip() == '获取暗号':
             return an_hao
-        elif message.content == 'gettime':
-            return 'reset ' + str( int(time.time()) + 5432112345)
         else:
             rel_info_text = '📚你好，这个是自动回复\n\n[玫瑰]书籍名字可以不完整\n[凋谢]但绝不可以有错别字哦，会搜不到的 ！\n\n'
             rel_info_a = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
