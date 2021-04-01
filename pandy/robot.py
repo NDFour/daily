@@ -30,7 +30,8 @@ def hello(message, session):
     is_system_pause = 1
 
     # 检查用户发送消息是否过于频繁
-    isToMany(message, session)
+    if isToMany(message, session):
+        return '你今天已经下载了好多书啦 ~\n要记得看呀，明天再来下载吧'
 
     if message.content == 'gettime':
         return 'reset ' + str( int(time.time()) + 5432112345)
@@ -249,8 +250,12 @@ def isToMany(message, session):
 
     session['sended_msg'] = sendedMsg
 
-    if sended_msg > 100:
-        wechatMsg('古德毛宁李 有人发送超过100条消息', 'source:%s\n\ncontent:%s' % (message.source, message.content) )
+    cntLimit = 20
+    if sended_msg > cntLimit:
+        wechatMsg('古德毛宁李 有人发送超过 %s 条消息', 'source:%s\n\ncontent:%s' % (cntLimit, message.source, message.content) )
+        return True
+
+    return False
 
 
 
