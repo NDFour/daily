@@ -10,17 +10,6 @@ import requests
 robot=WeRoBot(token='wxweapilynn')
 # robot.config['SESSION_STORAGE'] = False
 
-def wechatMsg(title, msg):
-    wechat_url = 'https://sc.ftqq.com/SCU52512T77e075b86690b62f884c8eeec4d6969f5cef37ed7855c.send'
-    notify_data = {
-        'text':'我是标题',
-        'desp':'我是内容',
-    }
-    try:
-        r = requests.get( self.wechat_url, params = self.notify_data, timeout = 30 )
-    except Exception as e:
-        traceback.print_exc()
-
 
 @robot.subscribe
 def subscribe(message, session):
@@ -40,14 +29,8 @@ def hello(message, session):
     # 常量
     is_system_pause = 1
 
-    # 用户已发消息数 +1
-    sendedMsg = session.get('sended_msg', 0) + 1
-    session['sended_msg'] = sendedMsg
-
-    if sended_msg > 100:
-        wechatMsg('古德毛宁李 有人发送超过100条消息', 'source:%s\n\ncontent:%s' % (message.source, message.content) )
-
-
+    # 检查用户发送消息是否过于频繁
+    isToMany(message, session)
 
     if message.content == 'gettime':
         return 'reset ' + str( int(time.time()) + 5432112345)
@@ -239,6 +222,49 @@ def get_by_id(id):
         conn.close()
 
     return msg
+
+
+    
+
+'''
+判断用户是否在 1天 内发送过多消息
+'''
+def isToMany(message, session):
+    # 用户发送消息总数 +1
+    totalSendMsg = session.get('total_msg_count', 0)
+    session['total_msg_count'] = (totalSendMsg + 1)
+
+    # 用户上次发送消息的时间
+    lastTime = session.get('last_time', '')
+    todayTime = time.strftime("%Y-%m-%d", time.localtime())
+
+    # 用户已发消息数 +1
+    sendedMsg = session.get('sended_msg', 0)
+    if todayTime == last_time:
+        sendedMsg += 1
+    else:
+        # 当天消息数清零
+        sendedMsg = 0
+        session['last_time'] = todayTime
+
+    session['sended_msg'] = sendedMsg
+
+    if sended_msg > 100:
+        wechatMsg('古德毛宁李 有人发送超过100条消息', 'source:%s\n\ncontent:%s' % (message.source, message.content) )
+
+
+
+def wechatMsg(title, msg):
+    wechat_url = 'https://sc.ftqq.com/SCU52512T77e075b86690b62f884c8eeec4d6969f5cef37ed7855c.send'
+    notify_data = {
+        'text':'我是标题',
+        'desp':'我是内容',
+    }
+    try:
+        r = requests.get( self.wechat_url, params = self.notify_data, timeout = 30 )
+    except Exception as e:
+        traceback.print_exc()
+
 
 
 def main():
