@@ -29,10 +29,6 @@ def hello(message, session):
     # 常量
     is_system_pause = 1
 
-    # 检查用户发送消息是否过于频繁
-    if isToMany(message, session):
-        return '你今天已经下载了好多书啦 ~\n要记得看呀，明天再来下载吧'
-
     if message.content == 'gettime':
         return 'reset ' + str( int(time.time()) + 5432112345)
     # 重置用户取关次数
@@ -69,7 +65,7 @@ def hello(message, session):
         if session.get('unsubscribe_cnt', 0) > 0:
             return ('⚠️ [%s] 取关次数过多，无法下载，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
 
-        return reply_single(message)
+        return reply_single(message, session)
     else:
         if message.content.strip() == '获取暗号':
             return an_hao
@@ -84,7 +80,7 @@ def hello(message, session):
 2020.11.2
 关闭网站，仅保留公众号搜书，并返回下载链接
 '''
-def reply_single(message):
+def reply_single(message, session):
     str_input = message.content.strip()
     msg = ''
     try:
@@ -96,15 +92,20 @@ def reply_single(message):
         # rel_note += '⚠️ 如果你搜索的书名为<a>纯数字</a>，如 1984，请务必记得加书名号《1984》'
 
         # 根据 ID 搜索 详情
-        msg = get_by_id(str_input) + rel_note
+        statusCode, msg = get_by_id(str_input)
+        msg += rel_note
+
+        # if finded book
+        if statusCode:
+            # 检查用户发送消息是否过于频繁
+            if isToMany(message, session):
+                return '你今天已经下载了好多书啦 ~\n要记得看呀，明天再来下载吧'
+
     except Exception as e:
+        traceback.print_exc()
         '''
         # 该回复为 书名
         # 若 将用户发送消息 转为 int 失败，则表示 用户发送的是 书名，而不是 图书 ID
-        str_input = str_input.replace('《', '').replace('》', '').replace('<', '').replace('>', '').strip()
-        msg = get_rel(str_input)
-        # print(msg)
-        # print()
         '''
         msg = '1. 查看电子书下载链接请输入网页上提供的【下载码】，下载码为纯数字\n\n2. 搜索电子书请点 <a href="https://www.chenjin5.com"> 搜索</a>'
 
@@ -180,6 +181,10 @@ def get_rel(name):
 
 
 def get_by_id(id):
+    # 0: not found
+    # 1: finded
+    statusCode = 0
+
     msg = ''
     try:
         conn = pymysql.connect('127.0.0.1', port=3306, user='root', password='xqksj', db='bdpan', charset='utf8')
@@ -212,6 +217,8 @@ def get_by_id(id):
         # msg += '⚠️ 微信内不支持下载电子书文件，否则会<a>乱码</a>，请复制下载链接到浏览器内下载。'
         msg += '⚠️  强烈建议把下载链接复制到浏览器打开\n⚠️微信内直接点开极有可能访问不了。'
 
+        statusCode = 1
+
     except Exception as e:
         # print(e)
         # traceback.print_exc()
@@ -222,7 +229,7 @@ def get_by_id(id):
         cursor.close()
         conn.close()
 
-    return msg
+    return statusCode, msg
 
 
     
@@ -241,7 +248,7 @@ def isToMany(message, session):
 
     # 用户已发消息数 +1
     sendedMsg = session.get('sended_msg', 0)
-    if todayTime == last_time:
+    if todayTime == lastTime:
         sendedMsg += 1
     else:
         # 当天消息数清零
@@ -250,9 +257,9 @@ def isToMany(message, session):
 
     session['sended_msg'] = sendedMsg
 
-    cntLimit = 20
-    if sended_msg > cntLimit:
-        wechatMsg('古德毛宁李 有人发送超过 %s 条消息', 'source:%s\n\ncontent:%s' % (cntLimit, message.source, message.content) )
+    cntLimit = 10
+    if sendedMsg > cntLimit:
+        # wechatMsg('古德毛宁李 有人发送超过 ' + str(cntLimit) + ' 条消息', 'source:%s\n\ncontent:%s' % (message.source, message.content) )
         return True
 
     return False
@@ -260,13 +267,13 @@ def isToMany(message, session):
 
 
 def wechatMsg(title, msg):
-    wechat_url = 'https://sc.ftqq.com/SCU52512T77e075b86690b62f884c8eeec4d6969f5cef37ed7855c.send'
+    wechat_url = ''
     notify_data = {
-        'text':'我是标题',
-        'desp':'我是内容',
+        'text': title,
+        'desp': msg,
     }
     try:
-        r = requests.get( self.wechat_url, params = self.notify_data, timeout = 30 )
+        r = requests.get( wechat_url, params = notify_data, timeout = 30 )
     except Exception as e:
         traceback.print_exc()
 
@@ -284,5 +291,5 @@ def main():
 
 # 让服务器监听在　0.0.0.0:4444
 # robot.config['HOST']='0.0.0.0'
-# robot.config['PORT']=8000
+# robot.config['PORT']=80
 # robot.run()
