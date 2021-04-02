@@ -107,9 +107,11 @@ def reply_single(message, session):
         # 该回复为 书名
         # 若 将用户发送消息 转为 int 失败，则表示 用户发送的是 书名，而不是 图书 ID
         '''
-        msg = '1. 查看电子书下载链接请输入网页上提供的【下载码】，下载码为纯数字\n\n2. 搜索电子书请点 <a href="https://www.chenjin5.com"> 搜索</a>'
+        # msg = '1. 查看电子书下载链接请输入网页上提供的【下载码】，下载码为纯数字\n\n2. 搜索电子书请点 <a href="https://www.chenjin5.com"> 搜索</a>'
 
-    msg = format_rel_msg(msg)
+        msg = '<a href="https://www.chenjin5.com/books/search/?book_name=' + message.content + '&book_search=book_search">点我查看[' + message.content + ']搜索结果</a>'
+
+    # msg = format_rel_msg(msg)
 
     return msg
 
