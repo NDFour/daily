@@ -99,7 +99,7 @@ def reply_single(message, session):
         if statusCode:
             # 检查用户发送消息是否过于频繁
             if isToMany(message, session):
-                return '你今天已经下载了好多书啦 ~\n要记得看呀，明天再来下载吧'
+                return '你今天已经下载了好多书啦 ~\n\n要记得看呀，明天再来下载吧\n\nps: 取关无法重置当天下载次数，反而会导致以后都无法下载'
 
     except Exception as e:
         traceback.print_exc()
