@@ -42,19 +42,30 @@ def hello(message, session):
             return '重置用户取关次数成功！'
         else:
             try:
+                # debug_msg = ( "%s = %s - %s - %s" %(str(cmp_rel), str(user_time), '5432112345', str(now_time) ) )
                 return ('超时，请在获取激活码后 10分钟之内完成激活操作。\n')
             except Exception as e:
                 return str(e)
     
     # 网页图书详情页 暗号
     an_hao = ''
+    if session.get('unsubscribe_cnt', 0) > 0:
+        an_hao = ('⚠️ [%s] 取关后即便再次关注也将无法获取暗号，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+    else:
+        an_hao = '本期暗号：7130\n\n把暗号输入到网页上的输入框提交即可 😁'
+
     # 管理员微信
     admin_wechat = 'ndfour001'
 
+    # 剑网专项行动
+    # str_msg = '公众号搜索功能暂时下线了，正在调整中。敬请期待😊\n\n添加微信:\n' + admin_wechat + '，加入读书群。'
+    # return str_msg
+    
     if is_system_pause:
         if session.get('unsubscribe_cnt', 0) > 0:
-            return ('⚠️ [%s] 取关次数过多，无法下载，如有需要请联系管理员：%s' %(session.get('unsubscribe_cnt', 0), admin_wechat ) )
-        return reply_single(message, session)
+            return ('⚠️ [%s] 取关次数过多，无法下载，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
+
+        return reply_single(message, session).replace('lanzous', 'lanzoux')
     else:
         if message.content.strip() == '获取暗号':
             return an_hao
