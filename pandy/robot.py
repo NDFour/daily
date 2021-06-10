@@ -19,13 +19,16 @@ def subscribe(message, session):
 
 @robot.unsubscribe
 def unsubscribe(message, session):
-    tmp_cnt = session.get('unsubscribe_cnt', 0) + 1
-    session['unsubscribe_cnt'] = tmp_cnt
+    # tmp_cnt = session.get('unsubscribe_cnt', 0) + 1
+    # session['unsubscribe_cnt'] = tmp_cnt
+    pass
     # return ('取关次数 %s' %(tmp_cnt) )
 
 
 @robot.text
 def hello(message, session):
+    return '由于版权原因，暂不提供图书下载，了解详情可加管理员：ndfour001'
+
     # 常量
     is_system_pause = 1
 
@@ -65,7 +68,8 @@ def hello(message, session):
         if session.get('unsubscribe_cnt', 0) > 0:
             return ('⚠️ [%s] 取关次数过多，无法下载，如有需要请联系管理员：ndfour001' %(session.get('unsubscribe_cnt', 0) ) )
 
-        return reply_single(message, session).replace('lanzous', 'lanzoux')
+        # return reply_single(message, session).replace('lanzous', 'lanzoux')
+        return '暂停下载'
     else:
         if message.content.strip() == '获取暗号':
             return an_hao
