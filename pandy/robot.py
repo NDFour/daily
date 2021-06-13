@@ -27,7 +27,7 @@ def unsubscribe(message, session):
 
 @robot.text
 def hello(message, session):
-    return '由于版权原因，暂不提供图书下载，了解详情可加管理员：ndfour001'
+    return '由于版权原因，暂不提供图书下载，了解详情可加管理员：ndfour001\n\n如果您喜欢读书并分享，可以加入书友群：<a href="https://mp.weixin.qq.com/s/izcv0y9W6BBkdhJ09ME0cA">点击查看详情</a>'
 
     # 常量
     is_system_pause = 1
